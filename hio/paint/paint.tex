@@ -26,7 +26,11 @@ Istobojno susjedstvo polja $(r, s)$ je skup polja do kojih je moguće doći
 mijenjajući boju piksela na putu. Primijetite da je i samo polje $(r, s)$ dio
 svog istobojnog susjedstva.
 
-\textbf{TODO: skice istobojnog susjedstva}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{img/paint_skica.png}
+\end{figure}
+
 
 Zadana je početna slika u programu \textit{MS Paint} nad kojom je $Q$ puta
 primijenjen alat za ispunu. Vaš je zadatak odrediti završno stanje slike.
@@ -36,14 +40,14 @@ primijenjen alat za ispunu. Vaš je zadatak odrediti završno stanje slike.
 \subsection*{Ulazni podaci}
 U prvom su retku prirodni brojevi $R$ i $S$ iz teksta zadatka.
 
-U sljedećih je $R$ redaka po $S$ brojeva koji predstavljaju početnu sliku
-u programu \textit{MS Paint}. Preciznije, $j$-ti broj $i$-tog retka slike
-predstavlja boju piksela na polju $(i, j)$.
+U sljedećih je $R$ redaka po $S$ nenegativnih cijelih brojeva manjih od $10^9$
+koji predstavljaju početnu sliku u programu \textit{MS Paint}. Preciznije,
+$j$-ti broj $i$-tog retka slike predstavlja boju piksela na polju $(i, j)$.
 
 U sljedećem je retku prirodan broj $Q$ iz teksta zadatka.
 
-U $i$-tom od sljedećih $Q$ redaka nalaze se prirodni brojevi $r_i$, $s_i$ i
-$c_i$ $(1 \le r_i \le R, 1 \le s_i \le S, 1 \le c_i \le 10^9)$, koji
+U $i$-tom od sljedećih $Q$ redaka nalaze se brojevi $r_i$, $s_i$ i
+$c_i$ $(1 \le r_i \le R, 1 \le s_i \le S, 0 \le c_i < 10^9)$, koji
 označavaju ($i$-tu) primjenu kantice napunjene bojom $c_i$ na polje $(r_i,
 s_i)$.
 
@@ -72,7 +76,10 @@ zadano u ulazu.
 \sampleinputs{test/paint.dummy.in.3}{test/paint.dummy.out.3}
 \end{tabularx}
 
-\textbf{TODO: clarification}
+\textbf{Pojašnjenje prvog probnog primjera:} Slika iz teksta zadatka
+odgovara prvom probnom primjeru. Pritom, bijela je boja označena brojem $0$,
+crvena je boja označena brojem $1$, plava je boja označena brojem $2$, zelena
+je boja označena brojem $3$, a žuta je boja označena brojem $4$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % We're done
