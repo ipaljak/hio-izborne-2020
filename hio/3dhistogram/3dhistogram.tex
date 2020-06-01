@@ -34,13 +34,13 @@ vidjeli.
 
 \textbf{Stručni suradnik:} Hmm...
 
-Zadan je 3D histogram koji se sastoji od $N$ kvadara širokih $1$ metar koji
-se nalaze jedan do drugog. Visina $i$-tog kvadra iznosi $a_i$ metara, a njegova
-dužina iznosi $b_i$ metara. Odnosno, nacrt (pogled sprijeda) 3D histograma jest
-histogram sa stupcima visina $a_1$, $a_2$, \dots, $a_N$, dok je njegov tlocrt
-histogram sa stupcima visina $b_1$, $b_2$, \dots, $b_N$.
+Zadan je 3D histogram koji se sastoji od $N$ kvadara širokih $1$ metar koji se
+nalaze jedan do drugog. Visina $i$-tog kvadra iznosi $a_i$ metara, a njegova
+dužina iznosi $b_i$ metara. Odnosno, nacrt (pogled sprijeda) 3D histograma
+jest histogram sa stupcima visina $a_1$, $a_2$, \dots, $a_N$, dok je njegov
+tlocrt (pogled odozgo) histogram sa stupcima visina $b_1$, $b_2$, \dots,
+$b_N$.
 
-\textbf{TODO: skica}
 
 Odredite kvadar maksimalnog obujma kojeg je moguće u potpunosti smjestiti unutar
 zadanog 3D hisograma. Stranice tog kvadra moraju biti paralelne sa stranicama
@@ -78,7 +78,15 @@ Ispišite obujam traženog kvadra u kubnim metrima.
 \sampleinputs{test/3dhistogram.dummy.in.3}{test/3dhistogram.dummy.out.3}
 \end{tabularx}
 
-\textbf{Pojašnjenje prvog probnog primjera:} TODO
+\textbf{Pojašnjenje prvog probnog primjera:} donja slika odgovara prvom
+probnom primjeru. Najveći se kvadar dobiva koristeći dio prvog i dio drugog
+kvadra iz ulaza, a širok je $2$ metra, visok je $4$ metra i dug $3$ metra. Dakle
+ima obujam od $2 \cdot 4 \cdot 3 = 24$ kubna metra.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{img/3dhistogram_skica.png}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % We're done
