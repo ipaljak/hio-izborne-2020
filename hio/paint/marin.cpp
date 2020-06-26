@@ -62,6 +62,8 @@ void merge(int a, int b) {
     comps[a].veliki.insert(x);
   }
 
+  comps[b].veliki.clear(); // redukcija memorije, testirati bez ove linije
+
   for (auto &t : comps[b].sus) {
     while (!t.sec.empty()) {
       int x = find(t.sec.front());
