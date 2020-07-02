@@ -19,8 +19,18 @@ typedef pair <ll, ll> pll;
 #define pb push_back
 
 const int MAXN = 505;
+const int GRANICA = 500;
+
+const int smjerx[] = {1, -1, 0, 0};
+const int smjery[] = {0, 0, -1, 1};
 
 int par[MAXN * MAXN];
+pii tko[MAXN * MAXN];
+
+int n, m, p[MAXN][MAXN];
+int pos[MAXN][MAXN], sz[MAXN * MAXN];
+
+int bio[MAXN][MAXN], cookie;
 
 int find(int x) {
   if (x == par[x]) return x;
@@ -50,13 +60,28 @@ int get_color(int x) {
   return comps[find(x)].boja;
 }
 
+void napravi_veliku(int x, int y, int comp) {
+  bio[x][y] = cookie;
+  if (find(pos[x][y]) != comp) {
+    comps[find(pos[x][y])].veliki.insert(comp);
+    comps[comp].sus[get_color(pos[x][y])].push(find(pos[x][y]));
+    return;
+  }
+  REP(i, 4) {
+    int nx = x + smjerx[i];
+    int ny = y + smjery[i];
+    if (nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
+    if (bio[nx][ny] == cookie) continue;
+    napravi_veliku(nx, ny, comp);
+  }
+}
+
 void merge(int a, int b) {
   a = find(a); b = find(b);
   if (a == b) return;
   if (comps[a].size < comps[b].size) swap(a, b); // iskreno nemam nikakvog pojima dal je oko ok
   // mozda bi trebalo gledati size + broj susjeda
   
-  par[b] = a;
   comps[a].size += comps[b].size;
 
   for (auto &x : comps[b].veliki) {
@@ -74,25 +99,51 @@ void merge(int a, int b) {
       comps[a].sus[t.fi].push(x);
     }
   }
+
+  // ako je b mala, a a velika, moramo susjede od b staviti u a.sus
+  int tmpx = tko[b].fi, tmpy = tko[b].sec;
+  queue <int> q;
+  cookie++;
+  q.push(tmpx); q.push(tmpy);
+  bio[tmpx][tmpy] = cookie;
+  
+  while (!q.empty()) {
+    tmpx = q.front(); q.pop();
+    tmpy = q.front(); q.pop();
+    REP(i, 4) {
+      int nx = tmpx + smjerx[i];
+      int ny = tmpy + smjery[i];
+      if (nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
+      if (bio[nx][ny] == cookie) continue;
+      bio[nx][ny] = cookie;
+      if (find(pos[nx][ny]) != b) {
+        comps[a].sus[get_color(pos[nx][ny])].push(find(pos[nx][ny]));
+        comps[find(pos[nx][ny])].veliki.insert(a);
+      } else {
+        q.push(nx);
+        q.push(ny);
+      }
+    }
+  }
+
+  par[b] = a;
+  // ako mala komp postane velika
+  if (comps[a].size > GRANICA && comps[a].size - comps[b].size <= GRANICA) {
+    cookie++;
+    napravi_veliku(tko[a].fi, tko[a].sec, a);
+  }
 }
 
-int n, m, p[MAXN][MAXN];
-int pos[MAXN][MAXN], sz[MAXN * MAXN];
-
-const int smjerx[] = {1, -1, 0, 0};
-const int smjery[] = {0, 0, -1, 1};
-
-int bio[MAXN][MAXN], cookie;
-
 void dfs(int x, int y, int k) {
-  bio[x][y] = 1;
+  bio[x][y] = cookie;
   pos[x][y] = k;
+  tko[k] = {x, y};
   sz[k]++;
   REP(i, 4) {
     int nx = x + smjerx[i];
     int ny = y + smjery[i];
     if (nx < 0 || ny < 0 || nx >= n || ny >= m) continue;
-    if (bio[nx][ny] || p[nx][ny] != p[x][y]) continue;
+    if (bio[nx][ny] == cookie || p[nx][ny] != p[x][y]) continue;
     dfs(nx, ny, k);
   }
 }
@@ -107,18 +158,15 @@ void napravi_susjede() {
         if (nx < 0 || ny < 0 || nx >= n || ny >= m) continue;
         if (p[nx][ny] == p[x][y]) continue;
         int a = pos[x][y], b = pos[nx][ny];
-        if (a > b) swap(a, b);
-        if (spojeno.count((ll)a * MAXN * MAXN + b)) continue;
-        spojeno[(ll)a * MAXN * MAXN + b] = 1;
-        if (sz[a] > MAXN) {
+        if (spojeno.count((ll)min(a,b) * MAXN * MAXN + max(a,b))) continue;
+        spojeno[(ll)min(a,b) * MAXN * MAXN + max(a,b)] = 1;
+        if (sz[a] > GRANICA) {
           comps[b].veliki.insert(a);
-        } else if (sz[b] > MAXN) {
-          comps[b].sus[p[x][y]].push(a);
+          comps[a].sus[p[nx][ny]].push(b);
         }
-        if (sz[b] > MAXN) {
+        if (sz[b] > GRANICA) {
           comps[a].veliki.insert(b);
-        } else if (sz[a] > MAXN) {
-          comps[a].sus[p[x][y]].push(b);
+          comps[b].sus[p[x][y]].push(a);
         }
       }
     }
@@ -138,7 +186,7 @@ void bfs(int x, int y, int comp, vector <int> &v, int color) {
   queue <int> q;
   q.push(x);
   q.push(y);
-  cookie += 2;
+  cookie++;
   bio[x][y] = cookie;
 
   while (!q.empty()) {
@@ -161,7 +209,6 @@ void bfs(int x, int y, int comp, vector <int> &v, int color) {
       }
     }
   }
-
 }
 
 void kveri() {
@@ -174,19 +221,19 @@ void kveri() {
 
   vector <int> v;
   v.pb(x);
-  if (comps[x].size > MAXN) {
+  if (comps[x].size > GRANICA) {
     while (!comps[x].sus[c].empty()) {
       int t = comps[x].sus[c].front();
       comps[x].sus[c].pop();
       if (comps[find(t)].boja != c) continue;
       v.pb(find(t));
     }
-  } else {
     for (auto &t : comps[x].veliki) {
       if (comps[find(t)].boja == c) {
         v.pb(find(t));
       }
     }
+  } else {
     bfs(a, b, x, v, c);
   }
 
@@ -198,7 +245,6 @@ void kveri() {
   for (auto &t : comps[x].veliki) {
     comps[t].sus[comps[x].boja].push(x);
   }
-
 }
 
 int main() {
@@ -210,6 +256,7 @@ int main() {
   REP(i, n) {
     REP(j, m) {
       if (!bio[i][j]) { 
+        cookie++;
         dfs(i, j, K);
         comps.pb(Komponenta(K, p[i][j], sz[K]));
         K++;
