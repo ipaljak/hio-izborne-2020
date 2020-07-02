@@ -53,7 +53,8 @@ int get_color(int x) {
 void merge(int a, int b) {
   a = find(a); b = find(b);
   if (a == b) return;
-  if (comps[a].size < comps[b].size) swap(a, b);
+  if (comps[a].size < comps[b].size) swap(a, b); // iskreno nemam nikakvog pojima dal je oko ok
+  // mozda bi trebalo gledati size + broj susjeda
   
   par[b] = a;
   comps[a].size += comps[b].size;
@@ -64,6 +65,7 @@ void merge(int a, int b) {
 
   comps[b].veliki.clear(); // redukcija memorije, testirati bez ove linije
 
+  // ako je b mala ovo se nece ni dogodit
   for (auto &t : comps[b].sus) {
     while (!t.sec.empty()) {
       int x = find(t.sec.front());
@@ -80,7 +82,7 @@ int pos[MAXN][MAXN], sz[MAXN * MAXN];
 const int smjerx[] = {1, -1, 0, 0};
 const int smjery[] = {0, 0, -1, 1};
 
-int bio[MAXN][MAXN];
+int bio[MAXN][MAXN], cookie;
 
 void dfs(int x, int y, int k) {
   bio[x][y] = 1;
@@ -110,12 +112,12 @@ void napravi_susjede() {
         spojeno[(ll)a * MAXN * MAXN + b] = 1;
         if (sz[a] > MAXN) {
           comps[b].veliki.insert(a);
-        } else {
+        } else if (sz[b] > MAXN) {
           comps[b].sus[p[x][y]].push(a);
         }
         if (sz[b] > MAXN) {
           comps[a].veliki.insert(b);
-        } else {
+        } else if (sz[a] > MAXN) {
           comps[a].sus[p[x][y]].push(b);
         }
       }
@@ -123,14 +125,55 @@ void napravi_susjede() {
   }
 }
 
+void ispis() {
+  REP(i, n) {
+    REP(j, m) {
+      printf("%d ",comps[find(pos[i][j])].boja);
+    }
+    puts("");
+  }
+}
+
+void bfs(int x, int y, int comp, vector <int> &v, int color) {
+  queue <int> q;
+  q.push(x);
+  q.push(y);
+  cookie += 2;
+  bio[x][y] = cookie;
+
+  while (!q.empty()) {
+    x = q.front(); q.pop();
+    y = q.front(); q.pop();
+    
+    REP(i, 4) {
+      int nx = x + smjerx[i];
+      int ny = y + smjery[i];
+      if (nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
+      if (bio[nx][ny] == cookie) continue;
+      bio[nx][ny] = cookie;
+      if (find(pos[nx][ny]) != comp) {
+        if (color == comps[find(pos[nx][ny])].boja) {
+          v.pb(find(pos[nx][ny]));
+        }
+      } else {
+        q.push(nx);
+        q.push(ny);
+      }
+    }
+  }
+
+}
+
 void kveri() {
   int a, b, c;
   scanf("%d %d %d",&a,&b,&c);
   a--; b--;
   int x = find(pos[a][b]);
+  if (comps[x].boja == c) return;
   comps[x].boja = c;
 
   vector <int> v;
+  v.pb(x);
   if (comps[x].size > MAXN) {
     while (!comps[x].sus[c].empty()) {
       int t = comps[x].sus[c].front();
@@ -144,6 +187,7 @@ void kveri() {
         v.pb(find(t));
       }
     }
+    bfs(a, b, x, v, c);
   }
 
   FOR(i, 1, (int)v.size()) {
@@ -154,15 +198,7 @@ void kveri() {
   for (auto &t : comps[x].veliki) {
     comps[t].sus[comps[x].boja].push(x);
   }
-}
 
-void ispis() {
-  REP(i, n) {
-    REP(j, m) {
-      printf("%d ",comps[find(pos[i][j])].boja);
-    }
-    puts("");
-  }
 }
 
 int main() {
