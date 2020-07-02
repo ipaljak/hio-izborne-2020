@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAXN = 500;
+const int MAXN = 505;
 
 const int dx[] = {-1, 0, 1, 0};
 const int dy[] = {0, -1, 0, 1};

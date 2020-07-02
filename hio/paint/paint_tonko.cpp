@@ -9,7 +9,7 @@ using namespace std;
 #define y second
 
 const int MAXN = 500;
-const int LIMIT = 7;
+const int LIMIT = 50;
 
 int n, m;
 int mat[MAXN][MAXN];
@@ -75,7 +75,7 @@ void TraverseNeighborsByColor(int id, int color, function<void(int)> callback) {
         comp_visited[nid] = comp_visited_cookie;
       }
     }
-    //comp.by_color[color].clear();  /// <------
+    comp.by_color[color].clear();  /// <------
   } else {
     TraverseNeighbors(id, [&callback, color](int nid) {
       if (C[nid].color == color)
