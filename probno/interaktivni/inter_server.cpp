@@ -64,7 +64,7 @@ typedef pair <int, int> pii;
 #define WA_UNKNOWN_COMMAND "Netocno, neispravna naredba!"
 #define WA_INCORRECT "Netocno! Duljina puta nija tocna!"
 #define WA_CANNOT_READ_ANS "Netocno! Ne mogu procitati duljinu puta!"
-#define PARTIAL_CORRECT "Tocno, ali previse upita za sve bodove!"
+#define PARTIAL_CORRECT "Tocno, ali previse upita za sve bodove! Broj upita: "
 #define WA_PREMATURE_TERMINATION "Netocno! Vas program je zavrsio prije nego je ispisao trazenu duljinu puta!"
 #define WA_CANNOT_READ_POMAK "Netocno! Ne mogu procitati POMAK"
 #define WAITING "Cekam...."
@@ -183,7 +183,7 @@ void main_problem_interaction() {
     }
   }
 
-  const int QUERY_LIMIT = tocke * tocke;
+  const int QUERY_LIMIT = 21345678;
   const int QUERY_AC = tocke * 2;
 
   // Start interaction
@@ -235,7 +235,7 @@ void main_problem_interaction() {
 
   if (query_count > QUERY_AC) {
     foutput << "0.5" << endl;
-    foutput << PARTIAL_CORRECT << endl;
+    foutput << PARTIAL_CORRECT << query_count << endl;
   } else {
     foutput << "1" << endl;
     foutput << CORRECT << query_count << endl;
