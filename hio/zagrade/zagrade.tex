@@ -24,9 +24,9 @@ neke informacije koje bi vam mogle pomoći.
 Naime, njihova se glavna lozinka sastoji od $N$ znakova, pri čemu je $N$ paran
 te je točno polovina znakova jednaka otvorenoj zagradi (\texttt{'('}), dok je
 druga polovina znakova jednaka zatvorenoj zagradi (\texttt{')'}). Također,
-  umjesto uobičajene ''\textit{zaboravili ste lozinku?}'' funkcionalnosti,
-inžnjeri su odlučili zaboravljivom administratoru dopustiti da
-najviše $K$ puta postavi pitanje oblika: ,,\textit{je li interval lozinke koji
+  umjesto uobičajene ``\textit{zaboravili ste lozinku?}'' funkcionalnosti,
+inžinjeri su odlučili zaboravljivom administratoru dopustiti da
+najviše $Q$ puta postavi pitanje oblika: ,,\textit{je li interval lozinke koji
 započinje $a$-tim, a završava $b$-tim znakom matematički validan?}''.
 
 Matematičku validnost niza zagrada definiramo induktivno na sljedeći način:
@@ -50,21 +50,22 @@ teksta zadatka.
 Prije interakcije vaš program treba sa standardnog ulaza pročitati paran
 prirodan broj $N$ koji predstavlja duljinu tajne lozinke.
 
-Nakon toga, vaš program može slati upite pisanjem na stadardni izlaz. Svaki
-upit treba biti ispisan u zaseban redak te poprimati oblik ``\textit{? a b}''
+Nakon toga, vaš program može slati upite pisanjem na standardni izlaz. Svaki
+upit treba biti ispisan u zaseban redak te poprimati oblik
+``\texttt{?} \textit{a b}''
 gdje vrijedi $1 \le a \le b \le N$. Nakon svakog ispisanog upita, vaš program
 treba napraviti \textit{flush} izlaza te sa standardnog ulaza pročitati
 \textit{odgovor} na upit -- broj $1$ ako je interval lozinke koji započinje
 $a$-tim, a završava $b$-tim znakom matematički validan, odnosno $0$ ako to
-nije. Vaš program smije poslati najviše $K$ upita (pogledajte poglavlje o
+nije. Vaš program smije poslati najviše $Q$ upita (pogledajte poglavlje o
 bodovanju).
 
 Kada je vaš program odgonetnuo tajnu lozinku, treba na standardni izlaz
-ispisati red oblika ``\textit{! $x_1x_2\dots x_N$}'' gdje znakovi $x_1$,
-$x_2$, \dots, $x_N$ predstavljaju znakove tajne lozinke. Nakon toga, vaš
+ispisati redak oblika ``\texttt{!} \textit{$x_1x_2\dots x_N$}'' gdje znakovi
+$x_1$, $x_2$, \dots, $x_N$ predstavljaju znakove tajne lozinke. Nakon toga, vaš
 program ponovno treba napraviti \textit{flush} izlaza i završiti izvođenje.
 
-\textbf{Napomena:} putem sustava za evaluaciju možete preuzeti primjere
+\textbf{Napomena:} Putem sustava za evaluaciju možete preuzeti primjere
 izvornih kodova koji na ispravan način obavljaju interakciju, uključujući
 \textit{flush} izlaza.
 
@@ -74,11 +75,11 @@ izvornih kodova koji na ispravan način obavljaju interakciju, uključujući
 {\renewcommand{\arraystretch}{1.4}
   \setlength{\tabcolsep}{6pt}
   \begin{tabular}{ccl}
- Podzadatak & Broj bodova & Ograničenja \\ \midrule
-    1 & ?? & $1 \le N \le 1\,000$, $K = \frac{N\cdot(N-1)}{2}$, cijela lozinka je matematički validan niz. \\
-    2 & ?? & $1 \le N \le 1\,000$, $K = \frac{N\cdot(N-1)}{2}$ \\
-    3 & ?? & $1 \le N \le 1\,000\,000 $, $K = N - 1$, cijela lozinka je matematički validan niz. \\
-    4 & ?? & $1 \le N \le 1\,000\,000 $, $K = N - 1$ \\
+    Podzadatak & Broj bodova & Ograničenja \\ \midrule
+    1 & ?? & $1 \le N \le 1\,000$, $Q = \frac{N^2}{4}$, cijela lozinka je matematički validan niz. \\
+    2 & ?? & $1 \le N \le 1\,000$, $Q = \frac{N^2}{4}$ \\
+    3 & ?? & $1 \le N \le 1\,000\,000 $, $Q = N - 1$, cijela lozinka je matematički validan niz. \\
+    4 & ?? & $1 \le N \le 1\,000\,000 $, $Q = N - 1$ \\
 \end{tabular}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -87,14 +88,14 @@ izvornih kodova koji na ispravan način obavljaju interakciju, uključujući
 {\renewcommand{\arraystretch}{1.4}
   \setlength{\tabcolsep}{6pt}
   \begin{tabular}{lcl}
- Izlaz & Ulaz & Napomna \\ \midrule
-      & 6 & Tajna lozinka je \texttt{((()))} \\
-    \texttt{\frenchspacing? 1 6} & \texttt{1} & Cijela lozinka je matematički validan niz zagrada \\
-    \texttt{\frenchspacing? 1 2} & \texttt{0} & \texttt{((} nije matematički validan niz zagrada \\
-    \texttt{\frenchspacing? 2 4} & \texttt{0} & \texttt{(()} nije matematički validan niz zagrada \\
-    \texttt{\frenchspacing? 2 5} & \texttt{1} & \texttt{(())} je matematički validan niz zagrada \\
-    \texttt{\frenchspacing? 3 4} & \texttt{1} & \texttt{()} je matematički validan niz zagrada \\
-    \texttt{\frenchspacing! ((()))} & & Lozinka je uspješno odgonetnuta i CIA je komprimitirana. \\
+    Izlaz & Ulaz & Napomena \\ \midrule
+      & 6 & Tajna lozinka je \texttt{((()))}, duljine 6. \\
+    \texttt{\frenchspacing? 1 6} & \texttt{1} & Cijela lozinka je matematički validan niz zagrada. \\
+    \texttt{\frenchspacing? 1 2} & \texttt{0} & \texttt{((} nije matematički validan niz zagrada. \\
+    \texttt{\frenchspacing? 2 4} & \texttt{0} & \texttt{(()} nije matematički validan niz zagrada. \\
+    \texttt{\frenchspacing? 2 5} & \texttt{1} & \texttt{(())} je matematički validan niz zagrada. \\
+    \texttt{\frenchspacing? 3 4} & \texttt{1} & \texttt{()} je matematički validan niz zagrada. \\
+    \texttt{\frenchspacing! ((()))} & & Lozinka je uspješno odgonetnuta i CIA je kompromitirana. \\
 \end{tabular}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
