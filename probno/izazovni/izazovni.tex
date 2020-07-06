@@ -1,0 +1,79 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem statement
+\begin{statement}[
+  problempoints=100,
+  timelimit=1 sekunda,
+  memorylimit=512 MiB,
+]{Izazovni}
+
+Ovo je priča o dvojici neprijatelja, Miletu i Miroslavu, koji se, usprkos
+mnogim sličnostima, nikako ne mogu složiti kada raspravljaju o nekoj temi.
+Mileta je to toliko počelo živcirati da je odlučio izazvati Miroslava da
+riješi jedan zadatak.  Nakon pola sata, uspjeli su se složiti da ga obojica
+ne znaju riješiti.  Znate li vi? Prihvaćate li izazov?
+
+Pronađite niz koji se sastoji od $N$ nula i jediica takav da je njegov najdulji
+palindromski podniz što manji.
+
+Podnizom nekog niza smatramo bilo kakav niz uzastopnih elemenata tog niza.
+Primjerice, \texttt{101}, \texttt{11} i \texttt{1101} podnizovi su niza
+\texttt{1101}, dok \texttt{00} i \texttt{010} to nisu. Za podnizove koji se
+jednako čitaju slijeva nadesno, kao i zdesna nalijevo, kažemo da su
+palindromski podnizovi. Primjerice, \texttt{1} i \texttt{010} palindromski su
+podnizovi niza \texttt{00101}, dok \texttt{01} i \texttt{0101} to nisu.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Input
+\subsection*{Ulazni podaci}
+U prvom je retku prirodan broj $N$ iz teksta zadatka.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Output
+\subsection*{Izlazni podaci}
+U jedini redak ispišite traženi niz iz teksta zadatka bez znaka razmaka
+između susjednih elemenata.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Scoring
+\subsection*{Bodovanje}
+Rješenja koja na nekom test podatku ispišu ispravno formatiran niz od $N$ nula
+i jedinica osvojit će $X\cdot(1+A-B)^{-0.4}$ bodova pri čemu je $A$ nadulji
+palindromski podniz vašeg rješenja, $B$ je najdulji palindromski podniz
+optimalnog rješenja, a $X$ je broj bodova predviđenih za taj test podatak.
+
+Broj bodova nekog podzadatka jednak je najmanjem broju bodova koje vaše rješenje
+ostvaruje na nekom od test podataka tog podzadatka.
+
+{\renewcommand{\arraystretch}{1.4}
+  \setlength{\tabcolsep}{6pt}
+  \begin{tabular}{ccl}
+ Podzadatak & Broj bodova & Ograničenja \\ \midrule
+  1 & ?? & $1 \le N \le 10$ \\
+  2 & ?? & $1 \le N \le 1\,000\,000$\\
+\end{tabular}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Examples
+\subsection*{Probni primjeri}
+\begin{tabularx}{\textwidth}{X'X}
+\sampleinputs{test/izazovni.dummy.in.1}{test/izazovni.dummy.out.1} &
+\sampleinputs{test/izazovni.dummy.in.2}{test/izazovni.dummy.out.2}
+\end{tabularx}
+
+\textbf{Pojašnjenje probnih primjera:} probni primjeri prikazuju dva
+različita izlaza za jednake ulazne podatke. Prvi probni primjer predstavlja
+optimalno rješenje, odnosno optimalna duljina najduljeg palindromskog podniza
+u binarnom nizu duljine $3$ iznosi $2$, a jedan niz koji to postiže jest upravo
+\texttt{001}. Drugi probni primjer predstavlja suboptimalno rješenje koje
+bi postiglo $75.79\%$ predviđenih bodova na ovom test podatku.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% We're done
+\end{statement}
+
+%%% Local Variables:
+%%% mode: latex
+%%% mode: flyspell
+%%% ispell-local-dictionary: "croatian"
+%%% TeX-master: "../hio.tex"
+%%% End:
