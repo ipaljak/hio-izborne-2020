@@ -1,0 +1,37 @@
+name: Build LaTeX files
+
+on:
+  push:
+    paths:
+      - '**.tex'
+      - '**.sty'
+      - '**img**'
+      - '**dummy**'
+
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+
+      - name: Compile probno/zadaci.tex
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: zadaci.tex
+          working_directory: probno
+
+      - name: Compile hio/zadaci.tex
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: zadaci.tex
+          working_directory: hio
+
+      - name: Push new pdf-s
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          git add probno/zadaci.pdf hio/zadaci.pdf
+          git commit -m "Update pdf"
+          git push
