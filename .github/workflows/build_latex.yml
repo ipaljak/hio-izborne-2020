@@ -4,6 +4,9 @@ on:
   push:
     paths:
       - '**.tex'
+      - '**.sty'
+      - '**img**'
+      - '**dummy**'
 
 jobs:
   build_latex:
