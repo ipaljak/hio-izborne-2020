@@ -15,6 +15,7 @@
 #include <fstream>
 #include <iostream>
 #include <queue>
+#include <stack>
 #include <string>
 #include <utility>
 #include <unistd.h>
@@ -97,45 +98,13 @@ void test_condition(bool condition, const char* format, ...) {
 const int PARTIAL = 1000;
 
 const int MAXN = 10000010;
-const int offset = (1 << 20);
 const int inf = (1 << 30);
 
-struct tournament {
-  int p[offset * 2];
-
-  tournament() {
-    REP(i, offset * 2) p[i] = inf;
-  }
-
-  void update(int a, int b) {
-    a += offset;
-    p[a] = b;
-    a /= 2;
-    while (a) {
-      p[a] = min(p[a * 2], p[a * 2 + 1]);
-      a /= 2;
-    }
-  }
-
-  int get(int cvor, int l, int r, int a, int b) {
-    if (l > b || r < a) return inf;
-    if (l >= a && r <= b) return p[cvor];
-
-    int mid = (l + r) / 2;
-
-    int x = get(cvor * 2, l, mid, a, b);
-    int y = get(cvor * 2 + 1, mid + 1, r, a, b);
-    return min(x, y);
-  }
-};
-
-tournament T;
-
-int pref[MAXN];
+int pref[MAXN], next_less[MAXN];
 
 void send_answer(int a, int b) {
   int ret = 0;
-  if (pref[b] - pref[a - 1] == 0 && T.get(1, 0, offset - 1, a, b) >= pref[a - 1]) {
+  if (pref[b] - pref[a - 1] == 0 && next_less[a - 1] > b) {
     ret = 1;
   }
 
@@ -167,8 +136,15 @@ void main_problem_interaction() {
     else pref[i]--;
   }
 
-  FOR(i, 1, n + 1) T.update(i, pref[i]);
-  
+  stack <pair <int, int> > st;
+  st.push({-inf, n + 1});
+
+  for (int i = n; i >= 0; i--) {
+    while (st.top().fi >= pref[i]) st.pop();
+    next_less[i] = st.top().sec;
+    st.push({pref[i], i});
+  }
+
   int QUERY_LIMIT = -1;
   if (n <= PARTIAL) {
     QUERY_LIMIT = n * n / 4;
