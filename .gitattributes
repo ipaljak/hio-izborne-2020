@@ -1,2 +1,2 @@
-**.in.** linguist-language=Text
-**.out.** linguist-language=Text
+*.in.* linguist-language=Text
+*.out.* linguist-language=Text
