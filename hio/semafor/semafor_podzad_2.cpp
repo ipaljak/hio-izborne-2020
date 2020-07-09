@@ -107,9 +107,8 @@ for(int i = 0 ; i < gran ; ++i){
 		}
 		sol = (sol + (g[X][j] * h[drugi][prvi]) % mod) % mod;
 	}
-	cout << sol << ' ';
+	cout << sol << endl;
 }
-cout << endl;
 
 return 0;
 }

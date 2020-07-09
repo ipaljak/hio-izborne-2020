@@ -60,9 +60,8 @@ for(int kraj = 0 ; kraj < gran ; ++kraj){
 	if(br == 2){
 		sad += (msk[kraj / 10] << seg_sz);
 	}
-	cout << dp[n & 1][sad] << ' ';
+	cout << dp[n & 1][sad] << endl;
 }
-cout << endl;
 
 return 0;
 }
