@@ -101,27 +101,29 @@ void merge(int a, int b) {
   }
 
   // ako je b mala, a a velika, moramo susjede od b staviti u a.sus
-  int tmpx = tko[b].fi, tmpy = tko[b].sec;
-  queue <int> q;
-  cookie++;
-  q.push(tmpx); q.push(tmpy);
-  bio[tmpx][tmpy] = cookie;
-  
-  while (!q.empty()) {
-    tmpx = q.front(); q.pop();
-    tmpy = q.front(); q.pop();
-    REP(i, 4) {
-      int nx = tmpx + smjerx[i];
-      int ny = tmpy + smjery[i];
-      if (nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
-      if (bio[nx][ny] == cookie) continue;
-      bio[nx][ny] = cookie;
-      if (find(pos[nx][ny]) != b) {
-        comps[a].sus[get_color(pos[nx][ny])].push(find(pos[nx][ny]));
-        comps[find(pos[nx][ny])].veliki.insert(a);
-      } else {
-        q.push(nx);
-        q.push(ny);
+  if (comps[b].size <= GRANICA && comps[a].size > GRANICA) {
+    int tmpx = tko[b].fi, tmpy = tko[b].sec;
+    queue <int> q;
+    cookie++;
+    q.push(tmpx); q.push(tmpy);
+    bio[tmpx][tmpy] = cookie;
+
+    while (!q.empty()) {
+      tmpx = q.front(); q.pop();
+      tmpy = q.front(); q.pop();
+      REP(i, 4) {
+        int nx = tmpx + smjerx[i];
+        int ny = tmpy + smjery[i];
+        if (nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
+        if (bio[nx][ny] == cookie) continue;
+        bio[nx][ny] = cookie;
+        if (find(pos[nx][ny]) != b) {
+          comps[a].sus[get_color(pos[nx][ny])].push(find(pos[nx][ny]));
+          comps[find(pos[nx][ny])].veliki.insert(a);
+        } else {
+          q.push(nx);
+          q.push(ny);
+        }
       }
     }
   }
