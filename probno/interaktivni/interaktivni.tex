@@ -1,0 +1,104 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem statement
+\begin{statement}[
+  problempoints=100,
+  timelimit=1 sekunda,
+  memorylimit=512 MiB,
+]{Interaktivni}
+
+Ovo je priča o dvojici lopova, Ivici i Milanu, koji pokušavaju ukrasti skriveno
+blago u jednom drevnom južnoameričkom hramu. Trenutno se u unutrašnjosti
+hrama nalazi samo Ivica, dok Milan vani čuva stražu. Naravno, naši dragi
+kriminalci koriste voki-toki za komunikaciju. Ivica je u nekom trenutku ušao
+u ogromnu sobu popločenu kvadratnim poljima u kojoj je ugledao nešto nalik
+blagu te pojurio u tom smjeru. Nažalost, stao je na posebno polje (zamku)
+koje je uzrokovalo da se ulazna vrata zatvore, neka polja postanu neprohodna,
+a prostoriju ispuni tama. Ivica je odmah zapalio baklju, ali njena svjetlost
+nije daleko dopirala.  Odnosno, Ivica je samo mogao vidjeti svoju neposrednu
+okolinu.
+
+Odlučio je javiti Milanu što se dogodilo te ga upitati za pomoć. Nakon kraćeg
+razgovora, odlučili su da će Ivica govoriti što vidi oko sebe, a Milan će mu
+reći u kojem smjeru da se pomakne. Uz malo sreće i algoritamskog znanja, Ivica
+će ukrasti blago i pobjeći iz sobe. Također, u drevnim spisima piše da je za
+izlazak iz sobe potrebno znati kolika je najkraća udaljenost između blaga i
+zamke na koju je Ivica stao (njegove početne pozicije).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Input
+\subsection*{Interakcija}
+Ovo je interaktivni zadatak. Vaš program treba uspostaviti komunikaciju sa
+programom izrađenim od strane organizatora koji simulira ponašanje Ivice iz
+teksta zadatka. Dakako, vaš program treba simulirati Milanovo ponašanje kojim
+će dvojac ukrasti blago i odrediti najkraću udaljenost od blaga do Ivičine
+početne pozicije. Najkraća udaljenost između neka dva polja u hramu jest
+najmanji broj koraka koje Ivica treba napraviti da bi s prvog polja došao do
+drugog polja, ako se pritom smije kretati u četiri osnovna smjera (gore,
+dolje, lijevo i desno).
+
+Interakciju započinje Ivica koji Milanu javlja što se nalazi u neposrednoj
+okolini njegove početne pozicije. Odnosno, vaš program najprije treba sa
+standardnog ulaza pročitati matricu znakova dimenzija $3\times3$ koja
+predstavlja Ivičinu okolinu. Svaki znak matrice predstavlja jedno polje,
+pritom znak \texttt{'.'} označava prohodno polje, znak \texttt{'\#'} označava
+neprohodno polje, a znak \texttt{'B'} označava prohodno polje s blagom. Polje
+matrice koje se nalazi u drugom retku i drugom stupcu uvijek će biti prohodno
+i ono predstavlja Ivičinu trenutnu poziciju.
+
+Vaš program može tada narediti Ivici da se pomakne u jednom od četiri osnovna
+smjera tako da na standardni izlaz ispiše redak oblika ``\texttt{POMAK X}'',
+gdje je \texttt{X} jedan od znakova \texttt{'R'}, \texttt{'D'}, \texttt{'L'}
+ili \texttt{'U'} koji redom označavaju da se Ivica treba pomaknuti udesno,
+prema dolje, ulijevo ili prema gore. Nakon svake ispisane naredbe, vaš
+program treba napraviti \textit{flush} izlaza. Također, nakon svakog pomaka,
+vaš program sa standardnog ulaza treba pročitati Ivičinu okolinu nakon
+napravljenog pomaka, u istom formatu kako je opisano u prethodnom odlomku.
+
+Kada vaš program odredi kolika je najkraća udljenost između blaga i Ivičine
+početne pozicije, na standardni izlaz treba ispisati reda oblika
+``\texttt{\frenchspacing! D}'', gdje \texttt{D} predstavlja traženu
+udaljenost. Nakon toga, vaš program treba napraviti \textit{flush} izlaza i
+završiti izvođenje.
+
+\textbf{Napomena:} Putem sustava za evaluaciju možete preuzeti primjere
+izvornih kodova koji na ispravan način obavljaju interakciju, uključujući
+\textit{flush} izlaza.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Scoring
+\subsection*{Bodovanje}
+Testni primjer smatramo ispravno riješenim ako vaš program izda najviše $Q$
+naredbi tipa ``\texttt{POMAK}'', nikada ne pokuša Ivicu natjerati da stane na
+neprohodno polje, barem jednom posjeti polje na kojem se nalazi blago te
+ispravno odredi najkraću udaljenost između Ivičine početne pozicije i polja s
+blagom.
+
+{\renewcommand{\arraystretch}{1.4}
+  \setlength{\tabcolsep}{6pt}
+  \begin{tabular}{ccl}
+ Podzadatak & Broj bodova & Ograničenja \\ \midrule
+  1 & ?? & \\
+  2 & ?? & \\
+  3 & ?? & \\
+  4 & ?? & \\
+\end{tabular}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Examples
+\subsection*{Probni primjeri}
+\begin{tabularx}{\textwidth}{X'X}
+\sampleinputs{test/izazovni.dummy.in.1}{test/izazovni.dummy.out.1} &
+\sampleinputs{test/izazovni.dummy.in.2}{test/izazovni.dummy.out.2}
+\end{tabularx}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% We're done
+\end{statement}
+
+%%% Local Variables:
+%%% mode: latex
+%%% mode: flyspell
+%%% ispell-local-dictionary: "croatian"
+%%% TeX-master: "../hio.tex"
+%%% End:
