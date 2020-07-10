@@ -39,6 +39,7 @@ using namespace std;
 
 #define CANNOT_READ_N "Input file error: cannot read integer n."
 #define N_OUT_OF_BOUNDS "Input file error: n has to be between %d and %d."
+#define CANNOT_READ_Q "Input file error: cannot read integer q."
 #define CANNOT_READ_S "Input file error: cannot read S."
 #define WA_UNKNOWN_COMMAND "Netocno! Neispravna naredba!"
 #define WA_INCORRECT "Netocno! Duljina puta nija tocna!"
@@ -59,7 +60,8 @@ using namespace std;
 
 #define CANNOT_READ_N "Neispravna ulazna datoteka: ne mogu procitati broj n."
 #define N_OUT_OF_BOUNDS "Neispravna ulazna datoteka: n mora biti izmedju %d i %d."
-#define CANNOT_READ_S "Neispravna ulazna datoteka: ne mogu procitati Si."
+#define CANNOT_READ_Q "Neispravna ulazna datoteka: ne mogu procitati broj q."
+#define CANNOT_READ_S "Neispravna ulazna datoteka: ne mogu procitati S."
 #define WA_CANNOT_READ_INTERVAL "Ne mogu procitati interval."
 #define WA_INVALID_INTERVAL "Netocno, neispravan interval!"
 #define WA_UNKNOWN_COMMAND "Netocno, neispravna naredba!"
@@ -95,8 +97,6 @@ void test_condition(bool condition, const char* format, ...) {
   }
 }
 
-const int PARTIAL = 1000;
-
 const int MAXN = 10000010;
 const int inf = (1 << 30);
 
@@ -124,8 +124,9 @@ void main_problem_interaction() {
   const string END_COMMAND = "!";
 
 
-  int n; 
+  int n, q; 
   test_condition(bool(finput >> n), CANNOT_READ_N);
+  test_condition(bool(finput >> q), CANNOT_READ_Q);
     
   string s;
   test_condition(bool(finput >> s), CANNOT_READ_S);
@@ -145,12 +146,7 @@ void main_problem_interaction() {
     st.push({pref[i], i});
   }
 
-  int QUERY_LIMIT = -1;
-  if (n <= PARTIAL) {
-    QUERY_LIMIT = n * n / 4;
-  } else {
-    QUERY_LIMIT = n - 1;
-  }
+  int QUERY_LIMIT = q;
 
   // Start interaction
   int query_count = 0;

@@ -6,7 +6,7 @@ Uparene zagrade oboji zeleno, a ostale crveno.
 
 import termcolor
 
-n = int(input())
+n, q = map(int, input().split())
 s = input()
 
 colored_s = [termcolor.colored(c, 'red') for c in s]

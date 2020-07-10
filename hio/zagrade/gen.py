@@ -9,13 +9,13 @@ sys.setrecursionlimit(1000010)
 
 PROBLEM = 'zagrade'
 N1 = 10**3
-N2 = 10**6
+N2 = 10**5
 
 def validate(s):
     assert s.count('(') == s.count(')')
     assert all(c in '()' for c in s)
 
-def write_test(s, num, is_dummy=False):
+def write_test(s, num, is_linear=False, is_dummy=False):
     validate(s)
 
     if is_dummy:
@@ -23,9 +23,12 @@ def write_test(s, num, is_dummy=False):
     else:
         name = 'test/' + PROBLEM + '.in.' + num
 
+    n = len(s)
+    q = n - 1 if is_linear else n * n // 4
+
     with open(name, 'w') as f:
-        f.write(str(len(s)) + '\n')
-        f.write(s + '\n')
+        print(n, q, file=f)
+        print(s, file=f)
 
 def coin_flip(p):
     return random.random() < p
@@ -72,7 +75,7 @@ def main():
     shutil.rmtree('test', ignore_errors=True)
     os.mkdir('test')
 
-    write_test('((()))', '1', True)
+    write_test('((()))', '1', is_dummy=True)
 
     write_test('()', '1a')
     write_test('()' * (N1 // 2), '1b')
@@ -85,30 +88,30 @@ def main():
 
     write_test(')(', '2a')
     write_test(')' * (N1 // 2) + '(' * (N1 // 2), '2b')
-    write_test(gen(N1, 0.00, 100), '2c')
-    write_test(gen(N1, 0.25, 300), '2d')
-    write_test(gen(N1, 0.50, 100), '2e')
-    write_test(gen(N1, 0.75, 300), '2f')
-    write_test(gen(N1, 1.00, 100), '2g')
-    write_test(gen(N1 - 100, 0.50, 10), '2h')
+    write_test(gen(N1, 0.00, int(N1 * 0.1)), '2c')
+    write_test(gen(N1, 0.25, int(N1 * 0.3)), '2d')
+    write_test(gen(N1, 0.50, int(N1 * 0.1)), '2e')
+    write_test(gen(N1, 0.75, int(N1 * 0.3)), '2f')
+    write_test(gen(N1, 1.00, int(N1 * 0.1)), '2g')
+    write_test(gen(N1 - 100, 0.50, int(N1 * 0.01)), '2h')
 
-    write_test('()()', '3a')
-    write_test('()' * (N2 // 2), '3b')
-    write_test(gen(N2, 0.00), '3c')
-    write_test(gen(N2, 0.25), '3d')
-    write_test(gen(N2, 0.50), '3e')
-    write_test(gen(N2, 0.75), '3f')
-    write_test(gen(N2, 1.00), '3g')
-    write_test(gen(N2 - 100, 0.50), '3h')
+    write_test('(())', '3a', is_linear=True)
+    write_test('()' * (N2 // 2), '3b', is_linear=True)
+    write_test(gen(N2, 0.00), '3c', is_linear=True)
+    write_test(gen(N2, 0.25), '3d', is_linear=True)
+    write_test(gen(N2, 0.50), '3e', is_linear=True)
+    write_test(gen(N2, 0.75), '3f', is_linear=True)
+    write_test(gen(N2, 1.00), '3g', is_linear=True)
+    write_test(gen(N2 - 100, 0.50), '3h', is_linear=True)
 
-    write_test(')()(', '4a')
-    write_test(')' * (N2 // 2) + '(' * (N2 // 2), '4b')
-    write_test(gen(N2, 0.00, 100000), '4c')
-    write_test(gen(N2, 0.25, 300000), '4d')
-    write_test(gen(N2, 0.50, 100000), '4e')
-    write_test(gen(N2, 0.75, 300000), '4f')
-    write_test(gen(N2, 1.00, 100000), '4g')
-    write_test(gen(N2 - 100, 0.50, 1000), '4h')
+    write_test('))((', '4a', is_linear=True)
+    write_test(')' * (N2 // 2) + '(' * (N2 // 2), '4b', is_linear=True)
+    write_test(gen(N2, 0.00, int(N2 * 0.1)), '4c', is_linear=True)
+    write_test(gen(N2, 0.25, int(N2 * 0.3)), '4d', is_linear=True)
+    write_test(gen(N2, 0.50, int(N2 * 0.1)), '4e', is_linear=True)
+    write_test(gen(N2, 0.75, int(N2 * 0.3)), '4f', is_linear=True)
+    write_test(gen(N2, 1.00, int(N2 * 0.1)), '4g', is_linear=True)
+    write_test(gen(N2 - 100, 0.50, int(N2 * 0.001)), '4h', is_linear=True)
 
 if __name__ == '__main__':
     main()
