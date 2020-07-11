@@ -203,40 +203,117 @@ void Init() {
   }
 }
 
-void debug() {
-  for (int i = 0; i < n; ++i) {
-    for (int j = 0; j < m; ++j) cerr << C[comp_id[i][j]].color << " ";
-    for (int j = 0; j < m; ++j) cerr << " " << comp_id[i][j];
-    cerr << endl;
+const int N = 500;
+
+void CreatePath(int lx, int ly, int hx, int hy, int color) {
+  vector<int> dx = {1}, dy = {1};
+  if (hx - lx > hy - ly) dy.push_back(-1);
+  else dx.push_back(-1);
+  int x = lx, y = ly;
+  auto fin = [lx, ly, hx, hy](int x, int y) {
+    if (hx - lx > hy - ly) return x == hx - 1;
+    return y == hy - 1;
+  };
+  while (!fin(x, y)) {
+    int nx = x;
+    int ny = y;
+    if (rand() % 2) {
+      ny += dy[rand() % dy.size()];
+      if (ny < ly || ny >= hy) continue;
+    } else {
+      nx += dx[rand() % dx.size()];
+      if (nx < lx || nx >= hx) continue;
+    }
+    mat[x][y] = color;
+    x = nx;
+    y = ny;
   }
-  cerr << "--------------------" << endl;
 }
 
+int RandomNeighbor(int x, int y) {
+  int dx = 0, dy = 1;
+  if (rand() % 2) dy = -1;
+  if (rand() % 2) swap(dx, dy);
+  int sc = comp_id[x][y];
+  while (true) {
+    x += dx;
+    y += dy;
+    if (x < 0 || y < 0 || x >= n || y >= m) return -1;
+    if (comp_id[x][y] != sc) return comp_id[x][y];
+  }
+  return -1;
+}
 
-int main(void) {
-  cin >> n >> m;
-  for (int i = 0; i < n; ++i) {
-    for (int j = 0; j < m; ++j) {
-      cin >> mat[i][j];
-    }
+int main(int argc, char **argv) {
+  int seed = atoi(argv[1]);
+  srand(seed);
+  int q = atoi(argv[2]);
+  int d = 1;  // default debljina
+  int s = 0;  // default razmak
+  if (argc >= 4) d = atoi(argv[3]);
+  if (argc >= 5) s = atoi(argv[4]);
+  int c = 100000;  // defaultna maksimalna oznaka boje
+  if (argc >= 6) c = atoi(argv[5]);
+
+  n = N - rand() % 5;
+  m = N - rand() % 5;
+
+  for (int i = 0; i < n; ++i)
+    for (int j = 0; j < m; ++j)
+      mat[i][j] = rand() % c;
+
+  CreatePath(0, 0, d, m, s == 0 ? 1 : rand() % c);
+  int raz = d + s + (s == 0 ? 1 : 0);
+  for (int i = 0; i + d <= m; i += raz) {
+    CreatePath(d + s, i, n, i + d, s == 0 ? 1 : rand() % c);
   }
 
   Init();
 
-  int q;
-  cin >> q;
-  for (int i = 0; i < q; ++i) {
-    int x, y, color;
-    cin >> x >> y >> color;
-    Fill(x - 1, y - 1, color);
-    // debug();
-  }
 
+
+  cout << n << " " << m << endl;
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < m; ++j) {
-      cout << C[comp_id[i][j]].color << " \n"[j + 1 == m];
+      cout << mat[i][j];
+      cout << " \n"[j + 1 == m];
+      assert(mat[i][j] == C[comp_id[i][j]].color);
     }
   }
+
+  cout << q << endl;
   
+  int q1 = 2 * q / 7;
+  while (q1) {
+    int x = rand() % n;
+    int y = rand() % m;
+    if (C[comp_id[x][y]].large) continue;
+    int nid = RandomNeighbor(x, y);
+    if (nid == -1) continue;
+    if (C[nid].large) continue;
+    
+    q1--;
+    q--;
+    cout << x + 1 << " " << y + 1 << " " << C[nid].color << endl;
+    Fill(x, y, C[nid].color);
+  }
+
+  while (q) {
+    int x = rand() % n;
+    int y = rand() % n;
+    if (rand() % 3 == 0) {
+      int color = rand() % c;
+      cout << x+1 << " " << y+1 << " " << color << endl;
+      Fill(x, y, color);
+      q--;
+      continue;
+    }
+    int nid = RandomNeighbor(x, y);
+    if (nid == -1) continue;
+    cout << x+1 << " " << y+1 << " " << C[nid].color << endl;
+    Fill(x, y, C[nid].color);
+    q--;
+  }
+
   return 0;
 }
