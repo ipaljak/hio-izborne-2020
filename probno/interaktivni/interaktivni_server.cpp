@@ -40,6 +40,9 @@ typedef pair <int, int> pii;
 
 #define CANNOT_READ_N "Input file error: cannot read integer n."
 #define CANNOT_READ_M "Input file error: cannot read integer m."
+#define OUT_OF_MATRIX "Input file error: cannot read integer m."
+#define CANNOT_READ_POSX "Input file error: cannot read integer m."
+#define CANNOT_READ_POSY "Input file error: cannot read integer m."
 #define N_OUT_OF_BOUNDS "Input file error: n has to be between %d and %d."
 #define CANNOT_READ_Si "Input file error: cannot read Si."
 #define WA_UNKNOWN_COMMAND "Netocno! Neispravna naredba!"
@@ -59,6 +62,9 @@ typedef pair <int, int> pii;
 
 #define CANNOT_READ_N "Neispravna ulazna datoteka: ne mogu procitati broj n."
 #define CANNOT_READ_M "Neispravna ulazna datoteka: ne mogu procitati broj m."
+#define CANNOT_READ_POSX "Input file error: cannot read integer m."
+#define OUT_OF_MATRIX "Van matrice"
+#define CANNOT_READ_POSY "Input file error: cannot read integer m."
 #define N_OUT_OF_BOUNDS "Neispravna ulazna datoteka: n mora biti izmedju %d i %d."
 #define CANNOT_READ_Si "Neispravna ulazna datoteka: ne mogu procitati Si."
 #define WA_UNKNOWN_COMMAND "Netocno, neispravna naredba!"
@@ -107,28 +113,24 @@ void send_position(pii pos, vector <string> &s) {
 const int smjerx[] = {0, 0, 1, -1};
 const int smjery[] = {1, -1, 0, 0};
 
-int solve(vector <string> &s) {
+int solve(vector <string> &s, pii pos) {
   int n = s.size();
   int m = s[0].size();
   queue <int> q;
   vector <vector <bool> > bio;
   bio.resize(n);
   REP(i, n) bio[i].resize(m);
-  REP(i, n) {
-    REP(j, m) {
-      if (s[i][j] == 'X') {
-        q.push(i); q.push(j);
-        q.push(0);
-        bio[i][j] = 0;
-      }
-    }
-  }
+  REP(i, n) REP(j, m) bio[i][j] = 0;
+  q.push(pos.fi);
+  q.push(pos.sec);
+  q.push(0);
+  bio[pos.fi][pos.sec] = 1;
   int x, y, d;
   while (!q.empty()) {
     x = q.front(); q.pop();
     y = q.front(); q.pop();
     d = q.front(); q.pop();
-    if (s[x][y] == 'Y') return d;
+    if (s[x][y] == 'B') return d;
 
     REP(i, 4) {
       int nx = x + smjerx[i];
@@ -161,7 +163,12 @@ void main_problem_interaction() {
 
   test_condition(bool(finput >> n), CANNOT_READ_N);
   test_condition(bool(finput >> m), CANNOT_READ_M);
+  pii pos, start;
 
+  test_condition(bool(finput >> pos.fi), CANNOT_READ_POSX);
+  test_condition(bool(finput >> pos.sec), CANNOT_READ_POSY);
+
+  start = pos;
   vector <string> s;
   s.resize(n);
 
@@ -176,14 +183,7 @@ void main_problem_interaction() {
     }
   }
 
-  pii pos;
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < m; j++) {
-      if (s[i][j] == 'X') pos = {i, j};
-    }
-  }
-
-  const int QUERY_LIMIT = 21345678;
+  const int QUERY_LIMIT = 200000;
   const int QUERY_AC = tocke * 2;
 
   // Start interaction
@@ -203,6 +203,7 @@ void main_problem_interaction() {
 
     ++query_count;
     test_condition(query_count <= QUERY_LIMIT, WA_TOO_MANY_QUERIES);
+  
     test_condition(cmd == QUERY_COMMAND, WA_UNKNOWN_COMMAND);
 
     string c;
@@ -215,6 +216,7 @@ void main_problem_interaction() {
     if (c == "L") pos.second--;
     if (c == "R") pos.second++;
 
+    test_condition(pos.fi > 0 && pos.fi < n && pos.sec > 0 && pos.sec < m, OUT_OF_MATRIX);
     // Send the answer
     send_position(pos, s);
   }
@@ -229,7 +231,7 @@ void main_problem_interaction() {
   // Check the answers
   flog << ans << endl;
 
-  int sol = solve(s);
+  int sol = solve(s, start);
 
   test_condition(ans == sol, WA_INCORRECT);
 

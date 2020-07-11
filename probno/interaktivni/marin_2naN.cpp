@@ -40,7 +40,7 @@ int ans = 1;
 
 bool dfs(int x, int y, int d) {
   if (d != ans || (ans == d && ans == 1)) input();
-  if (s[1][1] == 'Y') return 1;
+  if (s[1][1] == 'B') return 1;
   if (!d) return 0;
 
   bio[mp(x, y)] = 1;
