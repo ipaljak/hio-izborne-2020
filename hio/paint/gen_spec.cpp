@@ -300,7 +300,7 @@ int main(int argc, char **argv) {
 
   while (q) {
     int x = rand() % n;
-    int y = rand() % n;
+    int y = rand() % m;
     if (rand() % 3 == 0) {
       int color = rand() % c;
       cout << x+1 << " " << y+1 << " " << color << endl;
