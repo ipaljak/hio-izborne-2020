@@ -80,7 +80,7 @@ for(int i = 0 ; i < gran ; ++i){
 	}
 }
 potenciraj(h, n / k, gran);
-int ostalo = n % k;
+ll ostalo = n % k;
 for(int i = 0 ; i < gran ; ++i){
 	for(int j = 0 ; j < gran ; ++j){
 		g[i][j] = h[i][j];
