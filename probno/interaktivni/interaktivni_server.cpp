@@ -184,7 +184,6 @@ void main_problem_interaction() {
   }
 
   const int QUERY_LIMIT = 200000;
-  const int QUERY_AC = tocke * 2;
 
   // Start interaction
   int query_count = 0;
@@ -235,13 +234,8 @@ void main_problem_interaction() {
 
   test_condition(ans == sol, WA_INCORRECT);
 
-  if (query_count > QUERY_AC) {
-    foutput << "0.5" << endl;
-    foutput << PARTIAL_CORRECT << query_count << endl;
-  } else {
-    foutput << "1" << endl;
-    foutput << CORRECT << query_count << endl;
-  }
+  foutput << "1" << endl;
+  foutput << CORRECT << query_count << endl;
 }
 
 int main(int argc, char *argv[])
