@@ -29,7 +29,7 @@ def what_cluster(data):
     # na temelju povratne informacije iz check(lines)
     # zakljucuje za TP u kojoj je bodovnoj sekciji
     if len(data['n']) > 7: return "Subtask 4"
-    if int(data['n']) <= 50: return "Subtask 1"
+    if int(data['n']) <= 15: return "Subtask 1"
     if int(data['n']) <= 1000: return "Subtask 2"
     if int(data['n']) <= 1000000: return "Subtask 3"
     return "Impossible"

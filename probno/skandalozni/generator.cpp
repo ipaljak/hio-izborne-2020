@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
   assert(argc == 2);
   sscanf(argv[1], "%s", tip);
   if(!strcmp(tip, "prvi")) {
-    printf("%d\n", rnd(1, 50)); 
+    printf("%d\n", rnd(1, 15));
   }
   else if(!strcmp(tip, "drugi")) {
     printf("%d\n", rnd(51, 1000));
