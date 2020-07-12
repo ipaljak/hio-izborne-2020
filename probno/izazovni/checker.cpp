@@ -85,7 +85,7 @@ void checker(ifstream& fin, ifstream& foff, ifstream& fout)
   const string TEST_DATA_ERROR = "Greska u sluzbenom ulazu ili izlazu.";
   const string WRONG = "Netocno.";
   const string CORRECT = "Tocno.";
-  const string PARTIAL = "Parcijalno.";
+  const string PARTIAL = "Suboptimalno rjesenje.";
 
   // Read official input
   int n;
@@ -110,7 +110,7 @@ void checker(ifstream& fin, ifstream& foff, ifstream& fout)
 
 
   if (out_ans < off_ans) finish(0, TEST_DATA_ERROR);
-  
+
   if (out_ans == off_ans) finish(1, CORRECT);
   else finish(score(out_ans, off_ans), PARTIAL);
 
