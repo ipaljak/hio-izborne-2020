@@ -24,6 +24,8 @@ reći u kojem smjeru da se pomakne. Uz malo sreće i algoritamskog znanja, Ivica
 izlazak iz sobe potrebno znati kolika je najkraća udaljenost između blaga i
 zamke na koju je Ivica stao (njegove početne pozicije).
 
+Milan je ipak za svaki slučaj zamolio vas za pomoć. Pomozite mu i napišite
+program koji simulira interakciju s Ivicom te ga uspješno navodi kroz hram.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Input
@@ -56,7 +58,7 @@ vaš program sa standardnog ulaza treba pročitati Ivičinu okolinu nakon
 napravljenog pomaka, u istom formatu kako je opisano u prethodnom odlomku.
 
 Kada vaš program odredi kolika je najkraća udljenost između blaga i Ivičine
-početne pozicije, na standardni izlaz treba ispisati reda oblika
+početne pozicije, na standardni izlaz treba ispisati redak oblika
 ``\texttt{\frenchspacing! D}'', gdje \texttt{D} predstavlja traženu
 udaljenost. Nakon toga, vaš program treba napraviti \textit{flush} izlaza i
 završiti izvođenje.
@@ -72,25 +74,59 @@ Testni primjer smatramo ispravno riješenim ako vaš program izda najviše $Q$
 naredbi tipa ``\texttt{POMAK}'', nikada ne pokuša Ivicu natjerati da stane na
 neprohodno polje, barem jednom posjeti polje na kojem se nalazi blago te
 ispravno odredi najkraću udaljenost između Ivičine početne pozicije i polja s
-blagom.
+blagom. Znak $N$ u donjoj tablici predstavlja broj različitih prohodnih polja
+koja Ivica može posjetiti sa svoje početne pozicije krečući se u četiri osnovna
+smjera.
 
 {\renewcommand{\arraystretch}{1.4}
   \setlength{\tabcolsep}{6pt}
   \begin{tabular}{ccl}
  Podzadatak & Broj bodova & Ograničenja \\ \midrule
-  1 & ?? & \\
-  2 & ?? & \\
-  3 & ?? & \\
-  4 & ?? & \\
+  1 & 50 & $1 \le N \le 16$, $Q = 200\,000$\\
+  2 & 50 & $1 \le N \le 100\,000$, $Q = 200\,000$\\
 \end{tabular}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Examples
-\subsection*{Probni primjeri}
-\begin{tabularx}{\textwidth}{X'X}
-\sampleinputs{test/izazovni.dummy.in.1}{test/izazovni.dummy.out.1} &
-\sampleinputs{test/izazovni.dummy.in.2}{test/izazovni.dummy.out.2}
-\end{tabularx}
+\subsection*{Primjer interakcije}
+U probnom je primjeru Ivica zarobljen u hramu oblika:
+
+\begin{centering}
+\texttt{\#\#\#\#\#\#}\\
+\texttt{\#.I\#.\#}\\
+\texttt{\#.\#\#.\#}\\
+\texttt{\#.B..\#}\\
+\texttt{\#\#\#\#\#\#}\\
+\end{centering}
+
+gdje je znakom \texttt{I} označena njegova početna pozicija, a znakom \texttt{B}
+pozicija polja s blagom.\\
+
+{\renewcommand{\arraystretch}{1}
+  \setlength{\tabcolsep}{6pt}
+  \begin{tabular}{lcl}
+    Izlaz & Ulaz & Napomena \\ \midrule
+      & \texttt{\#\#\#} & \\
+      & \texttt{..\#} & Okolina Ivičine početne pozicije. \\
+      & \texttt{.\#\#} & \\
+    \texttt{POMAK L} & & Milan izdaje naredbu Ivici da se pomakne ulijevo. \\
+      & \texttt{\#\#\#} & \\
+      & \texttt{\#..} & Okolina Ivičine trenutne pozicije. \\
+      & \texttt{\#.\#} & \\
+    \texttt{POMAK D} & & Milan izdaje naredbu Ivici da se pomakne prema dolje. \\
+      & \texttt{\#..} & \\
+      & \texttt{\#.\#} & Okolina Ivičine trenutne pozicije. \\
+      & \texttt{\#.B} & \\
+    \texttt{POMAK D} & & Milan izdaje naredbu Ivici da se pomakne prema dolje. \\
+      & \texttt{\#.\#} & \\
+      & \texttt{\#.B} & Okolina Ivičine trenutne pozicije. \\
+      & \texttt{\#\#\#} & \\
+    \texttt{POMAK R} & & Milan izdaje naredbu Ivici da se pomakne udesno. \\
+      & \texttt{.\#\#} & \\
+      & \texttt{.B.} & Ivica se dokopao tajnog blaga. \\
+      & \texttt{\#\#\#} & \\
+    \texttt{\frenchspacing! 4} & & Milan ispravno zaključuje da je najkraća udaljenost jednaka $4$. \\
+\end{tabular}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % We're done
