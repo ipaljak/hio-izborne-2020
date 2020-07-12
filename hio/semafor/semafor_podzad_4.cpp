@@ -90,7 +90,7 @@ for(int kraj = 0 ; kraj < gran ; ++kraj){
 	}
 	dp[0][sad] = val[X][kraj];
 }
-for(int i = 1 ; i <= n % k ; ++i){
+for(ll i = 1 ; i <= n % k ; ++i){
 	for(int j = 0 ; j < (1 << broj) ; ++j){
 		for(int v = 0 ; v < broj ; ++v){
 			int novi = (j ^ (1 << v));
