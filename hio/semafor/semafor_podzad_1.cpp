@@ -55,9 +55,8 @@ for(int i = 0 ; i < gran ; ++i){
 	if(br == 2){
 		sad += (msk[i / 10] << seg_sz);
 	}
-	cout << sol[sad] << ' ';
+	cout << sol[sad] << endl;
 }
-cout << endl;
 
 return 0;
 }
