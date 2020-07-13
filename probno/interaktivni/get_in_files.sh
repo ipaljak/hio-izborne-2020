@@ -10,3 +10,4 @@
 ./gen 32 290 240 80 > test/interaktivni.in.2d
 ./gen 32 300 300 69 > test/interaktivni.in.2e
 ./gen 31 50 40 87 > test/interaktivni.in.2f
+./gen 42 500 200 99 > test/interaktivni.in.2g

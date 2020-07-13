@@ -18,7 +18,7 @@ typedef pair <ll, ll> pll;
 #define mp make_pair
 #define pb push_back
 
-const char KRAJ = 'Y'; // ovo promjeniti ovisno o tekstu
+const char KRAJ = 'B'; // ovo promjeniti ovisno o tekstu
 
 map <pii, int> bio, mapa;
 
@@ -41,9 +41,7 @@ void input() {
 pii LAST;
 
 void dfs(int x, int y) {
-  TRACE(x _ y);
   input();
-  TRACE("poslije");
   bio[mp(x, y)] = 1;
   if (s[1][1] == KRAJ) LAST = mp(x, y);
   REP(i, 4) {
@@ -74,10 +72,11 @@ int solve(int x, int y) {
     REP(i, 4) {
       int nx = x + smjerx[i];
       int ny = y + smjery[i];
-      if (mapa.count(mp(x, y))) {
+      if (mapa.count(mp(nx, ny)) && !bio.count(mp(nx, ny))) {
         q.push(nx);
         q.push(ny);
         q.push(d + 1);
+        bio[mp(nx, ny)] = 1;
       }
     }
   }
@@ -86,7 +85,6 @@ int solve(int x, int y) {
 
 int main() {
   dfs(0, 0);
-  TRACE("vani");
   cout << "! " << solve(0, 0) << endl;
   cout.flush();
   return 0;

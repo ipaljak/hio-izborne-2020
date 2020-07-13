@@ -38,23 +38,7 @@ typedef pair <int, int> pii;
 
 /******************************* ENGLISH ***************************************/
 
-#define CANNOT_READ_N "Input file error: cannot read integer n."
-#define CANNOT_READ_M "Input file error: cannot read integer m."
-#define OUT_OF_MATRIX "Input file error: cannot read integer m."
-#define CANNOT_READ_POSX "Input file error: cannot read integer m."
-#define CANNOT_READ_POSY "Input file error: cannot read integer m."
-#define N_OUT_OF_BOUNDS "Input file error: n has to be between %d and %d."
-#define CANNOT_READ_Si "Input file error: cannot read Si."
-#define WA_UNKNOWN_COMMAND "Netocno! Neispravna naredba!"
-#define WA_INCORRECT "Netocno! Duljina puta nija tocna!"
-#define PARTIAL_CORRECT "Tocno, ali previse upita za sve bodove!"
-#define WA_CANNOT_READ_ANS "Netocno! Ne mogu procitati duljinu puta!"
-#define WA_PREMATURE_TERMINATION "Netocno! Vas program je zavrsio prije nego je ispisao trazenu duljinu puta!"
-#define WAITING "Cekam...."
-#define WA_CANNOT_READ_POMAK "Netocno! Ne mogu procitati POMAK"
-#define CORRECT "Tocno! Broj upita: "
-#define WA_TOO_MANY_QUERIES "Netocno! Previse upita!"
-#define WAITING_FOR_SOLUTION "Cekam rjesenje"
+// ne trebaju nam engleske poruke na probnom
 
 #else
 
@@ -62,19 +46,20 @@ typedef pair <int, int> pii;
 
 #define CANNOT_READ_N "Neispravna ulazna datoteka: ne mogu procitati broj n."
 #define CANNOT_READ_M "Neispravna ulazna datoteka: ne mogu procitati broj m."
-#define CANNOT_READ_POSX "Input file error: cannot read integer m."
-#define OUT_OF_MATRIX "Van matrice"
-#define CANNOT_READ_POSY "Input file error: cannot read integer m."
-#define N_OUT_OF_BOUNDS "Neispravna ulazna datoteka: n mora biti izmedju %d i %d."
+#define CANNOT_READ_POSX "Neispravna ulazna datoteka: ne mogu procitati x koordinatu."
+#define CANNOT_READ_POSY "Neispravna ulazna datoteka: ne mogu procitati y koordinatu."
 #define CANNOT_READ_Si "Neispravna ulazna datoteka: ne mogu procitati Si."
-#define WA_UNKNOWN_COMMAND "Netocno, neispravna naredba!"
-#define WA_INCORRECT "Netocno! Duljina puta nija tocna!"
-#define WA_CANNOT_READ_ANS "Netocno! Ne mogu procitati duljinu puta!"
-#define PARTIAL_CORRECT "Tocno, ali previse upita za sve bodove! Broj upita: "
-#define WA_PREMATURE_TERMINATION "Netocno! Vas program je zavrsio prije nego je ispisao trazenu duljinu puta!"
-#define WA_CANNOT_READ_POMAK "Netocno! Ne mogu procitati POMAK"
-#define WAITING "Cekam...."
 #define CORRECT "Tocno! Broj upita: "
+#define PARTIAL_CORRECT "Tocno, ali previse upita za sve bodove! Broj upita: "
+#define WA_CANNOT_READ_ANS "Netocno! Ne mogu procitati duljinu puta."
+#define WA_CANNOT_READ_POMAK "Netocno! Ne mogu procitati POMAK naredbu."
+#define WA_INCORRECT "Netocno! Duljina puta nija tocna!"
+#define WA_NOT_VISITED_TREASURE "Netocno! Niste nikad stali na polje s blagom."
+#define WA_OUT_OF_MATRIX "Netocno! Izasli ste van matrice."
+#define WA_PREMATURE_TERMINATION "Netocno! Vas program je zavrsio prije nego je ispisao trazenu duljinu puta!"
+#define WA_UNKNOWN_COMMAND "Netocno! Neispravna naredba!"
+#define WA_WALL "Netocno! Stali ste na nedopusteno polje!"
+#define WAITING "Cekam...."
 #define WA_TOO_MANY_QUERIES "Netocno! Previse upita!"
 #define WAITING_FOR_SOLUTION "Cekam rjesenje"
 
@@ -187,6 +172,7 @@ void main_problem_interaction() {
 
   // Start interaction
   int query_count = 0;
+  bool treasure_visited = false;
 
   send_position(pos, s);
 
@@ -211,11 +197,15 @@ void main_problem_interaction() {
     // Move to next position
 
     if (c == "U") pos.first--;
-    if (c == "D") pos.first++;
-    if (c == "L") pos.second--;
-    if (c == "R") pos.second++;
+    else if (c == "D") pos.first++;
+    else if (c == "L") pos.second--;
+    else if (c == "R") pos.second++;
+    else test_condition(0, WA_UNKNOWN_COMMAND);
 
-    test_condition(pos.fi > 0 && pos.fi < n && pos.sec > 0 && pos.sec < m, OUT_OF_MATRIX);
+    test_condition(pos.fi > 0 && pos.fi < n && pos.sec > 0 && pos.sec < m, WA_OUT_OF_MATRIX);
+    test_condition(s[pos.fi][pos.sec] != '#', WA_WALL);
+
+    if (s[pos.fi][pos.sec] == 'B') treasure_visited = true;
     // Send the answer
     send_position(pos, s);
   }
@@ -233,6 +223,7 @@ void main_problem_interaction() {
   int sol = solve(s, start);
 
   test_condition(ans == sol, WA_INCORRECT);
+  test_condition(treasure_visited, WA_NOT_VISITED_TREASURE);
 
   foutput << "1" << endl;
   foutput << CORRECT << query_count << endl;
