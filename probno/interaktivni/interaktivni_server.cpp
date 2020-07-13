@@ -53,7 +53,7 @@ typedef pair <int, int> pii;
 #define PARTIAL_CORRECT "Tocno, ali previse upita za sve bodove! Broj upita: "
 #define WA_CANNOT_READ_ANS "Netocno! Ne mogu procitati duljinu puta."
 #define WA_CANNOT_READ_POMAK "Netocno! Ne mogu procitati POMAK naredbu."
-#define WA_INCORRECT "Netocno! Duljina puta nija tocna!"
+#define WA_INCORRECT "Netocno! Duljina puta nije tocna!"
 #define WA_NOT_VISITED_TREASURE "Netocno! Niste nikad stali na polje s blagom."
 #define WA_OUT_OF_MATRIX "Netocno! Izasli ste van matrice."
 #define WA_PREMATURE_TERMINATION "Netocno! Vas program je zavrsio prije nego je ispisao trazenu duljinu puta!"
