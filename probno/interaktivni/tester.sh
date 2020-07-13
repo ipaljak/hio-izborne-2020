@@ -3,7 +3,7 @@ do
   echo "-------------------------------------------------"
   echo $f
   mkfifo temp
-  ./interaktivni_server $f flog foutput < temp | ./marin > temp
+  ./interaktivni_server $f flog foutput < temp | ./$1 > temp
   cat foutput
   rm temp
 done
