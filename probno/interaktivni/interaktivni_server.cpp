@@ -202,8 +202,8 @@ void main_problem_interaction() {
     else if (c == "R") pos.second++;
     else test_condition(0, WA_UNKNOWN_COMMAND);
 
-    test_condition(pos.fi > 0 && pos.fi < n && pos.sec > 0 && pos.sec < m, WA_OUT_OF_MATRIX);
     test_condition(s[pos.fi][pos.sec] != '#', WA_WALL);
+    test_condition(pos.fi > 0 && pos.fi < n && pos.sec > 0 && pos.sec < m, WA_OUT_OF_MATRIX);
 
     if (s[pos.fi][pos.sec] == 'B') treasure_visited = true;
     // Send the answer
