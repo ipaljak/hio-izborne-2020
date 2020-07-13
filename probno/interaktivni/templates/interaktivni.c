@@ -14,7 +14,7 @@ int main() {
   }
   printf("POMAK D\n");
   fflush(stdout);
-  
+
   for (int i = 0; i < 3; i++) {
     scanf("%s", s[i]);
   }
@@ -26,7 +26,7 @@ int main() {
   }
   printf("POMAK R\n");
   fflush(stdout);
-  
+
   for (int i = 0; i < 3; i++) {
     scanf("%s", s[i]);
   }
