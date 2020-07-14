@@ -1,19 +1,26 @@
 #include <bits/stdc++.h>
-#include <unistd.h>
 using namespace std;
-
-#define TRACE(x) cerr << #x << " = " << x << endl
-#define _ << " _ " <<
 
 #define x first
 #define y second
 
-const int MAXN = 500;
-const int LIMIT = 100;
+const int MAXPIXELS = 300000;
+const int MAGIC = 100;
 
 int n, m;
-int mat[MAXN][MAXN];
-bool vis[MAXN][MAXN];
+
+// Pomocna klasa koja pretvara 1D niz u 2D matricu dimenzije n x m.
+template<class T>
+class Array2d {
+ public:
+  T *operator[](size_t index) { return &data[index * m]; }
+
+ private:
+  T data[MAXPIXELS];
+};
+
+Array2d<int> mat;
+Array2d<bool> vis;
 
 const int dx[] = {-1, 0, 1, 0};
 const int dy[] = {0, -1, 0, 1};
@@ -29,22 +36,17 @@ struct Component {
 
 vector<Component> C;
 
-int comp_id[MAXN][MAXN];
-int comp_visited[MAXN * MAXN];  // used with cookie
+Array2d<int> comp_id;
+int comp_visited[MAXPIXELS];  // koristi se s cookiejem
 int comp_visited_cookie = 0;
-int parent[MAXN * MAXN];
+int parent[MAXPIXELS];
 
-int reals = 0;
 int RealId(int comp) {
-  reals++;
   if (parent[comp] == comp) return comp;
   return parent[comp] = RealId(parent[comp]);
 }
 
-#define ASSERT_ID(x) assert(parent[(x)] == (x))
-
 void TraverseNeighbors(int id, function<void(int)> callback) {
-  ASSERT_ID(id);
   comp_visited_cookie++;
   for (const auto &pt : C[id].pixels) {
     for (int i = 0; i < 4; ++i) {
@@ -52,7 +54,6 @@ void TraverseNeighbors(int id, function<void(int)> callback) {
       int ny = pt.y + dy[i];
       if (nx < 0 || ny < 0 || nx >= n || ny >= m) continue;
       int nid = comp_id[nx][ny];
-      ASSERT_ID(nid);
       if (nid != id && comp_visited[nid] != comp_visited_cookie) {
         callback(nid);
         comp_visited[nid] = comp_visited_cookie;
@@ -61,31 +62,29 @@ void TraverseNeighbors(int id, function<void(int)> callback) {
   }
 }
 
-void TraverseNeighborsByColor(int id, int color, function<void(int)> callback) {
-  ASSERT_ID(id);
+vector<int> GetNeighborsByColor(int id, int color) {
+  vector<int> ret;
   auto &comp = C[id];
   if (comp.large) {
     comp_visited_cookie++;
     for (const auto &nid_temp : comp.by_color[color]) {
       int nid = RealId(nid_temp);
-      ASSERT_ID(nid);
       if (nid != id && C[nid].color == color &&
           comp_visited[nid] != comp_visited_cookie) {
-        callback(nid);
+        ret.push_back(nid);
         comp_visited[nid] = comp_visited_cookie;
       }
     }
     comp.by_color[color].clear();  /// <------
   } else {
-    TraverseNeighbors(id, [&callback, color](int nid) {
-      if (C[nid].color == color)
-        callback(nid);
+    TraverseNeighbors(id, [&ret, color](int nid) {
+      if (C[nid].color == color) ret.push_back(nid);
     });
   }
+  return ret;
 }
 
 void DeclareLarge(int id) {
-  ASSERT_ID(id);
   C[id].large = true;
   TraverseNeighbors(id, [id](int nid) {
     C[nid].larges.push_back(id);
@@ -94,11 +93,9 @@ void DeclareLarge(int id) {
 }
 
 void TraverseLarges(int id, function<void(int)> callback) {
-  ASSERT_ID(id);
   comp_visited_cookie++;
   for (const auto &nid_temp : C[id].larges) {
     int nid = RealId(nid_temp);
-    ASSERT_ID(nid);
     if (nid != id && C[nid].large && comp_visited[nid] != comp_visited_cookie) {
       callback(nid);
       comp_visited[nid] = comp_visited_cookie;
@@ -107,20 +104,16 @@ void TraverseLarges(int id, function<void(int)> callback) {
 }
 
 void NeutralizeLarges(int id) {
-  ASSERT_ID(id);
   list<int> new_larges;
   TraverseLarges(id, [&new_larges](int nid) { new_larges.push_back(nid); });
   C[id].larges.swap(new_larges);
 }
 
 int Merge(int id1, int id2) {
-  ASSERT_ID(id1);
-  ASSERT_ID(id2);
-  
   if (!C[id1].large && C[id2].large) DeclareLarge(id1);
   if (C[id1].large && !C[id2].large) DeclareLarge(id2);
 
-  // Merge pixels...
+  // Spoji piksele
   if (C[id1].pixels.size() > C[id2].pixels.size()) swap(id1, id2);
   int nid = id2;
   parent[id1] = id2;
@@ -128,11 +121,11 @@ int Merge(int id1, int id2) {
     comp_id[pt.x][pt.y] = nid;
   C[id2].pixels.splice(C[id2].pixels.end(), C[id1].pixels);
 
-  // Merge list of large neighbors
+  // Spoji listu velikih susjeda
   C[id2].larges.splice(C[id2].larges.end(), C[id1].larges);
   NeutralizeLarges(id2);
 
-  // Merge neighbors by color:i
+  // Spoji susjede po bojama
   if (C[id1].by_color.size() > C[id2].by_color.size())
     C[id1].by_color.swap(C[id2].by_color);
   for (auto &entry : C[id1].by_color) {
@@ -142,8 +135,7 @@ int Merge(int id1, int id2) {
     list2.splice(list2.end(), list1);
   }
 
-  // Photo finish
-  if (!C[nid].large && C[nid].pixels.size() > LIMIT)
+  if (!C[nid].large && C[nid].pixels.size() > MAGIC)
     DeclareLarge(nid);
 
   return nid;
@@ -152,11 +144,7 @@ int Merge(int id1, int id2) {
 void Fill(int x, int y, int color) {
   int id = comp_id[x][y];
   C[id].color = color;
-  vector<int> neighbors;
-  TraverseNeighborsByColor(id, color, [&neighbors](int nid) {
-    neighbors.push_back(nid);
-  });
-  for (const auto &nid : neighbors) {
+  for (const auto &nid : GetNeighborsByColor(id, color)) {
     id = Merge(id, nid);
   }
   TraverseLarges(id, [id, color](int nid) {
@@ -198,20 +186,10 @@ void Init() {
   }
   iota(parent, parent + n * m, 0);
   for (auto &comp : C) {
-    if (comp.pixels.size() > LIMIT)
+    if (comp.pixels.size() > MAGIC)
       DeclareLarge(comp.id);
   }
 }
-
-void debug() {
-  for (int i = 0; i < n; ++i) {
-    for (int j = 0; j < m; ++j) cerr << C[comp_id[i][j]].color << " ";
-    for (int j = 0; j < m; ++j) cerr << " " << comp_id[i][j];
-    cerr << endl;
-  }
-  cerr << "--------------------" << endl;
-}
-
 
 int main(void) {
   cin >> n >> m;
@@ -229,7 +207,6 @@ int main(void) {
     int x, y, color;
     cin >> x >> y >> color;
     Fill(x - 1, y - 1, color);
-    // debug();
   }
 
   for (int i = 0; i < n; ++i) {
