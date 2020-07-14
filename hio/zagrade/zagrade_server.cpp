@@ -61,7 +61,7 @@ using namespace std;
 #define WA_PREMATURE_TERMINATION "Netocno, Vas program je zavrsio prije nego sto je ispisao rjesenje!"
 #define WAITING "Cekam..."
 #define CORRECT "Tocno! Broj upita: "
-#define WA_TOO_MANY_QUERIES "Netocno, Previse upita!"
+#define WA_TOO_MANY_QUERIES "Netocno, previse upita!"
 #define WAITING_FOR_SOLUTION "Cekam rjesenje..."
 
 #endif
