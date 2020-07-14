@@ -27,7 +27,7 @@ using namespace std;
 #define REP(i, n) FOR(i, 0, n)
 #define all(x) (x).begin(), (x).end()
 #define _ << " " <<
- 
+
 #define fi first
 #define sec second
 #define mp make_pair
@@ -36,23 +36,17 @@ using namespace std;
 #ifdef ENGLISH
 
 /******************************* ENGLISH ***************************************/
-
 #define CANNOT_READ_N "Input file error: cannot read integer n."
-#define N_OUT_OF_BOUNDS "Input file error: n has to be between %d and %d."
+#define N_OUT_OF_BOUNDS "Input file error: n needs to be between %d and %d."
 #define CANNOT_READ_Q "Input file error: cannot read integer q."
 #define CANNOT_READ_S "Input file error: cannot read S."
-#define WA_UNKNOWN_COMMAND "Netocno! Neispravna naredba!"
-#define WA_INCORRECT "Netocno! Duljina puta nija tocna!"
-#define PARTIAL_CORRECT "Tocno, ali previse upita za sve bodove!"
-#define WA_CANNOT_READ_ANS "Netocno! Ne mogu procitati duljinu puta!"
-#define WA_PREMATURE_TERMINATION "Netocno! Vas program je zavrsio prije nego je ispisao trazenu duljinu puta!"
-#define WAITING "Cekam...."
-#define WA_CANNOT_READ_POMAK "Netocno! Ne mogu procitati POMAK"
-#define CORRECT "Tocno! Broj upita: "
-#define WA_TOO_MANY_QUERIES "Netocno! Previse upita!"
-#define WAITING_FOR_SOLUTION "Cekam rjesenje"
-#define WA_INVALID_INTERVAL "Netocno, neispravan interval!"
-#define WA_CANNOT_READ_INTERVAL "Ne mogu procitati interval."
+#define WA_INCORRECT "Wrong answer!"
+#define WA_INVALID_COMMAND "Incorrect, invalid command!"
+#define WA_PREMATURE_TERMINATION "Incorrect, your program terminated before writing an answer!"
+#define WAITING "Waiting..."
+#define CORRECT "Correct! Number of queries: "
+#define WA_TOO_MANY_QUERIES "Incorrect, too many queries!"
+#define WAITING_FOR_SOLUTION "Waiting for solution..."
 
 #else
 
@@ -62,18 +56,13 @@ using namespace std;
 #define N_OUT_OF_BOUNDS "Neispravna ulazna datoteka: n mora biti izmedju %d i %d."
 #define CANNOT_READ_Q "Neispravna ulazna datoteka: ne mogu procitati broj q."
 #define CANNOT_READ_S "Neispravna ulazna datoteka: ne mogu procitati S."
-#define WA_CANNOT_READ_INTERVAL "Ne mogu procitati interval."
-#define WA_INVALID_INTERVAL "Netocno, neispravan interval!"
-#define WA_UNKNOWN_COMMAND "Netocno, neispravna naredba!"
-#define WA_INCORRECT "Netocno! Duljina puta nija tocna!"
-#define WA_CANNOT_READ_ANS "Netocno! Ne mogu procitati duljinu puta!"
-#define PARTIAL_CORRECT "Tocno, ali previse upita za sve bodove! Broj upita: "
-#define WA_PREMATURE_TERMINATION "Netocno! Vas program je zavrsio prije nego je ispisao trazenu duljinu puta!"
-#define WA_CANNOT_READ_POMAK "Netocno! Ne mogu procitati POMAK"
-#define WAITING "Cekam...."
+#define WA_INCORRECT "Netocno!"
+#define WA_INVALID_COMMAND "Netocno, neispravna naredba!"
+#define WA_PREMATURE_TERMINATION "Netocno, Vas program je zavrsio prije nego sto je ispisao rjesenje!"
+#define WAITING "Cekam..."
 #define CORRECT "Tocno! Broj upita: "
-#define WA_TOO_MANY_QUERIES "Netocno! Previse upita!"
-#define WAITING_FOR_SOLUTION "Cekam rjesenje"
+#define WA_TOO_MANY_QUERIES "Netocno, Previse upita!"
+#define WAITING_FOR_SOLUTION "Cekam rjesenje..."
 
 #endif
 
@@ -124,10 +113,10 @@ void main_problem_interaction() {
   const string END_COMMAND = "!";
 
 
-  int n, q; 
+  int n, q;
   test_condition(bool(finput >> n), CANNOT_READ_N);
   test_condition(bool(finput >> q), CANNOT_READ_Q);
-    
+
   string s;
   test_condition(bool(finput >> s), CANNOT_READ_S);
 
@@ -165,11 +154,11 @@ void main_problem_interaction() {
 
     ++query_count;
     test_condition(query_count <= QUERY_LIMIT, WA_TOO_MANY_QUERIES);
-    test_condition(cmd == QUERY_COMMAND, WA_UNKNOWN_COMMAND);
+    test_condition(cmd == QUERY_COMMAND, WA_INVALID_COMMAND);
 
     int a, b;
-    test_condition(bool(cin >> a >> b), WA_CANNOT_READ_INTERVAL, query_count);
-    test_condition(1 <= a && a <= b && b <= n, WA_INVALID_INTERVAL);
+    test_condition(bool(cin >> a >> b), WA_INVALID_COMMAND, query_count);
+    test_condition(1 <= a && a <= b && b <= n, WA_INVALID_COMMAND);
 
     // Send the answer
     send_answer(a, b);
@@ -180,7 +169,7 @@ void main_problem_interaction() {
 
   string ans;
 
-  test_condition(bool(cin >> ans), WA_CANNOT_READ_ANS);
+  test_condition(bool(cin >> ans), WA_INCORRECT);
 
   // Check the answers
   flog << "Contestant answer: " << ans << endl;
