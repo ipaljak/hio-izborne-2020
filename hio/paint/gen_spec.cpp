@@ -8,12 +8,22 @@ using namespace std;
 #define x first
 #define y second
 
-const int MAXN = 500;
+const int MAXPIXELS = 250000;
 const int LIMIT = 100;
 
 int n, m;
-int mat[MAXN][MAXN];
-bool vis[MAXN][MAXN];
+
+template<class T>
+class Array2d {
+ public:
+  T *operator[](size_t index) { return &data[index * m]; }
+
+ private:
+  T data[MAXPIXELS];
+};
+
+Array2d<int> mat;
+Array2d<bool> vis;
 
 const int dx[] = {-1, 0, 1, 0};
 const int dy[] = {0, -1, 0, 1};
@@ -29,10 +39,10 @@ struct Component {
 
 vector<Component> C;
 
-int comp_id[MAXN][MAXN];
-int comp_visited[MAXN * MAXN];  // used with cookie
+Array2d<int> comp_id;
+int comp_visited[MAXPIXELS];  // used with cookie
 int comp_visited_cookie = 0;
-int parent[MAXN * MAXN];
+int parent[MAXPIXELS];
 
 int reals = 0;
 int RealId(int comp) {
@@ -203,9 +213,9 @@ void Init() {
   }
 }
 
-const int N = 500;
+const int PIXELS = 200000;
 
-void CreatePath(int lx, int ly, int hx, int hy, int color) {
+void CreatePathInternal(int lx, int ly, int hx, int hy, int color) {
   vector<int> dx = {1}, dy = {1};
   if (hx - lx > hy - ly) dy.push_back(-1);
   else dx.push_back(-1);
@@ -230,6 +240,11 @@ void CreatePath(int lx, int ly, int hx, int hy, int color) {
   }
 }
 
+void CreatePath(int lx, int ly, int hx, int hy, int color) {
+  for (int step = 0; step < 2; ++step)
+    CreatePathInternal(lx, ly, hx, hy, color);
+}
+
 int RandomNeighbor(int x, int y) {
   int dx = 0, dy = 1;
   if (rand() % 2) dy = -1;
@@ -247,16 +262,15 @@ int RandomNeighbor(int x, int y) {
 int main(int argc, char **argv) {
   int seed = atoi(argv[1]);
   srand(seed);
-  int q = atoi(argv[2]);
+  n = atoi(argv[2]);
+  m = atoi(argv[3]);
+  int q = atoi(argv[4]);
   int d = 1;  // default debljina
   int s = 0;  // default razmak
-  if (argc >= 4) d = atoi(argv[3]);
-  if (argc >= 5) s = atoi(argv[4]);
+  if (argc >= 6) d = atoi(argv[5]);
+  if (argc >= 7) s = atoi(argv[6]);
   int c = 100000;  // defaultna maksimalna oznaka boje
-  if (argc >= 6) c = atoi(argv[5]);
-
-  n = N - rand() % 5;
-  m = N - rand() % 5;
+  if (argc >= 8) c = atoi(argv[7]);
 
   for (int i = 0; i < n; ++i)
     for (int j = 0; j < m; ++j)

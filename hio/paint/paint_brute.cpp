@@ -1,14 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAXN = 505;
+const int MAXPIXELS = 300000;
 
 const int dx[] = {-1, 0, 1, 0};
 const int dy[] = {0, -1, 0, 1};
 
 int n, m;
-int mat[MAXN][MAXN];
-int vis[MAXN][MAXN];
+
+template<class T>
+class Array2d {
+ public:
+  T *operator[](size_t index) { return &data[index * m]; }
+
+ private:
+  T data[MAXPIXELS];
+};
+
+Array2d<int> mat;
+Array2d<int> vis;
 int cookie = 0;
 
 void fill(int x, int y, int color, int orig_color) {
@@ -37,7 +47,8 @@ int main(void) {
     cin >> x >> y >> color;
     x--; y--;
     cookie++;
-    fill(x, y, color, mat[x][y]);
+    if (color != mat[x][y])
+      fill(x, y, color, mat[x][y]);
   }
 
   for (int i = 0; i < n; ++i) {
