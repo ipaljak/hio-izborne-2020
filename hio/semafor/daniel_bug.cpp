@@ -87,11 +87,11 @@ void precompute_binoms(int n) {
 
 ll N, M, K;
 int X;
-int sz;
+int sz; 
 int nums;
 int numbits;
 vector<int> halves = {31, 31 << 5};
-vector<int> digits = {0,    2,    1+8,  1+2+4,     2+16,
+vector<int> digits = {2+8,    2,    1+8,  1+2+4,     2+16, 
                       1+4+16, 4+8,  1+2,  1+4+8+16, 1+2+4+16};
 bool is_digit[33];
 
@@ -99,7 +99,7 @@ int to_mask(int Y) {
   int ret = digits[Y % 10];
   if (M == 2) {
     ret += (digits[Y / 10] << 5);
-    }
+  }
   return ret;
 }
 
@@ -143,7 +143,7 @@ Matrix get_intermediate_matrix(ll pot) {
 }
  
 void solve() {
-  TRACE(K);
+  //TRACE(K);
   precompute_binoms(numbits + 1);
   Matrix A = get_intermediate_matrix(K);
   Matrix B = get_intermediate_matrix(N % K);
