@@ -19,18 +19,28 @@ typedef pair <ll, ll> pll;
 #define pb push_back
 
 const int MAXN = 505;
-const int GRANICA = 500;
+const int GRANICA = 3000;
 
 const int smjerx[] = {1, -1, 0, 0};
 const int smjery[] = {0, 0, -1, 1};
 
+int n, m;
+
+template<class T>
+struct Array2d {
+  T *operator[](int index) { return &data[index * m]; }
+  T data[MAXN * MAXN];
+};
+
 int par[MAXN * MAXN];
 pii tko[MAXN * MAXN];
 
-int n, m, p[MAXN][MAXN];
-int pos[MAXN][MAXN], sz[MAXN * MAXN];
+Array2d<int> p;
+Array2d<int> pos;
+int sz[MAXN * MAXN];
 
-int bio[MAXN][MAXN], cookie;
+Array2d<int> bio;
+int cookie;
 
 int find(int x) {
   if (x == par[x]) return x;

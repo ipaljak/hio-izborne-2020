@@ -129,10 +129,10 @@ Matrix get_intermediate_matrix(ll pot) {
     P.a[i][i+1] = numbits - i; 
   } 
   P.a[numbits][numbits-1] = numbits;
-  cerr << P << endl;
+  //cerr << P << endl;
 
   P = P ^ pot; 
-  cerr << P << endl;
+  //cerr << P << endl;
 
   Matrix A(sz, 0);
   REP(i, sz) REP(j, sz) {
@@ -143,7 +143,7 @@ Matrix get_intermediate_matrix(ll pot) {
 }
  
 void solve() {
-  TRACE(K);
+  //TRACE(K);
   precompute_binoms(numbits + 1);
   Matrix A = get_intermediate_matrix(K);
   Matrix B = get_intermediate_matrix(N % K);

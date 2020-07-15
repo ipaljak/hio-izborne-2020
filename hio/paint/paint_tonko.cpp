@@ -5,7 +5,7 @@ using namespace std;
 #define y second
 
 const int MAXPIXELS = 300000;
-const int MAGIC = 100;
+const int MAGIC = 400;
 
 int n, m;
 
