@@ -9,7 +9,7 @@ TASK=paint
 ./gen_spec 106 88 110 10000 3 2 10 > test/$TASK.in.1f
 
 # Subtask 2
-./gen 201 1 50000 100000 5 > test/$TASK.in.2a
+./gen 201 1 50000 100000 10 > test/$TASK.in.2a
 ./gen 202 1 100000 100000 3 > test/$TASK.in.2b
 ./gen_line 203 200000 100000 > test/$TASK.in.2c
 
