@@ -4,9 +4,16 @@ import sys
 n = int(sys.argv[1])
 k = int(sys.argv[2])
 
-print(n, k)
+color, edges, black = [0], [], []
 
 for i in range(2, n + 1):
-    print(random.randint(1, i - 1), i)
+    p = random.randint(1, i - 1)
+    edges.append([p, i])
+    color.append(1 - color[p - 1])
+    if color[-1]: black.append(i)
 
-print(*random.choices(range(1, n + 1), k=k))
+k = min(k, len(black))
+
+print(n, k)
+for e in edges: print(*e)
+print(*random.choices(black, k=k))
