@@ -40,14 +40,15 @@ primijenjen alat za ispunu. Vaš je zadatak odrediti završno stanje slike.
 \subsection*{Ulazni podaci}
 U prvom su retku prirodni brojevi $R$ i $S$ iz teksta zadatka.
 
-U sljedećih je $R$ redaka po $S$ nenegativnih cijelih brojeva manjih od $10^9$
-koji predstavljaju početnu sliku u programu \textit{MS Paint}. Preciznije,
-$j$-ti broj $i$-tog retka slike predstavlja boju piksela na polju $(i, j)$.
+U sljedećih je $R$ redaka po $S$ nenegativnih cijelih brojeva manjih od
+$100\,000$ koji predstavljaju početnu sliku u programu \textit{MS Paint}.
+Preciznije, $j$-ti broj $i$-tog retka slike predstavlja boju piksela na polju
+$(i, j)$.
 
 U sljedećem je retku prirodan broj $Q$ iz teksta zadatka.
 
 U $i$-tom od sljedećih $Q$ redaka nalaze se brojevi $r_i$, $s_i$ i
-$c_i$ $(1 \le r_i \le R, 1 \le s_i \le S, 0 \le c_i < 10^9)$, koji
+$c_i$ $(1 \le r_i \le R, 1 \le s_i \le S, 0 \le c_i < 100\,000)$, koji
 označavaju ($i$-tu) primjenu kantice napunjene bojom $c_i$ na polje $(r_i,
 s_i)$.
 
@@ -64,7 +65,11 @@ zadano u ulazu.
   \setlength{\tabcolsep}{6pt}
   \begin{tabular}{ccl}
  Podzadatak & Broj bodova & Ograničenja \\ \midrule
-  ?? & ?? &  \\
+  1 & 8 & $1 \le R \cdot S \le 10\,000$, $1 \le Q \le 10\,000$ \\
+  2 & 9 & $R = 1$, $1 \le S \le 100\,000$, $1 \le Q \le 100\,000$ \\
+    3 & 31 & \makecell[l] { $1 \le R \cdot S \le 100\,000$, $1 \le Q \le 100\,000$ \\
+    Svaki piksel će u svakom trenutku biti obojen ili u boju $0$ ili u boju $1$.} \\
+    4 & 52 & $1 \le R \cdot S \le 100\,000$, $1 \le Q \le 100\,000$
 \end{tabular}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
