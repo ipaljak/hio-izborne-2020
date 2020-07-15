@@ -8,10 +8,11 @@ def check(lines):
     nl = []   # ispravno formatirane linije
     E = "\n"  # line ending
 
-    n = int(lines[0].strip())
-    assert 1 <= n <= 10**6, "n izvan intervala"
+    n, q= map(int, lines[0].split())
+    assert 1 <= n <= 10**5, "n izvan intervala"
     assert n % 2 == 0, "n mora biti paran"
-    nl.append("{}{}".format(n, E));
+    assert 1 <= q <= n * n / 4, "q izvan intervala"
+    nl.append("{} {}{}".format(n, q, E));
 
     s = lines[1].strip()
     assert len(s) == n, "kriva duljina izraza"
@@ -31,7 +32,7 @@ def check(lines):
 
     assert lines == nl, "Krivi format (%s vs %s)" % (lines, nl)
     assert lines[-1][-1] == "\n", "Zadnji red ne zavrsava sa \\n"
-    return {'n': n, 'valid': valid}
+    return {'n': n, 'q': q, 'valid': valid}
 
 
 # Ocekivani clusteri! Ovo vjerojatno zelis promijeniti!
@@ -41,10 +42,10 @@ expected_clusters = {'Subtask 1': 1, "Subtask 2": 1, "Subtask 3": 1, "Subtask 4"
 def what_cluster(data):
     # na temelju povratne informacije iz check(lines)
     # zakljucuje za TP u kojoj je bodovnoj sekciji
-    if data['n'] <= 1000 and data['valid']: return "Subtask 1"
-    if data['n'] <= 1000: return "Subtask 2"
-    if data['valid']: return "Subtask 3"
-    return "Subtask 4"
+    if data['n'] <= 1000 and data['q'] == data['n'] ** 2 / 4 and data['valid']: return "Subtask 1"
+    if data['n'] <= 1000 and data['q'] == data['n'] ** 2 / 4: return "Subtask 2"
+    if data['n'] <= 100000 and data['q'] == data['n'] - 1 and data['valid']: return "Subtask 3"
+    if data['n'] <= 100000 and data['q'] == data['n'] - 1: return "Subtask 4"
 
 ################### Zadatak-specifican kod iznad ove linije #########################
 
