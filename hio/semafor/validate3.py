@@ -21,7 +21,7 @@ def check(lines):
 
 
 # Ocekivani clusteri! Ovo vjerojatno zelis promijeniti!
-expected_clusters = {'Subtask 1': 1, 'Subtask 2': 1, 'Subtask 3': 1, 'Subtask 4': 1, 'Subtask 5': 1}
+expected_clusters = {'Subtask 1': 1, 'Subtask 2': 1, 'Subtask 3': 1, 'Subtask 4': 1, 'Subtask 5': 1, 'Subtask 6': 1}
 
 
 def what_cluster(data):
@@ -31,7 +31,8 @@ def what_cluster(data):
     if data['m'] == 1 and data['n'] <= 10**15: return 'Subtask 2'
     if data['m'] == 2 and data['n'] <= 1500 and data['k'] == data['n']: return 'Subtask 3'
     if data['m'] == 2 and data['n'] <= 10**15 and data['k'] <= 15: return 'Subtask 4'
-    return 'Subtask 5'
+    if data['m'] == 2 and data['n'] <= 10**15 and data['k'] <= 1500: return 'Subtask 5'
+    return 'Subtask 6'
 
 
 ################### Zadatak-specifican kod iznad ove linije #########################
