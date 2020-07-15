@@ -18,6 +18,7 @@ struct testni{
 
 const int rnd_base = 100003;
 const ll MAXN = (ll)1e15;
+const ll max_k_sub_5 = 1500;
 
 bool provjeri_testni(testni x, int idx){
 	ll gran_n = MAXN;
@@ -27,7 +28,13 @@ bool provjeri_testni(testni x, int idx){
 	if(idx == 3){
 		gran_n = 1500;
 	}
-	ll gran_k = (idx == 4 ? min(x.n, 15LL) : x.n);
+	ll gran_k = x.n;
+	if(idx == 4){
+		gran_k = min(gran_k, 15LL);
+	}
+	if(idx == 5){
+		gran_k = min(gran_k, max_k_sub_5);
+	}
 	int br = (idx <= 2 ? 1 : 2);
 	int gran = (br == 1 ? 10 : 100);
 	if(idx == 3 && x.k != x.n)
@@ -83,20 +90,81 @@ void gen_dummys(){
 }
 
 void gen_subtask_1(){//br = 1, 1 <= k <= n <= 12
-	char sad = 'a';
-	for(int i = 1 ; i <= 12 ; i += min(2 * i, 3)){
-		int br = 1;
-		int gran = (br == 1 ? 10 : 100);
-		ll n = i;
-		ll k = rand() % n + 1;
-		ll X = rand() % gran;
-		testni t = (testni){br, n, k, X};
+	char c = 'a';
+	int br = 1;
+	int gran = (br == 1 ? 10 : 100);
+	ll n = 1;//n = 1, k = 1, X rand
+	ll k = 1;
+	ll X = rand() % gran;
+	testni t = (testni){br, n, k, X};
+	if(!provjeri_testni(t, 1)){
+		cout << "Greska pri izradi testnih primjera za subtask 1!" << endl;
+		exit(1);
+	}
+	napisi_u_file(t, 1, c);
+	c++;
+	for(int i = 0 ; i < 2 ; ++i){//3 <= n <= 9, rand k, rand X
+		n = rand() % 7 + 3;
+		k = rand() % n + 1;
+		X = rand() % gran;
+		t = (testni){br, n, k, X};
 		if(!provjeri_testni(t, 1)){
 			cout << "Greska pri izradi testnih primjera za subtask 1!" << endl;
 			exit(1);
 		}
-		napisi_u_file(t, 1, sad);
-		sad++;
+		napisi_u_file(t, 1, c);
+		c++;
+	}
+	for(int i = 10 ; i <= 11 ; ++i){//n = 10, 11, rand k, rand X
+		n = i;
+		k = rand() % n + 1;
+		X = rand() % gran;
+		t = (testni){br, n, k, X};
+		if(!provjeri_testni(t, 1)){
+			cout << "Greska pri izradi testnih primjera za subtask 1!" << endl;
+			exit(1);
+		}
+		napisi_u_file(t, 1, c);
+		c++;
+	}
+	n = 12;//n = 12, k = 12, X rand 
+	k = 12;
+	X = rand() % gran;
+	t = (testni){br, n, k, X};
+	if(!provjeri_testni(t, 1)){
+		cout << "Greska pri izradi testnih primjera za subtask 1!" << endl;
+		exit(1);
+	}
+	napisi_u_file(t, 1, c);
+	c++;
+	for(int i = 11 ; i <= 12 ; ++i){
+		n = i;//n = 11, 12, k = rand(), k = 1(mod 2), X rand 
+		k = rand() % n;
+		k += ((k & 1) ^ 1);
+		X = rand() % gran;
+		t = (testni){br, n, k, X};
+		if(!provjeri_testni(t, 1)){
+			cout << "Greska pri izradi testnih primjera za subtask 1!" << endl;
+			exit(1);
+		}
+		napisi_u_file(t, 1, c);
+		c++;
+	}
+	for(int i = 11 ; i <= 12 ; ++i){
+		n = i;//n = 11, 12, k = rand(), k = 0(mod 2), X rand 
+		k = rand() % n + 1;
+		if(k == 11){
+			k--;
+		}
+		k += (k & 1);
+		X = rand() % gran;
+		t = (testni){br, n, k, X};
+		if(!provjeri_testni(t, 1)){
+			cout << "Greska pri izradi testnih primjera za subtask 1!" << endl;
+			exit(1);
+		}
+		napisi_u_file(t, 1, c);
+		c++;
 	}
 }
 
@@ -348,15 +416,15 @@ void gen_subtask_4(){//br = 2, 1 <= n <= 10^15, k <= 15
 	c++;
 }
 
-void gen_subtask_5(){//br = 2, 1 <= k <= n <= 10^15
+void gen_subtask_5(){//br = 2, 1 <= n <= 10^15, 1 <= k <= 1500
 	char c = 'a';
 	int br = 2;
 	int gran = (br == 1 ? 10 : 100);
 	ll val = (ll)1e4;
 	ll sad = val;
-	for(int i = 0 ; i < 3 ; ++i){//n = 10^4, 10^8, 10^15, k random X random
+	for(int i = 0 ; i < 3 ; ++i){//n = 10^4, 10^8, 10^15, k random <= 1500 X random
 		ll n = sad;
-		ll k = veliki_rand() % n + 1;
+		ll k = rand() % min(n, max_k_sub_5) + 1;
 		ll X = rand() % gran;
 		testni t = (testni){br, n, k, X};
 		if(!provjeri_testni(t, 5)){
@@ -371,7 +439,7 @@ void gen_subtask_5(){//br = 2, 1 <= k <= n <= 10^15
 	ll dif = (ll)9e14;
 	for(int i = 0 ; i < 4 ; ++i){// 10^14 <= n < 10^15, k random
 		ll n = val + veliki_rand() % dif;
-		ll k = veliki_rand() % n + 1;
+		ll k = rand() % min(n, max_k_sub_5) + 1;
 		ll X = rand() % gran;
 		testni t = (testni){br, n, k, X};
 		if(!provjeri_testni(t, 5)){
@@ -401,8 +469,8 @@ void gen_subtask_5(){//br = 2, 1 <= k <= n <= 10^15
 	}
 	napisi_u_file(t, 5, c);
 	c++;
-	n = MAXN;//n = 10^15, k rand
-	k = veliki_rand() % n + 1;
+	n = MAXN;//n = 10^15, k rand <= 1500
+	k = rand() % min(n, max_k_sub_5) + 1;
 	X = rand() % gran;
 	t = (testni){br, n, k, X};
 	if(!provjeri_testni(t, 5)){
@@ -411,8 +479,8 @@ void gen_subtask_5(){//br = 2, 1 <= k <= n <= 10^15
 	}
 	napisi_u_file(t, 5, c);
 	c++;
-	n = MAXN;//n = 10^15, k = rand >= 10^15 - 15
-	k = MAXN - rand() % 16;
+	n = MAXN;//n = 10^15, k = rand >= 1500 - 15
+	k = max_k_sub_5 - rand() % 16;
 	X = rand() % gran;
 	t = (testni){br, n, k, X};
 	if(!provjeri_testni(t, 5)){
@@ -421,8 +489,8 @@ void gen_subtask_5(){//br = 2, 1 <= k <= n <= 10^15
 	}
 	napisi_u_file(t, 5, c);
 	c++;
-	n = MAXN;//n = 10^15, k = 10^15
-	k = MAXN;
+	n = MAXN;//n = 10^15, k = 1500
+	k = max_k_sub_5;
 	X = rand() % gran;
 	t = (testni){br, n, k, X};
 	if(!provjeri_testni(t, 5)){
@@ -452,7 +520,7 @@ void gen_subtask_5(){//br = 2, 1 <= k <= n <= 10^15
 	napisi_u_file(t, 5, c);
 	c++;
 	n = veliki_rand() % MAXN + 1;//n rand <= 10^15, k <= n, X rand < 10
-	k = veliki_rand() % n + 1;
+	k = rand() % min(n, max_k_sub_5) + 1;
 	X = rand() % 10;
 	t = (testni){br, n, k, X};
 	if(!provjeri_testni(t, 5)){
@@ -460,6 +528,121 @@ void gen_subtask_5(){//br = 2, 1 <= k <= n <= 10^15
 		exit(5);
 	}
 	napisi_u_file(t, 5, c);
+	c++;
+}
+
+void gen_subtask_6(){//br = 2, 1 <= k <= n <= 10^15
+	char c = 'a';
+	int br = 2;
+	int gran = (br == 1 ? 10 : 100);
+	ll val = (ll)1e4;
+	ll sad = val;
+	for(int i = 0 ; i < 3 ; ++i){//n = 10^4, 10^8, 10^15, k random X random
+		ll n = sad;
+		ll k = veliki_rand() % n + 1;
+		ll X = rand() % gran;
+		testni t = (testni){br, n, k, X};
+		if(!provjeri_testni(t, 6)){
+			cout << "Greska pri izradi testnih primjera za subtask 6!" << endl;
+			exit(6);
+		}
+		napisi_u_file(t, 6, c);
+		sad *= val;
+		c++;
+	}
+	val = (ll)1e14;
+	ll dif = (ll)9e14;
+	for(int i = 0 ; i < 4 ; ++i){// 10^14 <= n < 10^15, k random
+		ll n = val + veliki_rand() % dif;
+		ll k = veliki_rand() % n + 1;
+		ll X = rand() % gran;
+		testni t = (testni){br, n, k, X};
+		if(!provjeri_testni(t, 6)){
+			cout << "Greska pri izradi testnih primjera za subtask 6!" << endl;
+			exit(6);
+		}
+		napisi_u_file(t, 6, c);
+		c++;
+	}
+	ll n = MAXN;//n = 10^15, k = 1
+	ll k = 1;
+	ll X = rand() % gran;
+	testni t = (testni){br, n, k, X};
+	if(!provjeri_testni(t, 6)){
+		cout << "Greska pri izradi testnih primjera za subtask 6!" << endl;
+		exit(6);
+	}
+	napisi_u_file(t, 6, c);
+	c++;
+	n = MAXN;//n = 10^15, k rand <= 15
+	k = rand() % 15 + 1;
+	X = rand() % gran;
+	t = (testni){br, n, k, X};
+	if(!provjeri_testni(t, 6)){
+		cout << "Greska pri izradi testnih primjera za subtask 6!" << endl;
+		exit(6);
+	}
+	napisi_u_file(t, 6, c);
+	c++;
+	n = MAXN;//n = 10^15, k rand
+	k = veliki_rand() % n + 1;
+	X = rand() % gran;
+	t = (testni){br, n, k, X};
+	if(!provjeri_testni(t, 6)){
+		cout << "Greska pri izradi testnih primjera za subtask 6!" << endl;
+		exit(6);
+	}
+	napisi_u_file(t, 6, c);
+	c++;
+	n = MAXN;//n = 10^15, k = rand >= 10^15 - 15
+	k = MAXN - rand() % 16;
+	X = rand() % gran;
+	t = (testni){br, n, k, X};
+	if(!provjeri_testni(t, 6)){
+		cout << "Greska pri izradi testnih primjera za subtask 6!" << endl;
+		exit(6);
+	}
+	napisi_u_file(t, 6, c);
+	c++;
+	n = MAXN;//n = 10^15, k = 10^15
+	k = MAXN;
+	X = rand() % gran;
+	t = (testni){br, n, k, X};
+	if(!provjeri_testni(t, 6)){
+		cout << "Greska pri izradi testnih primjera za subtask 6!" << endl;
+		exit(6);
+	}
+	napisi_u_file(t, 6, c);
+	c++;
+	n = 10;//n = 10, k rand <= n
+	k = rand() % n + 1;
+	X = rand() % gran;
+	t = (testni){br, n, k, X};
+	if(!provjeri_testni(t, 6)){
+		cout << "Greska pri izradi testnih primjera za subtask 6!" << endl;
+		exit(6);
+	}
+	napisi_u_file(t, 6, c);
+	c++;
+	n = 100;//n = 100, k rand <= n
+	k = rand() % n + 1;
+	X = rand() % gran;
+	t = (testni){br, n, k, X};
+	if(!provjeri_testni(t, 6)){
+		cout << "Greska pri izradi testnih primjera za subtask 6!" << endl;
+		exit(6);
+	}
+	napisi_u_file(t, 6, c);
+	c++;
+	n = veliki_rand() % MAXN + 1;//n rand <= 10^15, k <= n, X rand < 10
+	k = veliki_rand() % n + 1;
+	X = rand() % 10;
+	t = (testni){br, n, k, X};
+	if(!provjeri_testni(t, 6)){
+		cout << "Greska pri izradi testnih primjera za subtask 6!" << endl;
+		exit(6);
+	}
+	napisi_u_file(t, 6, c);
 	c++;
 }
 
@@ -471,7 +654,7 @@ gen_subtask_2();
 gen_subtask_3();
 gen_subtask_4();
 gen_subtask_5();
+gen_subtask_6();
 
 return 0;
 }
-
