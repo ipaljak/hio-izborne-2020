@@ -35,10 +35,9 @@ int main(int argc, char **argv) {
     color[i] = rand() % c;
   }
 
-  int cc = rand() % c;
-  for (int i = 0; i < n; i += 1 + rand() % 3) {
-    color[i] = cc;
-  }
+  int ccc = rand() % c;
+  for (int i = n/4 + 5000; i < 3*n/4 - 5000; ++i)
+    color[i] = ccc;
 
   cout << 1 << " " << n << endl;
   for (int i = 0; i < n; ++i) {
@@ -50,7 +49,7 @@ int main(int argc, char **argv) {
  
   while (q) {
     int p = rand() % n;
-    if (rand() % 100 < 90) {
+    if (rand() % 100 < 85) {
       p = rand() % (n / 10) + (n / 2);
     }
     int col = get_color(p);
