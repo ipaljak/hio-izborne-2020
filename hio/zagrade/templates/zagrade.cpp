@@ -3,8 +3,8 @@
 using namespace std;
 
 int main() {
-    int n, odgovor;
-    cin >> n;
+    int n, q, odgovor;
+    cin >> n >> q;
 
     cout << "? 1 6" << endl;
     cout.flush();
