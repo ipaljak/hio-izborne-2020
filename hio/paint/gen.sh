@@ -29,9 +29,10 @@ TASK=paint
 ./gen_spec2 406 300 600 100000 10 12 > test/$TASK.in.4f
 ./gen_spec2 407 300 600 100000 20 12 > test/$TASK.in.4g
 ./gen_spec2 408 300 600 100000 35 12 > test/$TASK.in.4h
+./gen_spec 409 30 6300 100000 3 2 > test/$TASK.in.4i
 
 for t in {1..4}; do
-  for i in {a..h}; do
+  for i in {a..i}; do
     ./paint_tonko < test/$TASK.in.$t$i > test/$TASK.out.$t$i
   done
 done
