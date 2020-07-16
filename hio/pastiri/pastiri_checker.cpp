@@ -130,12 +130,9 @@ void checker(ifstream& fin, ifstream& foff, ifstream& fout)
     
   bool first_part = (official_output_val == c_output);
   bool second_part = valid && check_second_part(c_recon, N, adj, sheep);
-
-  // Todo: adjust partial scoring
+  
   if (first_part && second_part) {
     finish(1.0, CORRECT);
-  } else if (first_part) {
-    finish(0.5, PARTIAL_FIRST);
   } else {
     finish(0.0, WRONG);
   }
