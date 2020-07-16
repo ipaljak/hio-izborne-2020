@@ -11,7 +11,7 @@ typedef long long ll;
 const int msk[11] = {10, 2, 9, 7, 18, 21, 12, 3, 29, 23};
 const ll mod = (ll)1e9 + 7;
 const int MAXN = 100;
-const int max_k = 15;
+const int max_k = 1500;
 const int seg_sz = 5;
 ll n, k, X, val[MAXN + 5][MAXN + 5], dp[max_k + 5][(1 << (2 * seg_sz + 1)) + 5], c[MAXN + 5][MAXN + 5], d[MAXN + 5][MAXN + 5];
 int br, broj, gran;
