@@ -33,10 +33,10 @@ Matematičku validnost niza zagrada definiramo induktivno na sljedeći način:
 
 \begin{itemize}
   \item \texttt{()} je matematički validan niz zagrada.
-  \item Ako je \texttt{A} matematički validan niz zagrada, tada je i
-        \texttt{(A)} matematički validan niz zagrada.
-  \item Ako su \texttt{A} i \texttt{B} matematički validni nizovi zagrada,
-        tada je i \texttt{AB} matematički validan niz zagrada.
+  \item Ako je $A$ matematički validan niz zagrada, tada je i
+    \texttt{(}$A$\texttt{)} matematički validan niz zagrada.
+  \item Ako su $A$ i $B$ matematički validni nizovi zagrada,
+        tada je i $AB$ matematički validan niz zagrada.
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -48,7 +48,8 @@ izrađenim od strane organizatora koji simulira funkcionalnost
 teksta zadatka.
 
 Prije interakcije vaš program treba sa standardnog ulaza pročitati paran
-prirodan broj $N$ koji predstavlja duljinu tajne lozinke.
+prirodan broj $N$ koji predstavlja duljinu tajne lozinke te prirodan broj $Q$
+koji predstavlja broj upita koje vaš program smije poslati.
 
 Nakon toga, vaš program može slati upite pisanjem na standardni izlaz. Svaki
 upit treba biti ispisan u zaseban redak te poprimati oblik
@@ -57,8 +58,7 @@ gdje vrijedi $1 \le a \le b \le N$. Nakon svakog ispisanog upita, vaš program
 treba napraviti \textit{flush} izlaza te sa standardnog ulaza pročitati
 \textit{odgovor} na upit -- broj $1$ ako je interval lozinke koji započinje
 $a$-tim, a završava $b$-tim znakom matematički validan, odnosno $0$ ako to
-nije. Vaš program smije poslati najviše $Q$ upita (pogledajte poglavlje o
-bodovanju).
+nije. Vaš program smije poslati najviše $Q$ ovakvih upita.
 
 Kada je vaš program odgonetnuo tajnu lozinku, treba na standardni izlaz
 ispisati redak oblika ``\texttt{!} \textit{$x_1x_2\dots x_N$}'' gdje znakovi
@@ -89,7 +89,7 @@ izvornih kodova koji na ispravan način obavljaju interakciju, uključujući
   \setlength{\tabcolsep}{6pt}
   \begin{tabular}{lcl}
     Izlaz & Ulaz & Napomena \\ \midrule
-      & 6 & Tajna lozinka je \texttt{((()))}, duljine 6. \\
+      & 6 9 & Tajna lozinka je \texttt{((()))}, duljine 6, a program smije postaviti najviše $9$ upita. \\
     \texttt{\frenchspacing? 1 6} & \texttt{1} & Cijela lozinka je matematički validan niz zagrada. \\
     \texttt{\frenchspacing? 1 2} & \texttt{0} & \texttt{((} nije matematički validan niz zagrada. \\
     \texttt{\frenchspacing? 2 4} & \texttt{0} & \texttt{(()} nije matematički validan niz zagrada. \\
