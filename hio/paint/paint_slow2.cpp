@@ -29,9 +29,9 @@ struct Component {
   int id;
   int color;
   bool large;
-  list<pair<int, int>> pixels;
-  list<int> larges;
-  map<int, list<int>> by_color;
+  vector<pair<int, int>> pixels;
+  vector<int> larges;
+  map<int, vector<int>> by_color;
 };
 
 vector<Component> C;
@@ -104,7 +104,7 @@ void TraverseLarges(int id, function<void(int)> callback) {
 }
 
 void NeutralizeLarges(int id) {
-  list<int> new_larges;
+  vector<int> new_larges;
   TraverseLarges(id, [&new_larges](int nid) { new_larges.push_back(nid); });
   C[id].larges.swap(new_larges);
 }
@@ -119,10 +119,16 @@ int Merge(int id1, int id2) {
   parent[id1] = id2;
   for (const auto &pt : C[id1].pixels)
     comp_id[pt.x][pt.y] = nid;
-  C[id2].pixels.splice(C[id2].pixels.end(), C[id1].pixels);
+  for (const auto &pixel : C[id1].pixels)
+    C[id2].pixels.push_back(pixel);
+  vector<pair<int, int>>().swap(C[id1].pixels);
 
   // Spoji listu velikih susjeda
-  C[id2].larges.splice(C[id2].larges.end(), C[id1].larges);
+  if (C[id1].larges.size() > C[id2].larges.size())
+    C[id1].larges.swap(C[id2].larges);
+  for (const auto &l : C[id1].larges)
+    C[id2].larges.push_back(l);
+  vector<int>().swap(C[id1].larges);
   NeutralizeLarges(id2);
 
   // Spoji susjede po bojama
@@ -132,7 +138,10 @@ int Merge(int id1, int id2) {
     int color = entry.first;
     auto &list1 = entry.second;
     auto &list2 = C[id2].by_color[color];
-    list2.splice(list2.end(), list1);
+    if (list1.size() > list2.size()) list1.swap(list2);
+    for (const auto &el : list1)
+      list2.push_back(el);
+    vector<int>().swap(list1);
   }
 
   if (!C[nid].large && C[nid].pixels.size() > MAGIC)
@@ -155,7 +164,7 @@ void Fill(int x, int y, int color) {
 ////////////////////////////////////////////////////////////////////////////////
 // Initial processing
 
-list<pair<int, int>> traversal;
+vector<pair<int, int>> traversal;
 
 void FindComponent(int x, int y, int color) {
   if (x < 0 || y < 0 || x >= n || y >= m) return;
