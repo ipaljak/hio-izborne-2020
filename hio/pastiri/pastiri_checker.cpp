@@ -91,6 +91,7 @@ void checker(ifstream& fin, ifstream& foff, ifstream& fout)
   const string TEST_DATA_ERROR = "Greska u sluzbenom ulazu ili izlazu.";
   const string WRONG = "Netocno.";
   const string CORRECT = "Tocno.";
+  const string PANIC = "Greska u checkeru. Posaljite clarification request.";
   const string PARTIAL_FIRST = "Prvi red je tocan, drugi nije.";
 
   // Read official input
@@ -126,7 +127,7 @@ void checker(ifstream& fin, ifstream& foff, ifstream& fout)
   if (!(fout >> c_output)) 
     finish(0, WRONG_OUTPUT_FORMAT);
     
-  if (c_output != official_output_val) 
+  if (c_output > official_output_val) 
     finish(0.0, WRONG);
   
   vector <int> c_recon(c_output);
@@ -138,9 +139,12 @@ void checker(ifstream& fin, ifstream& foff, ifstream& fout)
   if (fout >> excess)
     finish(0.0, WRONG);
     
-  if (check_second_part(c_recon, N, adj, sheep)) 
+  if (check_second_part(c_recon, N, adj, sheep)) {
+    if (c_output < official_output_val) 
+      finish(1.0, PANIC); 
     finish(1.0, CORRECT);
-  else 
+  }
+  else
     finish(0.0, WRONG);
 
   // The function MUST terminate before this line via finish()!
