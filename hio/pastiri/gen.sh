@@ -24,6 +24,8 @@
 ./gen_testcase 12 posebni_1 2000 500 100 10 > test/pastiri.in.3k
 ./gen_testcase 13 posebni_1 2000 400 500 0 > test/pastiri.in.3l
 ./gen_testcase 14 posebni_1 2000 450 450 1000000 > test/pastiri.in.3m
+./gen_testcase 15 obicno_2 2000 700 3 2 > test/pastiri.in.3n
+./gen_testcase 16 obicno_2 2000 1000 1 20 > test/pastiri.in.3o
 
 ./gen_testcase 1 obicno 500000 10000 100 0 > test/pastiri.in.4a
 ./gen_testcase 2 obicno 500000 10000 100 10 > test/pastiri.in.4b
@@ -43,3 +45,7 @@
 ./gen_testcase 16 posebni_1 500000 10000 10000 10 > test/pastiri.in.4p
 ./gen_testcase 17 posebni_1 500000 100000 100000 1000000 > test/pastiri.in.4q
 ./gen_testcase 18 posebni_1 500000 1000 1000 2 > test/pastiri.in.4r
+./gen_testcase 19 obicno_2 500000 100000 4 10 > test/pastiri.in.4s
+./gen_testcase 20 obicno_2 500000 50000 5 3 > test/pastiri.in.4t
+./gen_testcase 21 obicno_2 500000 1000 50 10000 > test/pastiri.in.4u
+./gen_testcase 22 obicno_2 500000 1000 1000 60 > test/pastiri.in.4v
