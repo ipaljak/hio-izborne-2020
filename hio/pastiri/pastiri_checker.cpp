@@ -37,9 +37,11 @@ typedef long long llint;
 void finish(double p, const string& m);
 
 bool check_second_part(const vector <int> &c_recon, int n, const vector <vector <int>> &adj, const vector <int> &sheep) 
-{
+{  
   queue <int> Q;
   vector <int> dist(n + 1, -1);
+  vector <bool> covered(n + 1, false);
+  
   for (auto it : sheep) {
     dist[it] = 0;
     Q.push(it);
@@ -55,16 +57,20 @@ bool check_second_part(const vector <int> &c_recon, int n, const vector <vector 
       }
   }
   
-  vector <bool> covered(n + 1);
-  function <void(int)> dfs = [&](int x) {
+  function <void(int)> dfs_cover = [&](int x) {
+    if (covered[x])
+      return;
     covered[x] = true;
     for (auto it : adj[x])
-      if (!covered[it] && dist[x] == dist[it] + 1)
-        dfs(it);
+      if (dist[x] == dist[it] + 1)
+        dfs_cover(it);
   };
-  for (auto it : c_recon)
-    if (!covered[it])
-      dfs(it);
+  
+  for (auto it : c_recon) {
+    if (it < 1 || it > n)
+      return false;
+    dfs_cover(it);
+  }
   
   for (auto it : sheep)
     if (!covered[it])
@@ -112,30 +118,30 @@ void checker(ifstream& fin, ifstream& foff, ifstream& fout)
 
   // Read official output
   int official_output_val;
-  if (!(foff >> official_output_val)) finish(0, TEST_DATA_ERROR);
+  if (!(foff >> official_output_val)) 
+    finish(0, TEST_DATA_ERROR);
 
   // Read contestant's output
   int c_output;
-  if (!(fout >> c_output)) finish(0, WRONG_OUTPUT_FORMAT);
-
+  if (!(fout >> c_output)) 
+    finish(0, WRONG_OUTPUT_FORMAT);
+    
+  if (c_output != official_output_val) 
+    finish(0.0, WRONG);
+  
   vector <int> c_recon(c_output);
-  bool valid = true;
   REP(i, c_output) 
     if (!(fout >> c_recon[i]))
-      valid = false;
+      finish(0.0, WRONG);
     
   string excess;
   if (fout >> excess)
-    valid = false;
-    
-  bool first_part = (official_output_val == c_output);
-  bool second_part = valid && check_second_part(c_recon, N, adj, sheep);
-  
-  if (first_part && second_part) {
-    finish(1.0, CORRECT);
-  } else {
     finish(0.0, WRONG);
-  }
+    
+  if (check_second_part(c_recon, N, adj, sheep)) 
+    finish(1.0, CORRECT);
+  else 
+    finish(0.0, WRONG);
 
   // The function MUST terminate before this line via finish()!
 }
