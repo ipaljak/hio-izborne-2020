@@ -91,7 +91,7 @@ int sz;
 int nums;
 int numbits;
 vector<int> halves = {31, 31 << 5};
-vector<int> digits = {2+8,    2,    1+8,  1+2+4,     2+16, 
+vector<int> digits = {0,    2,    1+8,  1+2+4,     2+16, 
                       1+4+16, 4+8,  1+2,  1+4+8+16, 1+2+4+16};
 bool is_digit[33];
 
