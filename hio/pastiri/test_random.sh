@@ -7,6 +7,7 @@ while true; do
     echo Running $4...
     time ./$4 < inp > out
     ./pastiri_checker inp off out > verdict
+    cat verdict
     if [[ 1 == $(head -n 1 verdict) ]]; then
         echo "$(tput setaf 6)AC$(tput sgr0)"
         let cnt+=1
