@@ -47,7 +47,8 @@ int main(void) {
     cin >> x >> y >> color;
     x--; y--;
     cookie++;
-    fill(x, y, color, mat[x][y]);
+    if (color != mat[x][y])
+      fill(x, y, color, mat[x][y]);
   }
 
   for (int i = 0; i < n; ++i) {

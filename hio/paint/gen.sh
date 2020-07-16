@@ -4,9 +4,9 @@ TASK=paint
 ./gen 101 20 40 40 10 > test/$TASK.in.1a
 ./gen 102 40 37 100 4 > test/$TASK.in.1b
 ./gen 103 10 1000 5000 1000 > test/$TASK.in.1c
-./gen 104 101 99 9999 5 > test/$TASK.in.1d
-./gen_spec 105 97 99 10000 > test/$TASK.in.1e
-./gen_spec 106 88 110 10000 3 2 10 > test/$TASK.in.1f
+./gen 104 81 99 6999 15 > test/$TASK.in.1d
+./gen_spec 105 97 99 5000 > test/$TASK.in.1e
+./gen_spec 106 88 110 5000 3 2 10 > test/$TASK.in.1f
 
 # Subtask 2
 ./gen 201 1 50000 100000 10 > test/$TASK.in.2a
