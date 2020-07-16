@@ -19,7 +19,7 @@ typedef pair <ll, ll> pll;
 #define pb push_back
 
 const int MAXN = 505;
-const int GRANICA = 3000;
+const int GRANICA = 320;
 
 const int smjerx[] = {1, -1, 0, 0};
 const int smjery[] = {0, 0, -1, 1};
@@ -94,19 +94,21 @@ void merge(int a, int b) {
   
   comps[a].size += comps[b].size;
 
+  // uvijek velike susjede trebam prebaciti
   for (auto &x : comps[b].veliki) {
     comps[a].veliki.insert(x);
   }
 
   comps[b].veliki.clear(); // redukcija memorije, testirati bez ove linije
 
-  // ako je b mala ovo se nece ni dogodit
-  for (auto &t : comps[b].sus) {
-    while (!t.sec.empty()) {
-      int x = find(t.sec.front());
-      t.sec.pop();
-      if (get_color(x) != t.fi) continue;
-      comps[a].sus[t.fi].push(x);
+  if (comps[b].size > GRANICA) {
+    for (auto &t : comps[b].sus) {
+      while (!t.sec.empty()) {
+        int x = find(t.sec.front());
+        t.sec.pop();
+        if (get_color(x) != t.fi) continue;
+        comps[a].sus[t.fi].push(x);
+      }
     }
   }
 
@@ -255,7 +257,7 @@ void kveri() {
 
   x = find(x);
   for (auto &t : comps[x].veliki) {
-    comps[t].sus[comps[x].boja].push(x);
+    comps[find(t)].sus[comps[x].boja].push(x);
   }
 }
 
