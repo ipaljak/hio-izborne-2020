@@ -33,8 +33,8 @@ int main() {
     cin.tie(0);
     cout.tie(0);
 
-    int n;
-    cin >> n;
+    int n, q;
+    cin >> n >> q;
 
     string sol = solve(0, n);
 

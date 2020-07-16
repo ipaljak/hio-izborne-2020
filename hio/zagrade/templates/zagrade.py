@@ -1,6 +1,6 @@
 import sys
 
-n = int(input())
+n, q = map(int, input().split())
 
 print("? 1 6")
 sys.stdout.flush()

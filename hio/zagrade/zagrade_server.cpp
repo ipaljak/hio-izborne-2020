@@ -44,7 +44,7 @@ using namespace std;
 #define WA_INVALID_COMMAND "Incorrect, invalid command!"
 #define WA_PREMATURE_TERMINATION "Incorrect, your program terminated before writing an answer!"
 #define WAITING "Waiting..."
-#define CORRECT "Correct! Number of queries: "
+#define CORRECT "Correct!"
 #define WA_TOO_MANY_QUERIES "Incorrect, too many queries!"
 #define WAITING_FOR_SOLUTION "Waiting for solution..."
 
@@ -60,7 +60,7 @@ using namespace std;
 #define WA_INVALID_COMMAND "Netocno, neispravna naredba!"
 #define WA_PREMATURE_TERMINATION "Netocno, Vas program je zavrsio prije nego sto je ispisao rjesenje!"
 #define WAITING "Cekam..."
-#define CORRECT "Tocno! Broj upita: "
+#define CORRECT "Tocno!"
 #define WA_TOO_MANY_QUERIES "Netocno, previse upita!"
 #define WAITING_FOR_SOLUTION "Cekam rjesenje..."
 
@@ -140,7 +140,7 @@ void main_problem_interaction() {
   // Start interaction
   int query_count = 0;
 
-  cout << n << endl;
+  cout << n << " " << q << endl;
 
   flog << WAITING << endl;
   // Loop.
@@ -177,7 +177,7 @@ void main_problem_interaction() {
   test_condition(ans == s, WA_INCORRECT);
 
   foutput << "1" << endl;
-  foutput << CORRECT << query_count << endl;
+  foutput << CORRECT << endl;
 }
 
 int main(int argc, char *argv[])

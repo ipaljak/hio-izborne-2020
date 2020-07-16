@@ -9,7 +9,7 @@ using namespace std;
 
 const int MAXN = 1e5 + 10;
 
-int n;
+int n, q;
 char sol[MAXN];
 
 int ask(int a, int b) {
@@ -27,7 +27,7 @@ int ans() {
 }
 
 int main(void) {
-  scanf("%d", &n);
+  scanf("%d %d", &n, &q);
   stack<int> S;
   for (int i = 0; i < n; ++i) {
     if (S.empty()) {

@@ -6,35 +6,38 @@
   memorylimit=512 MiB,
 ]{Pastiri}
 
-,,\textit{Nikada nisam bio toliko sit da nisam mogao pojesti još kilu janjetine.}''
-  -- gosp. M.
+,,\textit{Nikada nisam bio toliko sit da nisam mogao pojesti još kilu
+janjetine.}'' -- gospodin M.
 
 Stado od $K$ ovaca živi na stablu, tj. jednostavnom povezanom grafu bez ciklusa
-koji se sastoji od $N$ vrhova.
-U svakom vrhu stabla živi najviše jedna ovca.
-Stara narodna mudrost kaže: ,,\textit{vukovi
-se kriju i \sout{piju} jedu ti ovce.}'' 
+koji se sastoji od $N$ vrhova označenih prirodnim brojevima od $1$ do $N$.  U
+svakom vrhu stabla živi najviše jedna ovca.  Stara narodna mudrost kaže:
+,,\textit{vukovi se kriju i \sout{piju} jedu ti ovce.}''
 
-Kako bismo obranili naše ovce od zlih
-vukova, potrebno je u neke vrhove stabla postaviti pastire, tako da svaku
-ovcu čuva barem jedan pastir. Poznato je da \textbf{svaki pastir čuva sve
-sebi najbliže ovce}, i samo njih. Također, pastir se može nalaziti u istom vrhu
-kao i neka ovca, dakako, tada on čuva samo tu ovcu.
+Kako bismo obranili naše ovce od zlih vukova, potrebno je u neke vrhove stabla
+postaviti pastire, tako da svaku ovcu čuva barem jedan pastir. Poznato je da
+\textbf{svaki pastir čuva sve sebi najbliže ovce}, i samo njih. Udaljenost
+izmeuđu neke ovce i nekog pastira jednaka je broju vrhova na jedinstvenom
+putu između vrha na kojem se nalazi ta ovca i vrha na kojem se nalazi taj
+pastir (uključivo). Također, pastir se
+može nalaziti u istom vrhu kao i neka ovca, dakako, tada on čuva samo tu
+ovcu.
 
-Odredite \textbf{najmanji broj pastira} koje je potrebno postaviti u vrhove danog
-stabla tako da \textbf{svaku ovcu čuva barem jedan pastir}. Dodatno, odredite neki takav
-raspored najmanjeg mogućeg broja pastira.
+Odredite \textbf{najmanji broj pastira} koje je potrebno postaviti u vrhove
+danog stabla tako da \textbf{svaku ovcu čuva barem jedan pastir}. Dodatno,
+odredite neki takav raspored najmanjeg mogućeg broja pastira.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Input
 \subsection*{Ulazni podaci}
 U prvom su retku prirodni brojevi $N$ i $K$ $(1 \le K \le N)$ iz teksta zadatka.
 
-U sljedećih $N-1$ redaka nalaze se po dva prirodna broja $a_i$ i $b_i$ $(1 \le a_i, b_i \le N)$ koji
-označavaju da postoji neusmjerena veza u stablu između vrhova s oznakama $a_i$ i $b_i$.
+U sljedećih $N-1$ redaka nalaze se po dva prirodna broja $a_i$ i $b_i$ $(1 \le
+a_i, b_i \le N)$ koji označavaju da postoji neusmjerena veza u stablu između
+vrhova s oznakama $a_i$ i $b_i$.
 
-U sljedećem se retku nalazi $K$ različitih prirodnih brojeva $o_i$ $(1 \le o_i \le N)$ koji
-predstavljaju oznake čvorova u kojima se nalaze ovce.
+U sljedećem se retku nalazi $K$ različitih prirodnih brojeva $o_i$ $(1 \le o_i
+\le N)$ koji predstavljaju oznake čvorova u kojima se nalaze ovce.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Output

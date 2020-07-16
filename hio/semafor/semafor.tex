@@ -46,10 +46,11 @@ $M$ znamenaka trebaju sadržavati odgovarajući broj početnih nula.
 Za svako završno stanje (cijeli broj između $0$ i $10^M-1$), Mateja zanima na
 koliko je različitih načina mogao vući poteze da se na kraju prezentacije na
 semaforu nalazi upravo taj broj te da su pritom zadovoljeni svi uvjeti iz
-prethodnog odlomka. Dva načina (niza poteza) smatramo različitima ako, kada
-bismo poteze istovremeno vukli na dva semafora, postoji trenutak u kojem
-semafori ne prikazuju identično stanje. Budući da broj načina može biti
-poprilično velik, potrebno je ispisati njegov ostatak pri dijeljenju s $10^9+7$.
+prethodnog odlomka, ako se na početku prezentacije na semaforu prikazivao
+broj $X$. Dva načina (niza poteza) smatramo različitima ako, kada bismo
+poteze istovremeno vukli na dva semafora, postoji trenutak u kojem semafori
+ne prikazuju identično stanje. Budući da broj načina može biti poprilično
+velik, potrebno je ispisati njegov ostatak pri dijeljenju s $10^9+7$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Input
 \subsection*{Ulazni podaci}
@@ -71,11 +72,11 @@ modulo $10^9 + 7$.
   \begin{tabular}{ccl}
  Podzadatak & Broj bodova & Ograničenja \\ \midrule
   1 & 6 & $M=1$, $1 \le N \le 12$ \\
-  2 & 9 & $M=1$, $1 \le N \le 10^{15}$ \\
-  3 & 7 & $M=2$, $1 \le N \le 1\,500$, $K = N$\\
-  4 & 21 & $M=2$, $1 \le N \le 10^{15}$, $1 \le K \le 15$ \\
-  5 & 34 & $M=2$, $1 \le N \le 10^{15}$, $1 \le K \le 1\,500$ \\
-  6 & 23 & $M=2$, $1 \le N \le 10^{15}$ \\
+  2 & 15 & $M=1$, $1 \le N \le 10^{15}$ \\
+  3 & 12 & $M=2$, $1 \le N \le 1\,500$, $K = N$\\
+  4 & 12 & $M=2$, $1 \le N \le 10^{15}$, $1 \le K \le 15$ \\
+  5 & 30 & $M=2$, $1 \le N \le 10^{15}$, $1 \le K \le 1\,500$ \\
+  6 & 25 & $M=2$, $1 \le N \le 10^{15}$ \\
 \end{tabular}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -86,6 +87,14 @@ modulo $10^9 + 7$.
 \sampleinputs{test/semafor.dummy.in.2}{test/semafor.dummy.out.2} &
 \sampleinputs{test/semafor.dummy.in.3}{test/semafor.dummy.out.3}
 \end{tabularx}
+
+\textbf{Pojašnjenje trećeg probnog primjera:}
+Na početku prezentacije se na (jednoznamenkastom) semaforu nalazi broj $5$ te se
+nakon svakog poteza (zbog $K = 1$) na semaforu treba nalaziti ispravno
+napisan broj. Matej će za vrijeme prezentacije napraviti ukupno $N=2$ poteza.
+Na završetku prezentacije na semaforu se mogu nalaziti samo brojevi $3$ ili
+$5$.  Broj $3$ možemo dobiti na jedan način ($5-9-3$) dok broj $5$ možemo
+dobiti na dva načina ($5-9-5$ i $5-8-5$).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % We're done
