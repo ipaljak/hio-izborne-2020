@@ -67,6 +67,54 @@ void obicno(int n, int k, int d, int t) {
     output(edges, black);
 }
 
+// r = radijus za pastire, d = parametar koji kontrolira dubinu
+void obicno_2(int n, int k, int r, int d) {
+    vi color(n), black, sheep;
+    vector<pii> edges(n - 1);
+
+    for (int i = 2; i <= n; i++) {
+        int p = rand_int(max(1, i - d), i - 1);
+        edges[i - 2] = {p, i};
+        color[i - 1] = 1 - color[p - 1];
+        if (color[i - 1]) black.push_back(i);
+    }
+
+    vector<vi> edg(n + 1);
+    for (auto& it : edges) {
+        edg[it.fi].push_back(it.se);
+        edg[it.se].push_back(it.fi);
+    }
+    vi vis(n + 1);
+
+    shuffle(black.begin(), black.end(), engine);
+
+    for (auto x : black) {
+        queue<pii> Q;
+        Q.push({x, 0});
+        vis[x] = x;
+        while (!Q.empty()) {
+            auto [y, dist] = Q.front();
+            Q.pop();
+            if (dist == r) {
+                sheep.push_back(y);
+                if ((int)sheep.size() == k) break;
+            } else {
+                for (auto z : edg[y]) {
+                    if (vis[z] == x) continue;
+                    vis[z] = x;
+                    Q.push({z, dist + 1});
+                }
+            }
+        }
+        if ((int)sheep.size() == k) break;
+    }
+
+    sort(sheep.begin(), sheep.end());
+    sheep.erase(unique(sheep.begin(), sheep.end()), sheep.end());
+
+    output(edges, sheep);
+}
+
 // m = broj krakova
 void zvijezda(int n, int m) {
     int r = (n - 1) / m;
@@ -245,6 +293,7 @@ int main(int argc, char** argv) {
 
     string type = argv[2];
     if (type == "obicno") obicno(atoi(argv[3]), atoi(argv[4]), atoi(argv[5]), atoi(argv[6]));
+    else if (type == "obicno_2") obicno_2(atoi(argv[3]), atoi(argv[4]), atoi(argv[5]), atoi(argv[6]));
     else if (type == "zvijezda") zvijezda(atoi(argv[3]), atoi(argv[4]));
     else if (type == "gusjenica") gusjenica(atoi(argv[3]), atoi(argv[4]), atoi(argv[5]));
     else if (type == "vodopad") vodopad(atoi(argv[3]), atoi(argv[4]));
