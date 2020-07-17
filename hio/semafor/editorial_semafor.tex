@@ -1,33 +1,27 @@
 \subsection*{Zadatak: Ulica}
-\textsf{Pripremio: Marin Kišić}\\
-\textsf{Potrebno znanje: petlje, provjera parnosti}
+\textsf{Pripremili: Bojan Štetić, Ivan Paljak, Daniel Paleka}\\
+\textsf{Potrebno znanje: matrično množenje, teorija grafova, brzo potenciranje}
 
-Napravit ćemo pomoćno polje \texttt{moze} i za svaki broj $x$ iz ulaza ćemo
-postaviti \texttt{moze[x]=1}. Nakon toga, prebrojimo ima li više parnih ili
-neparnih brojeva u u ulazu. Na kraju, ako ima više parnih, krenemo od $2$ i
-idemo tako dugo dok je \texttt{moze[trenutni\_broj]=1} krećući se po parnim
-brojevima. Analogno za neparne, samo počinjemo od $1$.
+Kao prvo, stanje semafora predstavljamo kao bitmasku od 5 ili 10 bitova, ovisno
+o podzadatku. Bitmasku koja predstavlja ispravno stanje nazovimo
+\emph{dobrom}.
 
-\subsection*{Zadatak: Datum}
-\textsf{Pripremio: Karlo Franić}\\
-\textsf{Potrebno znanje: provjera palindromičnosti, ad-hoc}
+Svako dijete znade da \emph{graf hiperkocke} za vrhove ima sve bitmaske nekog
+broja bitova (u ovom zadatku 10), a bridovima su povezani vrhovi koji se
+razlikuju na točno jednom mjestu. Neka je $H$ matrica susjedstva hiperkocke.
 
-Za prvi podzadatak potrebno je uzeti prva dva znaka datuma i taj broj
-povećavati za $1$ dok ne nađemo palindrom.
+Tada zadatak formalno glasi: pronađite broj šetnji duljine $N$ u hiperkocki 
+od stanja $X$ do svake od dobrih bitmaski, takvih da šetnja svakih K koraka
+stane u nekoj dobroj bitmaski.
 
-Za drugi podzadatak koristimo znanje
-prvog podzadatka, uz to svaki put kada dan dođe do zadnjeg u mjesecu (4.\ i 5.\
-znak), postavimo dan na $1$, a mjesec povećamo za $1$.
+\textbf{Tvrdnja 1.} Broj šetnji duljine $N$ u hiperkocki, s početkom u $X$ 
+i završetkom u $Y$, jednak je poziciji $(X, Y)$ u matrici $H^N$.
 
-Za treći podzadatak potrebno
-je povećavati i godinu svaki put kad dođemo do $31$.\ dana u $12$.\ mjesecu.
+\textit{Dokaz:} Pogledajte Spielmanov knjigu/pdf o algebarskoj teoriji grafova,
+fantastična stvar. Za elementarni dokaz, pogledajte
+\\
+{https://courses.grainger.illinois.edu/cs598cci/sp2020/LectureNotes/lecture1.pdf}
 
-Za sve
-bodove bilo je potrebno primijetiti da palindromičnih datuma postoji $366$. Svaki
-datum ima točno jednu godinu s kojom tvori palindrom. Te datume je moguće
-staviti u polje i nakon toga za svaki zadani datum iterativno po polju naći
-prvi datum koji je veći od zadanog.
 
-Vremenska složenost je $\mathcal{O}(NK)$, gdje $K$ predstavlja broj
-palindromičnih datuma. Zadatak se može riješiti i u složenosti $\mathcal{O}(N
-\log K)$, a to rješenje ostavljamo čitateljici za vježbu.
+
+

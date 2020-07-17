@@ -1,5 +1,5 @@
 \subsection*{Zadatak: Pastiri}
-\textsf{Pripremili: Daniel Paleka, Adrian Beker}\\
+\textsf{Pripremili: Adrian Beker, Paula Vidas, Daniel Paleka}\\
 \textsf{Potrebno znanje: grafovi, pretraga u širinu/dubinu (BFS/DFS)}
 \\\\
 Neka je $V$ skup čvorova stabla. U opisu rješenja poistovjećivat ćemo ovcu/pastira i čvor u kojem se nalazi. Primijetimo najprije da zadatak možemo promatrati kao instancu takozvanog \emph{set cover} problema. Zaista, ako svakom čvoru $v \in V$ pridružimo skup $S_v$ ovaca koje čuva pastir u $v$, tada je potrebno naći najmanji podskup $P \subseteq V$ takav da je $\bigcup_{v \in P} S_v$ cijeli skup ovaca. Iako je generalna verzija ovog problema NP-potpuna, specifična struktura dotičnog slučaja omogućit će nam da ga riješimo u odgovarajućoj složenosti.
