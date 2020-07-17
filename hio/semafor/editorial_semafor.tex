@@ -1,4 +1,4 @@
-\subsection*{Zadatak: Ulica}
+\subsection*{Zadatak: Semafor}
 \textsf{Pripremili: Bojan Štetić, Ivan Paljak, Daniel Paleka}\\
 \textsf{Potrebno znanje: matrično množenje, teorija grafova, brzo potenciranje}
 
@@ -14,13 +14,53 @@ Tada zadatak formalno glasi: pronađite broj šetnji duljine $N$ u hiperkocki
 od stanja $X$ do svake od dobrih bitmaski, takvih da šetnja svakih K koraka
 stane u nekoj dobroj bitmaski.
 
-\textbf{Tvrdnja 1.} Broj šetnji duljine $N$ u hiperkocki, s početkom u $X$ 
-i završetkom u $Y$, jednak je poziciji $(X, Y)$ u matrici $H^N$.
+\textbf{Tvrdnja 1.} Broj šetnji duljine $D$ u hiperkocki, s početkom u $X$ 
+i završetkom u $Y$, jednak je poziciji $(X, Y)$ u matrici $H^D$.
 
 \textit{Dokaz:} Pogledajte Spielmanov knjigu/pdf o algebarskoj teoriji grafova,
 fantastična stvar. Za elementarni dokaz, pogledajte
 \\
 {https://courses.grainger.illinois.edu/cs598cci/sp2020/LectureNotes/lecture1.pdf}
+
+\textbf{Definicija 2.} Neka je $B$ matrica dobivena tako što od matrice $H^K$ 
+ostavimo samo retke i stupce koji odgovaraju dobrim bitmaskama.
+
+\textbf{Tvrdnja 3.} Broj šetnji (od $X$ do $Y$) duljine $N$ u hiperkocki, gdje je $N$ djeljiv
+s $K$, takvih da svakih $K$ koraka budemo u dobrom stanju, jednak je 
+polju $(X, Y)$ u matrici $B^{N/K}$.
+
+\textit{Dokaz:} Ostavljeno za vježbu.
+
+
+Predstavljamo rješenje za teži slučaj, tj. $M=2$. 
+Potrebno je izračunati matricu $B$, potencirati je na $\floor{N/K}$, te
+pomnožiti još s ostatkom koraka.
+
+Potencirati matricu $B$ je dovoljno učiniti naivnim putem,
+jer za $M=2$ ona ima $100$ redaka i stupaca.
+
+Međutim, potenciranje matrice $H$ (oblika $1024 \times 1024$) je presporo
+naivnim putem, jer bi vrijeme izvršavanja bilo $O(1024^3 \log K)$.
+
+Zato, treba smisliti kako pametnije potencirati matricu hiperkocke.
+Uz Walsh-Hadamard pristupe, ili funkcije izvodnice, u koje u ovom trenutku
+pisanja editoriala nećemo ulaziti, najlakši pristup je sljedeće:
+
+\textbf{Tvrdnja 4:} Element $(X, Y)$ matrice $B$ ovisi samo o broju
+bitova u kojima se $X$ i $Y$ razlikuju.
+
+\textit{Dokaz:} Lagana vježbica, možemo bez smanjenja općenitosti pretpostaviti
+$X=0$.
+
+Ako uvedemo simetriju i računamo za $X=0$, dovoljno je izračunati 
+broj šetnji koje počnu u bitcountu $0$ i završe u nekom bitcountu $r$, za svaki
+$0 \le r \le 10$. To možemo lagano izračunati potenciranjem matrice $11 \times
+11$. 
+Za detalje, pogledajte kod službenog rješenja.
+
+
+
+
 
 
 
