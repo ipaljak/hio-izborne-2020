@@ -6,7 +6,7 @@ Kao prvo, stanje semafora predstavljamo kao bitmasku od 5 ili 10 bitova, ovisno
 o podzadatku. Bitmasku koja predstavlja ispravno stanje nazovimo
 \emph{dobrom}.
 
-Svako dijete znade da \emph{graf hiperkocke} za vrhove ima sve bitmaske nekog
+Dobro poznati \emph{graf hiperkocke} za vrhove ima sve bitmaske nekog
 broja bitova (u ovom zadatku 10), a bridovima su povezani vrhovi koji se
 razlikuju na točno jednom mjestu. Neka je $H$ matrica susjedstva hiperkocke.
 
@@ -18,9 +18,10 @@ stane u nekoj dobroj bitmaski.
 i završetkom u $Y$, jednak je poziciji $(X, Y)$ u matrici $H^D$.
 
 \textit{Dokaz:} Pogledajte Spielmanov knjigu/pdf o algebarskoj teoriji grafova,
-fantastična stvar. Za elementarni dokaz, pogledajte
+fantastična stvar. Za elementarni dokaz, pogledajte Lemma 3 na linku
 \\
 {https://courses.grainger.illinois.edu/cs598cci/sp2020/LectureNotes/lecture1.pdf}
+$\qed$
 
 \textbf{Definicija 2.} Neka je $B$ matrica dobivena tako što od matrice $H^K$ 
 ostavimo samo retke i stupce koji odgovaraju dobrim bitmaskama.
@@ -29,34 +30,91 @@ ostavimo samo retke i stupce koji odgovaraju dobrim bitmaskama.
 s $K$, takvih da svakih $K$ koraka budemo u dobrom stanju, jednak je 
 polju $(X, Y)$ u matrici $B^{N/K}$.
 
-\textit{Dokaz:} Ostavljeno za vježbu.
-
+\textit{Dokaz:} Ostavljeno za vježbu.$\qed$
 
 Predstavljamo rješenje za teži slučaj, tj. $M=2$. 
 Potrebno je izračunati matricu $B$, potencirati je na $\floor{N/K}$, te
-pomnožiti još s ostatkom koraka.
+pomnožiti još s ostatkom koraka. Pošto je dio vezan za ostatak koraka
+nakon zadnjeg višekratnika od $K$ potpuno identičan kao
+dio vezan za računanje matrice $B$, dalje opisujemo rješenje
+u slučaju kada je $N$ djeljiv s $K$.
 
-Potencirati matricu $B$ je dovoljno učiniti naivnim putem,
-jer za $M=2$ ona ima $100$ redaka i stupaca.
+Potencirati matricu $B$ je dovoljno učiniti naivnim brzim potenciranjem,
+množeći matrice u kubnoj složenosti, jer je za $M=2$ ona dimenzija $100 \times 100$.
 
-Međutim, potenciranje matrice $H$ (oblika $1024 \times 1024$) je presporo
-naivnim putem, jer bi vrijeme izvršavanja bilo $O(1024^3 \log K)$.
+Međutim, potenciranje matrice $H$ radi samo za $M=1$, jer
+je za $M=2$ ona oblika $1024 \times 1024$.
 
-Zato, treba smisliti kako pametnije potencirati matricu hiperkocke.
-Uz Walsh-Hadamard pristupe, ili funkcije izvodnice, u koje u ovom trenutku
-pisanja editoriala nećemo ulaziti, najlakši pristup je sljedeće:
+Za dovoljno mali $K$, umjesto potenciranja matrica možemo koristiti
+dinamiku, koja za neki početni vrh $X$ računa broj načina 
+za doći u svaki vrh hiperkocke u nekom broju koraka. Svako
+stanje dinamike utječe na $10$ drugih stanja, pa je 
+to rješenje dovoljno brzo za $K <= 15$.
+
+Međutim, ograničenja su $K \le N \le 10^{18}$, što znači 
+da je potrebno pametnije potencirati matricu hiperkocke.
+Ključna je sljedeća tvrdnja:
 
 \textbf{Tvrdnja 4:} Element $(X, Y)$ matrice $B$ ovisi samo o broju
 bitova u kojima se $X$ i $Y$ razlikuju.
 
-\textit{Dokaz:} Lagana vježbica, možemo bez smanjenja općenitosti pretpostaviti
-$X=0$.
+\textit{Dokaz:} Jasno je da sve vrhove hiperkocke možemo 
+bez smanjenja općenitost bitovno $XOR$-ati s nekom bitmaskom.
+Zato možemo pretpostaviti $X=0$ u ovoj tvrdnji.
+Također, jasno je da poredak bitova ne igra nikakvu ulogu.
+Zato su svi $Y$ koji imaju isti broj jedinica ekvivalentni 
+što se tiče broja šetnji od $0$ do $Y$. $\qed$
 
+
+Tvrdnja 4 implicira da je dovoljno brzo izračunati prvi redak matrice $B = H^K$. 
+Ovisno o implementaciji, takvo rješenje može
+riješiti subtask $K \le 1500$ ili proći za sve bodove.
+(Natjecatelj Dorijan Lendvaj je implementirao XOR-konvoluciju,
+koja radi jako brzo na standardnim procesorskim arhitekturama.)
+
+Službeno rješenje ima drukčiju ideju.
 Ako uvedemo simetriju i računamo za $X=0$, dovoljno je izračunati 
 broj šetnji koje počnu u bitcountu $0$ i završe u nekom bitcountu $r$, za svaki
-$0 \le r \le 10$. To možemo lagano izračunati potenciranjem matrice $11 \times
-11$. 
-Za detalje, pogledajte kod službenog rješenja.
+$0 \le r \le 10$. 
+Broj načina za doći iz nekog bitcounta u neki drugi u jednom koraku
+zadan je sljedećom $11 \times 11$ matricom:
+\[
+  C = 
+\begin{bmatrix}
+  0       & 10 & 0 & 0 & \dots  & 0 & 0 & 0 \\
+    1       & 0 & 9 & 0 & \dots & 0 & 0 & 0 \\
+    0       & 2 & 0 & 8 & \dots & 0 & 0 & 0 \\
+    \hdotsfor{8} \\
+    0       & 0 & 0 & 0 & \dots & 9 & 0 & 1 \\
+    0       & 0 & 0 & 0 & \dots & 0 & 10 & 0 \\
+\end{bmatrix}
+\]
+Ako potenciramo matricu $C$, dobit ćemo broj šetnji duljine $K$ od bitcounta $0$
+do svakog drugog bitcounta.
+Za dovršiti rješenje, opet koristimo da je broj šetnji do svake
+bitmaske nekog fiksnog bitcounta jednak, pa je ukupan broj
+šetnji do zadanog bitcounta dovoljno podijeliti s 
+odgovarajućim binomnim koeficijentom.
+
+Za detalje, pogledajte izvorni kod službenog rješenja.
+
+Postoji još brže rješenje, koje koristi \emph{eksponencijalne funkcije
+izvodnice}. Ukratko, traženi broj šetnji duljine $K$ od bitcounta $0$
+do neke maske s $10-r$ bitova jednak je koeficijentu
+uz $\frac{x^K}{K!}$ sljedećeg izraza:
+\[
+  \left(\sum_{i=0}^{\infty} \frac{x^{2i}}{(2i)!}\right)^{r}
+  \left(\sum_{i=0}^{\infty} \frac{x^{2i+1}}{(2i+1)!}\right)^{10-r} \\
+  = \left( \frac{e^x + e^{-x}}{2} \right)^{r}
+  \left( \frac{e^x - e^{-x}}{2} \right)^{10-r}.
+\]
+Uz pažljivo raspisivanje, moguće je rješenje broja operacija 
+$O((5\cdot M)^2 + (5\cdot M) \log K)$, to jest, dobiti elemente
+potencirane matrice hiperkocke
+nekih dimenzija $n \times n$ je moguće u $O(\log n \log K)$.
+
+Za slične ideje, pogledajte besplatnu knjigu
+\textit{generatingfunctionology} Herberta Wilfa.
 
 
 
