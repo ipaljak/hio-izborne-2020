@@ -27,11 +27,17 @@ jobs:
           root_file: zadaci.tex
           working_directory: hio
 
+      - name: Compile hio/opisi_algoritama.tex
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: opisi_algoritama.tex
+          working_directory: hio
+
       - name: Push new pdf-s
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-          git add probno/zadaci.pdf hio/zadaci.pdf
+          git add probno/zadaci.pdf hio/zadaci.pdf hio/opisi_algoritama.pdf
           git commit -m "Update pdf"
           git push
