@@ -1,4 +1,4 @@
-for f in test/*.in*;
+for f in test/zagrade.in.$2*;
 do
   echo "-------------------------------------------------"
   echo $f
