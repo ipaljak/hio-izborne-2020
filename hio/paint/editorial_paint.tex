@@ -1,18 +1,18 @@
 \subsection*{Zadatak: Paint}
 \textsf{Pripremio: Tonko Sabolčec}\\
-\textsf{Potrebno znanje: teorija grafova, \textit{union find} struktura podataka,
-  metoda spajanja \textit{manji} na \textit{veći}}
+\textsf{Potrebno znanje: teorija grafova, \textit{union find} struktura
+podataka, metoda spajanja \textit{manji} na \textit{veći}}
 
 Prvi podzadatak može se riješiti šetnjom po istobojnom susjedstvu koristeći DFS
-ili BFS algoritam. Složenost jedne operacije bojanja u tom je slučaju linearno
-ovisna o broju piksela u komponenti (istobojnom susjedstvu). U
-najgorem slučaju komponenta će imati $O(R \cdot S)$ piksela, pa je ukupna složenost
-takvog pristupa $O(R \cdot S \cdot Q)$.
+ili BFS algoritam. Složenost jedne operacije bojenja u tom je slučaju linearno
+ovisna o broju piksela u komponenti (istobojnom susjedstvu). U najgorem slučaju
+komponenta će imati $O(R \cdot S)$ piksela, pa je ukupna složenost takvog
+pristupa $O(R \cdot S \cdot Q)$.
 
 Drugi podzadatak specijalni je slučaj kada se slika sastoji od samo jedne
 dimenzije. Neke od ideja kako pristupiti tom problemu su:
 \begin{itemize}[topsep=0pt]
-  \item Održavanje skupa komponenti (kontinuirani intervali - npr. korištenjem
+  \item Održavanje skupa komponenti (kontinuirani intervali -- npr. korištenjem
     \verb|std::set| u C++) koji omogućava brzo dohvaćanje susjeda i spajanje
     intervala (brisanje i dodavanje u skup).
   \item Održavanje povezanih komponenti pomoću \textit{union find} strukture
@@ -22,41 +22,41 @@ dimenzije. Neke od ideja kako pristupiti tom problemu su:
     (tj. je li cijeli dio jednobojan?).
 \end{itemize}
 
-Treći podzadatak ima sljedeću posebnost: u pojedinom koraku ili neće biti 
+Treći podzadatak ima sljedeću posebnost: u pojedinom koraku ili neće biti
 nikakvih promjena (ako boja kojom je kantica napunjena odgovara boji komponente
-koju bojimo) ili ćemo komponenti koju bojimo promijeniti boju i povezati
-je sa \textit{svim} njezinim susjednim komponentama. Za održavanje komponenti
-može se koristiti \textit{union find} struktura podataka, uz koju ćemo za svaku
-komponentu održavati i skup (npr. \verb|std::set| u C++) aktivnih susjeda. Prilikom
-prolaska po skupu susjeda trenutne komponente, tj. prilikom spajanja trenutne sa susjednom komponentom,
-trenutnoj komponenti brišemo susjednu komponentu iz skupa (i obrnuto).
-Spajanja neće biti više od $O(R \cdot S)$, a budući da svako spajanje ima
-složenost operacije brisanja iz skupa, $O(\log (R \cdot S))$, ukupna je složenost
-$O(R \cdot S \cdot \log (R \cdot S))$.
+koju bojimo) ili ćemo komponenti koju bojimo promijeniti boju i povezati je sa
+\textit{svim} njezinim susjednim komponentama. Za održavanje komponenti može se
+koristiti \textit{union find} struktura podataka, uz koju ćemo za svaku
+komponentu održavati i skup (npr. \verb|std::set| u C++) aktivnih susjeda.
+Prilikom prolaska po skupu susjeda trenutne komponente, tj. prilikom spajanja
+trenutne sa susjednom komponentom, trenutnoj komponenti brišemo susjednu
+komponentu iz skupa (i obrnuto).  Spajanja neće biti više od $O(R \cdot S)$, a
+budući da svako spajanje ima složenost operacije brisanja iz skupa, $O(\log (R
+\cdot S))$, ukupna je složenost $O(R \cdot S \cdot \log (R \cdot S))$.
 
 Na prvi pogled može djelovati da bi se algoritam za treći podzadatak mogao
 koristiti i za konačno rješenje. No, problem je u tome što ne moramo spojiti
 sve susjedne komponente u svakom koraku, a ipak moramo prolaziti po svim
 susjednim komponentama da provjerimo boju. Možda bismo mogli doskočiti tom
-problemu tako da održavamo susjede grupirane po bojama
-(npr \verb|std::map| u C++), no prilikom promjene boje na
-trenutnoj komponenti, opet bismo morali prolaziti po svim susjedima da ih se
-obavijesti o promjeni boje trenutne komponente. Imajmo zasad na umu spomenute
-opservacije, no krenimo ipak od rješenja prvog podzadatka. Primijetite da,
-ako bi prosječna veličina komponenti koje bojimo bila dovoljno mala,
-primjerice oko 10 piksela, tada bi algoritam za prvi podzadatak bio dovoljno
-brz. Naime, ukupna složenost iznosila bi $O(R \cdot S + Q \cdot 10)$. No, što ako je
-prosječna veličina komponenti veća? Za prosječnu veličinu komponenti 100
-piksela složenost je i dalje dovoljno dobra. Za 1000 piksela vjerojatno
-također. Za 10000 piksela? Teško. Međutim, primijetite da povećavanjem te granice
-smanjujemo broj komponenti koji tu granicu nadmašuju. Drugim riječima, u
-svakom trenutku postoji najviše $R \cdot S / K$ komponenti koje se sastoje od $K$ ili
-više piksela (o odabiru konkretne vrijednosti $K$ bit će više riječi kasnije).
-Ovo svojstvo moglo bi se nekako iskoristiti, intuicija je sljedeća: za
-komponente koje se sastoje od $K$ ili manje piksela, primjenjujemo neki od
-naivnih pristupa sličnih onom iz prvog podzadatka, dok za komponente s više
-od $K$ piksela pristupamo na drukčiji način (koji ne bi bio dovoljno učinkovit
-kad bismo ga primjenjivali na veći broj manjih komponenti).
+problemu tako da održavamo susjede grupirane po bojama (npr \verb|std::map| u
+C++), no prilikom promjene boje na trenutnoj komponenti, opet bismo morali
+prolaziti po svim susjedima da ih se obavijesti o promjeni boje trenutne
+komponente. Imajmo zasad na umu spomenute opservacije, no krenimo ipak od
+rješenja prvog podzadatka. Primijetite da, ako bi prosječna veličina komponenti
+koje bojimo bila dovoljno mala, primjerice oko 10 piksela, tada bi algoritam za
+prvi podzadatak bio dovoljno brz. Naime, ukupna složenost iznosila bi $O(R
+\cdot S + Q \cdot 10)$. No, što ako je prosječna veličina komponenti veća? Za
+prosječnu veličinu komponenti 100 piksela složenost je i dalje dovoljno dobra.
+Za 1000 piksela vjerojatno također. Za 10000 piksela? Teško. Međutim,
+primijetite da povećavanjem te granice smanjujemo broj komponenti koji tu
+granicu nadmašuju. Drugim riječima, u svakom trenutku postoji najviše $R \cdot
+S / K$ komponenti koje se sastoje od $K$ ili više piksela (o odabiru konkretne
+vrijednosti $K$ bit će više riječi kasnije).  Ovo svojstvo moglo bi se nekako
+iskoristiti, intuicija je sljedeća: za komponente koje se sastoje od $K$ ili
+manje piksela, primjenjujemo neki od naivnih pristupa sličnih onom iz prvog
+podzadatka, dok za komponente s više od $K$ piksela pristupamo na drukčiji
+način (koji ne bi bio dovoljno učinkovit kad bismo ga primjenjivali na veći
+broj manjih komponenti).
 
 Konkretno, za svaku komponentu pamtimo sljedeće vrijednosti: \textit{boju},
 \textit{veličinu} i \textit{popis velikih susjednih komponenata} (s više od $K$
@@ -106,19 +106,21 @@ objasniti pomoću sljedećih tri operacija:
     \end{itemize}
 \end{enumerate}
 
-Operaciju \textit{Spoji} obavit ćemo najviše $O(R \cdot S)$ puta. Metoda spajanja
-manje liste na veću osigurava ukupnu amortiziranu složenost $O(R \cdot S \cdot \log (R \cdot S))$.
-Složenost svih operacija \textit{SusjediUBoji} u slučaju malih komponenti je
-$O(R \cdot S \cdot K)$, dok je amortizirana složenost u slučaju velikih komponenti
-$O(R \cdot S)$. Konačno, složenost svih operacija \textit{Oboji} je $O(Q \cdot R \cdot S / K)$. Ukupna
-složenost ovisi o parametru $K$ i iznosi $O(R \cdot S \cdot \log(R \cdot S) + R \cdot S \cdot K + \frac{Q \cdot R \cdot S}{K})$.
-Slijedi da se optimalna složenost dobiva za $K = O(\sqrt{Q})$,
-koji bi za konkretna ograničenja u zadatku iznosio između 100 i 500.
+Operaciju \textit{Spoji} obavit ćemo najviše $O(R \cdot S)$ puta. Metoda
+spajanja manje liste na veću osigurava ukupnu amortiziranu složenost $O(R \cdot
+S \cdot \log (R \cdot S))$.  Složenost svih operacija \textit{SusjediUBoji} u
+slučaju malih komponenti je $O(R \cdot S \cdot K)$, dok je amortizirana
+složenost u slučaju velikih komponenti $O(R \cdot S)$. Konačno, složenost svih
+operacija \textit{Oboji} je $O(Q \cdot R \cdot S / K)$. Ukupna složenost ovisi
+o parametru $K$ i iznosi $O(R \cdot S \cdot \log(R \cdot S) + R \cdot S \cdot K
++ \frac{Q \cdot R \cdot S}{K})$.  Slijedi da se optimalna složenost dobiva za
+$K = O(\sqrt{Q})$, koji bi za konkretna ograničenja u zadatku iznosio između
+100 i 500.
 
-Spomenimo i još jedan \textbf{implementacijski detalj}: Prilikom spajanja susjeda,
-moguće je da će neke oznake u listi velikih susjeda i listi susjeda grupiranih
-po bojama postati nevažeće ili da će se boja susjeda u međuvremenu promijeniti.
-Nije potrebno osmišljavati metode kojima će se takve nevažeće komponente pronaći
-i izbrisati iz popisa. Dovoljno je prilikom prolaska kroz popis dodatno provjeriti
-trenutno stanje i usporediti ga s očekivanim, preskakujući oznake koje ne
-zadovoljavaju očekivane uvjete.
+Spomenimo i još jedan \textbf{implementacijski detalj}: Prilikom spajanja
+susjeda, moguće je da će neke oznake u listi velikih susjeda i listi susjeda
+grupiranih po bojama postati nevažeće ili da će se boja susjeda u međuvremenu
+promijeniti.  Nije potrebno osmišljavati metode kojima će se takve nevažeće
+komponente pronaći i izbrisati iz popisa. Dovoljno je prilikom prolaska kroz
+popis dodatno provjeriti trenutno stanje i usporediti ga s očekivanim,
+preskakujući oznake koje ne zadovoljavaju očekivane uvjete.
