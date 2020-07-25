@@ -1,3 +1,3 @@
-echo $1 $2 > inp
-./$3 < inp > out
+echo $2 $3 > inp
+./$1 < inp > out
 ./checker inp out out
