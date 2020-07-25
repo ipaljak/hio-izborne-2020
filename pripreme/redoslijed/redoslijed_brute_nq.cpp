@@ -20,7 +20,7 @@ void load() {
 }
 
 void bye() {
-  puts("NO");
+  puts("NE");
   exit(0);
 }
 
@@ -61,7 +61,7 @@ void solve() {
     bad[curr] = -1;
   }
   
-  puts("YES");
+  puts("DA");
   reverse(ans.begin(), ans.end());  
   for (auto it : ans)
     printf("%d ", it + 1);

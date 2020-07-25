@@ -91,7 +91,7 @@ void load() {
 }
 
 void bye() {
-  puts("NO");
+  puts("NE");
   exit(0);
 }
 
@@ -123,7 +123,7 @@ void solve() {
   if (ans.size() < M) 
     bye();
 		
-  puts("YES");
+  puts("DA");
   reverse(ans.begin(), ans.end());  
   for (auto it : ans)
     printf("%d ", it + 1);
