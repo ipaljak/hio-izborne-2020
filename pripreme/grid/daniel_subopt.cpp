@@ -15,8 +15,6 @@ using namespace std;
 
 const int MaxN = 1100;
 const int Mod = 1e9 + 7;
-int NUM_TESTS = 500;
-int MAX_INT = 15;
 // {0, 1, ..., N} \times {0, 1, ..., M}
 
 struct Segment {
@@ -130,7 +128,6 @@ void daniel_solve() {
       addUp(N, k);
     }
     int G = N % D;
-    TRACE(G);
     for (int j = N-G; j < N; j++) {
       for (int k = 1; k <= M; k++) {
         if ((j + k) % G != 0) {
@@ -155,9 +152,12 @@ void reset() {
       gore[i][j] = false;
       desno[i][j] = false;
       visited[i][j] = false;
-      pr[i][j] = ' ';
     }
   }
+
+  REP(i, 3*MaxN)
+    REP(j, 3*MaxN)
+      pr[i][j] = ' ';
 }
 
 void load() {
