@@ -13,25 +13,15 @@ int get(int lo, int hi) {
 int main(int argc, char *argv[]) {
   int N = atoi(argv[1]);
   int M = atoi(argv[2]);
-  int distinct = atoi(argv[3]);
-  int limit = atoi(argv[4]);
+  int limit = atoi(argv[3]);
   assert(N <= MAX && M <= MAX && limit <= MAX);
-  assert(distinct <= limit);
-  
-  unordered_set <int> curr;
-  while (curr.size() < distinct)
-    curr.insert(get(1, limit));
-    
-  vector <int> values;
-  for (auto it : curr)
-    values.push_back(it);
   
   printf("%d %d\n", N, M);  
   vector <Operation> input(M);
   for (auto &it : input) {
     it.lft = get(1, N);
     it.rig = get(it.lft, N);
-    it.clr = values[get(0, distinct - 1)];
+    it.clr = get(1, limit);
     it.output();
   }
   
