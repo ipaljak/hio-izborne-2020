@@ -14,10 +14,17 @@ void load() {
     scanf("%d", perm + i);  
 }
 
-inline void add(int &x, int y) {
+inline int add(int x, int y, int mod) {
   x += y;
-  if (x >= MOD)
-    x -= MOD;
+  if (x >= mod)
+    return x - mod;
+  if (x < 0)
+    return x + mod;
+  return x;
+}
+
+inline void add(int &x, int y) {
+  x = add(x, y, MOD);
 }
 
 inline int mul(int x, int y) {
@@ -38,18 +45,17 @@ int calc_cycles(const vector <int> &cyc1, const vector <int> &cyc2) {
   int len1 = cyc1.size();
   int len2 = cyc2.size();
   int gcd = __gcd(len1, len2);
-  int lcm = len1 * len2 / gcd;
   vector <int> normal(gcd), inverted(gcd);
   for (int i = 0; i < len1; i++)
     for (int j = 0; j < len2; j++)
       if (cyc1[i] < cyc2[j])
-        normal[(i - j + gcd) % gcd]++;
+        normal[add((i - j) % gcd, 0, gcd)]++;
       else if (cyc1[i] > cyc2[j])
-        inverted[(i - j + gcd) % gcd]++;
+        inverted[add((i - j) % gcd, 0, gcd)]++;
   int res = 0;
   for (int i = 0; i < gcd; i++)
     add(res, mul(normal[i], inverted[i]));
-  return mul(res, pot(lcm, MOD - 2)); 
+  return mul(res, pot(len1 * len2 / gcd, MOD - 2)); 
 }
 
 int solve() {
