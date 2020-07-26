@@ -15,23 +15,25 @@ int main(int argc, char *argv[]) {
   int M = atoi(argv[2]);
   int limit = atoi(argv[3]);
   assert(N <= MAX && M <= MAX && limit <= MAX);
-  
-  printf("%d %d\n", N, M);  
+   
   vector <Operation> input(M);
   for (auto &it : input) {
     it.lft = get(1, N);
     it.rig = get(it.lft, N);
     it.clr = get(1, limit);
-    it.output();
   }
   
   vector <int> order(M);
   for (int i = 0; i < M; i++)
     order[i] = i + 1;
-  
+    
+  vector <int> ans = process_operations(N, input, order);
+
   shuffle(order.begin(), order.end(), rng);
   
-  vector <int> ans = process_operations(N, input, order);
+  printf("%d %d\n", N, M); 
+  for (auto it : order)
+    input[it - 1].output();
   for (auto it : ans)
     printf("%d ", it);
   puts("");

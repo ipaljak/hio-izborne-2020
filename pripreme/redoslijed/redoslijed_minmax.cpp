@@ -102,7 +102,7 @@ void solve() {
   for (int i = 1; i < N; i++)
     covered[i] += covered[i - 1];
   for (int i = 0; i < N; i++)
-    if (!!covered[i] ^ !!final[i])
+    if (!covered[i] ^ !final[i])
       bye();
   
   for (int i = 0; i < 2 * offset; i++) 

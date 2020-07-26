@@ -1,13 +1,13 @@
-# Usage: bash skripta.sh N M L sol1 sol2
-# with executables {{checker}}, {{generator}} in path
+# Usage: bash skripta.sh N M L gen sol1 sol2
+# with executable {{checker}} in path
 cnt=0
 while true; do
     echo Generating testcase with N=$1, M=$2...
-    ./generator $1 $2 $3 > inp
-    echo Running $4...
-    time ./$4 < inp > off
+    ./$4 $1 $2 $3 > inp
     echo Running $5...
-    time ./$5 < inp > out
+    time ./$5 < inp > off
+    echo Running $6...
+    time ./$6 < inp > out
     ./checker inp off out > verdict
     cat verdict
     if [[ 1 == $(head -n 1 verdict) ]]; then
