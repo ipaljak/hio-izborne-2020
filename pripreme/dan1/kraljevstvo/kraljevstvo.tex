@@ -14,14 +14,14 @@ najzapadnijem. Nažalost, idiličan život mještana prekinula je vijest o
 razbojničkoj bandi koja juri prema kraljevstvu.
 
 Vremena je sve manje, a kraljevstvo nije moguće u potpunosti zaštititi bez
-poduzimanja drastičnih mjera. Teška srca, kraljevi će isprazniti točno $K$
-dvoraca, a stanovnike tih dvoraca će zbrinuti u preostalim dvorcima kako bi ih
-dodatno osnažnili. Naravno, pritom neće isprazniti dvorce u kojima oni sami
-žive. Također, neprazne će dvorce ograditi zidinama tako da one tvore
-\textit{konveksnu ljusku} tog skupa dvoraca. Primijetite da se prazni dvorci
-mogu, ali i ne moraju nalaziti unutar te konveksne ljuske.
+poduzimanja drastičnih mjera. Teška srca, kraljevi će odabrati točno $K$
+dvoraca koje će dodatno osnažiti selidbom stanovnika iz preostalih $N - K$
+dvoraca. Naravno, među $K$ osnaženih dvoraca nalazit će se i dvorci u kojima
+oni sami žive.  Također, osnažene će dvorce ograditi zidinama tako da one
+tvore \textit{konveksnu ljusku} tog skupa dvoraca. Primijetite da se prazni
+dvorci mogu, ali i ne moraju nalaziti unutar te konveksne ljuske.
 
-Logično, kraljevi su odlučili isprazniti $K$ dvoraca tako da površina zidinama
+Logično, kraljevi su odlučili osnažiti $K$ dvoraca tako da površina zidinama
 ograđenog dijela bude najveća moguća. Odredite tu površinu.
 
 \textbf{Napomena:} konveksna ljuska nekog skupa točaka odgovara konveksnom
@@ -31,7 +31,7 @@ u unutrašnjosti) sve točke tog skupa.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Input
 \subsection*{Ulazni podaci}
-U prvom su retku prirodni brojevi $N$ i $K$ iz teksta zadatka.
+U prvom su retku prirodni brojevi $N$ i $K$ $(2 \le K \le N)$ iz teksta zadatka.
 
 U $i$-tom od sljedećih $N$ redaka nalaze se po dva broja $x_i$ i $y_i$ $(0 \leq
 x_i, y_i \leq 10^9)$ koji označavaju da se $i$-ti dvorac u koordinatnoj
@@ -64,9 +64,9 @@ površinu iz teksta zadatka.
 % Examples
 \subsection*{Probni primjeri}
 \begin{tabularx}{\textwidth}{X'X'X}
-\sampleinputs{test/sadnice.dummy.in.1}{test/sadnice.dummy.out.1} &
-\sampleinputs{test/sadnice.dummy.in.2}{test/sadnice.dummy.out.2} &
-\sampleinputs{test/sadnice.dummy.in.3}{test/sadnice.dummy.out.3}
+\sampleinputs{test/kraljevstvo.dummy.in.1}{test/kraljevstvo.dummy.out.1} &
+\sampleinputs{test/kraljevstvo.dummy.in.2}{test/kraljevstvo.dummy.out.2} &
+\sampleinputs{test/kraljevstvo.dummy.in.3}{test/kraljevstvo.dummy.out.3}
 \end{tabularx}
 
 
