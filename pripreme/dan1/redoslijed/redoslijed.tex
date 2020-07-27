@@ -1,0 +1,87 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem statement
+\begin{statement}[
+  problempoints=100,
+  timelimit=1 sekunda,
+  memorylimit=512 MiB,
+]{Redoslijed}
+
+Mali Davor jednoga je dana upalio televizor i vidio kako je jedan gospodin
+nacrtao prekrasan portret. ,,Kakav \textit{super talent}!'', pomislio je
+Davor te odmah zgrabio kantice s bojama i svoj najdraži kist, otrčao u
+dvorište te se bacio na posao.
+
+U dvorištu je pronašao i dasku dugačku $N$ metara koju će koristiti umjesto
+platna. Potom je $M$ puta umočio svoj kist u kanticu neke boje $c$ te ga je
+povukao od $a$-tog do $b$-tog metra daske, obojivši taj segment bojom $c$.
+Također, svakoga je puta na zaseban papirić zapisao kojom je bojom obojio
+koji dio daske.
+
+Remek-djelo je završeno, Davor je presretan, a sada još samo treba napraviti
+hrpu kopija koje će izložiti po svim svjetskim galerijama. Baš dobro što je
+svaki potez kistom zapisao na pap\dots
+
+Što!? Puhnuo je vjetar i papirići su se izmiješali! Davor je slomljen, pomozite
+mu odrediti kojim je redoslijedom mogao povlačiti poteze kistom tako da ne
+kraju dobije svoje remek-djelo ili zaključite da takav redoslijed ne postoji.
+U tom je slučaju vjetar najvjerojatnije predaleko otpuhao neki papirić ili je
+Davor napravio pogrešku prilikom zapisivanja.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Input
+\subsection*{Ulazni podaci}
+U prvom su retku prirodni brojevi $N$ i $M$ iz teksta zadatka.
+
+U $i$-tom od idućih $M$ redaka nalaze se tri prirodna broja $a_i$, $b_i$ i
+$c_i$ $(1 \le a_i \le b_i \le N)$ koji označavaju da je Davor napravio potez
+kistom kojim je obojio dio daske od $a_i$-tog do $b_i$-tog metra (uključivo)
+u boju $c_i$.
+
+U posljednjem se retku nalazi $N$ cijelih brojeva pri čemu $i$-ti broj označava
+boju kojom je obojen $i$-ti metar daske. Neobojeni dio daske označavamo brojem
+$0$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Output
+\subsection*{Izlazni podaci}
+U prvi redak potrebno je ispisati riječ \texttt{"DA"} ako je moguće primijeniti
+Davorove poteze kistom u nekom poretku tako da konačan produkt odgovara obojenoj
+dasci iz ulaza. U protivnom, potrebno je ispisati riječ \texttt{"NE"}.
+
+Također, ako ste ispisali \texttt{"DA"}, u idućem je retku potrebno ispisati
+$M$ brojeva koji označavaju kojim je redoslijedom potrebno primijeniti Davorove
+poteze. Pritom nam $i$-ti ispisani broj (označimo ga s $p_i$) govori da $i$-ti
+potez kistom treba odgovarati $p_i$-tom potezu navedenom u ulaznim podacima.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Scoring
+\subsection*{Bodovanje}
+{\renewcommand{\arraystretch}{1.4}
+  \setlength{\tabcolsep}{6pt}
+  \begin{tabular}{ccl}
+ Podzadatak & Broj bodova & Ograničenja \\ \midrule
+  1 & ?? & ?? \\
+  2 & ?? & ?? \\
+  3 & ?? & ?? \\
+\end{tabular}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Examples
+\subsection*{Probni primjeri}
+\begin{tabularx}{\textwidth}{X'X'X}
+\sampleinputs{test/redoslijed.dummy.in.1}{test/redoslijed.dummy.out.1} &
+\sampleinputs{test/redoslijed.dummy.in.2}{test/redoslijed.dummy.out.2} &
+\sampleinputs{test/redoslijed.dummy.in.3}{test/redoslijed.dummy.out.3}
+\end{tabularx}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% We're done
+\end{statement}
+
+%%% Local Variables:
+%%% mode: latex
+%%% mode: flyspell
+%%% ispell-local-dictionary: "croatian"
+%%% TeX-master: "../hio.tex"
+%%% End:
