@@ -120,7 +120,7 @@ void checker(ifstream& fin, ifstream& foff, ifstream& fout)
 
   // TOOO grading function
   if (score == opt) finish(1, CORRECT);
-  else finish(0.5, PARTIAL + " score:" + to_string(score) + " optimal:" + to_string(opt));
+  else finish((double)score / opt, PARTIAL + " score:" + to_string(score) + " optimal:" + to_string(opt));
 
   // The function MUST terminate before this line via finish()!
 }
