@@ -42,7 +42,7 @@ void solve() {
     }
     
   for (int i = 0; i < N; i++) 
-    if (covered[i] ^ !!final[i])
+    if (!covered[i] ^ !final[i])
       bye();
   
   vector <int> ans;
