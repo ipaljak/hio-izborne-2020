@@ -36,11 +36,24 @@ vll solve(vector<pll> points) {
 
     vll dp(n), prev(n), sol(n - 1);
     for (int i = 0; i < n; i++) prev[i] = area(points[0], points[i]);
+
+    vi H;
+    auto cmp = [&prev](int i, int j) { return prev[i] > prev[j]; };
+
     for (int k = 1; k < n - 1; k++) {
+        H.clear();
+
         for (int i = 0; i < n; i++) {
             dp[i] = 0;
-            for (int j = 0; j < i; j++)
+            for (auto j : H)
                 dp[i] = max(dp[i], prev[j] + area(points[j], points[i]));
+
+            H.push_back(i);
+            push_heap(H.begin(), H.end(), cmp);
+            if ((int)H.size() == 121) {
+                pop_heap(H.begin(), H.end(), cmp);
+                H.pop_back();
+            }
         }
         sol[k] = dp[n - 1];
         prev = dp;
