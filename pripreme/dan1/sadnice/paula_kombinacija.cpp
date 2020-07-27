@@ -12,13 +12,13 @@ typedef long double ld;
 typedef pair<int, int> pii;
 typedef vector<int> vi;
 
-int n, m;
+int n, m, N, M;
 
 struct Solution {
     vector<string> sol;
 
     Solution() {
-        sol.resize(2 * n + 1, string(3 * m + 1, ' '));
+        sol.resize(N, string(M, ' '));
         for (int i = 0; i <= n; i++)
             for (int j = 0; j <= m; j++)
                 sol[2 * i][3 * j] = 'o';
@@ -37,14 +37,14 @@ struct Solution {
 
     int score() {
         int score = 0;
-        for (int i = 1; i < n; i += 2) {
+        for (int i = 1; i < N; i += 2) {
             int cnt = 0;
-            for (int j = 0; j < m; j += 3) cnt += sol[i][j] == '|';
+            for (int j = 0; j < M; j += 3) cnt += sol[i][j] == '|';
             score = max(score, cnt);
         }
-        for (int j = 1; j < m; j += 3) {
+        for (int j = 1; j < M; j += 3) {
             int cnt = 0;
-            for (int i = 0; i < n; i += 2) cnt += sol[i][j] == '-';
+            for (int i = 0; i < N; i += 2) cnt += sol[i][j] == '-';
             score = max(score, cnt);
         }
         return score;
@@ -96,6 +96,7 @@ int main() {
     cout.tie(0);
 
     cin >> n >> m;
+    N = 2 * n + 1, M = 3 * m + 1;
 
     auto S1 = duguljaste();
     auto S2 = skoro_kvadratne();
