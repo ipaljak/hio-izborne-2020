@@ -2,7 +2,7 @@
 % Problem statement
 \begin{statement}[
   problempoints=100,
-  timelimit=3.5 sekunde,
+  timelimit=4 sekunde,
   memorylimit=512 MiB,
 ]{Redoslijed}
 
@@ -77,6 +77,15 @@ potez kistom treba odgovarati $p_i$-tom potezu navedenom u ulaznim podacima.
 \sampleinputs{test/redoslijed.dummy.in.3}{test/redoslijed.dummy.out.3}
 \end{tabularx}
 
+\textbf{Pojašnjenje prvog probnog primjera:}
+\begin{itemize}
+  \item Na početku je daska neobojena, odnosno njeno stanje je $(0, 0, 0, 0, 0, 0)$.
+  \item Najprije od $1.$ do $4.$ metra bojimo bojom $7$ i dobivamo $(7, 7, 7, 7, 0, 0)$.
+  \item Zatim od $4.$ do $6.$ metra bojimo bojom $6$ i dobivamo $(7, 7, 7, 6, 6, 6)$.
+  \item Potom od $1.$ do $3.$ metra bojimo bojom $2$ i dobivamo $(2, 2, 2, 6, 6, 6)$.
+  \item Onda od $3.$ do $5.$ metra bojimo bojom $5$ i dobivamo $(2, 2, 5, 5, 5, 6)$.
+  \item Konačno prvi metar bojimo bojom $6$ i dobivamo $(6, 2, 5, 5, 5, 6)$.
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % We're done
