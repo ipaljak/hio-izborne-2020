@@ -72,7 +72,7 @@ između sadnica u istom stupcu.
 Rješenja koja na nekom test podatku na ispravan, ali ne i optimalan način
 povežu sadnice, osvojit će
 $$ 0.75 \cdot \max \left(
-\left( \frac{A}{B} \right)^4,
+\left( \frac{A - 1}{B - 1} \right)^4,
 1 - \left( 1 - \frac{1}{(B - A)^2} \right)^6
 \right) \cdot X$$
 bodova, pri čemu $A$ označava broj vijenaca nakon Krešimirova reza u optimalnom
@@ -102,6 +102,16 @@ ostvaruje na nekom od test podataka tog podzadatka.
 \sampleinputs{test/sadnice.dummy.in.2}{test/sadnice.dummy.out.2}
 \end{tabularx}
 
+\textbf{Pojašnjenje probnih primjera:}
+
+Izlaz prvog probnog primjera predstavlja jedan optimalan način vezanja
+sadnica. Krešimirov će rez rastaviti ovaj vijenac na $3$ manja vijenca.
+
+Izlaz drugog probnog primjera predstavlja suboptimalan način vezanja
+sadnica kojeg je gospodin Malnar prvotno imao na umu (primijetite oblik
+slova G). Krešimirov će rez rastaviti ovaj vijenac na $4$ manja vijenca.
+Broj bodova koji biste osvojili za ovakav izlaz izonsi $75\%$ ukupnog
+broja bodova predviđenih za taj test podatak.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % We're done
