@@ -11,8 +11,6 @@ const int N = 3010;
 
 int n, k;
 ll dp[2][N];
-ll hull_dp[2][N];
-int hull_sz[2];
 
 ll ccw(Pt a, Pt b, Pt c) {
   return (ll)a.x * (b.y - c.y) + (ll)b.x * (c.y - a.y) + (ll)c.x * (a.y - b.y);
@@ -62,7 +60,7 @@ int main(void) {
     
     dp[0][0] = 0;
     for (int i = 1; i < sz; ++i)
-      dp[0][i] = -(1 << 30);
+      dp[0][i] = -(1LL << 60);
     
     vector<ll> hull_dp_current;
     for (int i = 1; i < sz; ++i) {

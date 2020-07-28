@@ -45,7 +45,7 @@ int main(void) {
 
   ll ans = 0;
   for (int mask = 0; mask < (1 << n); ++mask) {
-    if ((mask & 1) == 0 || (mask & (1 << (n - 1))) == 0 ||
+    if ((mask & 3) != 3 ||
         __builtin_popcount(mask) != k)
       continue;
     vector<Pt> sub_pts;
@@ -56,7 +56,7 @@ int main(void) {
     ans = max(ans, solve(sub_pts));
   }
 
-  cout << ans << (ans % 2 == 0 ? "" : ".5") << endl;
+  cout << ans / 2 << (ans % 2 == 0 ? "" : ".5") << endl;
 
   return 0;
 }

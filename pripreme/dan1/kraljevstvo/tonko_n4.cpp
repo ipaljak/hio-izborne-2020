@@ -7,7 +7,7 @@ using namespace std;
 typedef long long ll;
 typedef pair<int, int> Pt;
 
-const int N = 305;
+const int N = 505;
 
 int n, k;
 Pt pts[N];
@@ -23,7 +23,7 @@ void calc(ll *output) {
   for (int step = 0; step < 2; ++step) {
     for (int i = 0; i < n; ++i) {
       for (int j = 0; j < n; ++j) {
-        dp[step][i][j] = -(1 << 30);
+        dp[step][i][j] = -(1LL << 60);
       }
     }
   }
@@ -31,7 +31,7 @@ void calc(ll *output) {
     output[i] = 0;
     dp[0][0][i] = 0;
   }
-  for (int step = 3; step <= n; ++step) {
+  for (int step = 3; step <= k; ++step) {
     for (int i = 0; i < n; ++i) {
       for (int j = i + 1; j < n; ++j) {
         for (int jj = j + 1; jj < n; ++jj) {
@@ -63,13 +63,9 @@ int main(void) {
   reverse(pts, pts + n);
   calc(down);
 
-  for (int i = 2; i <= n; ++i) {
-    cerr << i << " " << up[i] << " " << down[i] << endl;
-  }
-
   ll ans = 0;
-  for (int i = 2; i <= n; ++i) {
-    for (int j = 2; j <= n; ++j) {
+  for (int i = 2; i <= k; ++i) {
+    for (int j = 2; j <= k; ++j) {
       if (i + j <= k + 2)
         ans = max(ans, up[i] + down[j]);
     }
