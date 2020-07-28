@@ -51,7 +51,6 @@ int dijeli(int a, int b) {
 int m, n, rj;
 int perm[MAXM][MAXN];
 
-vector<par> graf[MAXN][MAXN];
 int bio[MAXN][MAXN];
 
 void unesi() {
@@ -61,13 +60,6 @@ void unesi() {
       scanf("%d", &perm[i][j]);
       perm[i][j]--;
     }
-}
-
-void napravi_graf() {
-  REP(i, n)
-    REP(j, n)
-      REP(k, m)
-        graf[i][j].push_back(par(perm[k][i], perm[k][j]));
 }
 
 int brojac;
@@ -83,8 +75,8 @@ void dfs(int x, int y) {
   if(x > y)
     broj_inverznih_cvorova++;
   bio[x][y] = brojac;
-  for(int i = 0; i < (int) graf[x][y].size(); i++)
-    dfs(graf[x][y][i].X, graf[x][y][i].Y);
+  for(int i = 0; i < m; i++)
+    dfs(perm[i][x], perm[i][y]);
 }
 
 void obradi_komponentu(int x, int y) {
@@ -106,7 +98,6 @@ void rijesi() {
 
 int main() {
   unesi();
-  napravi_graf();
   rijesi();
   printf("%d\n", rj);
   return 0;
