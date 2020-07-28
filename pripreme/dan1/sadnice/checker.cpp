@@ -120,7 +120,10 @@ void checker(ifstream& fin, ifstream& foff, ifstream& fout)
   if (edges != n * m + n + m) finish(0, WRONG);
 
   if (score == opt) finish(1, CORRECT);
-  else finish(0.75 * (1.0 - pow(1.0 - pow((double)opt / score, 3), 0.5)), PARTIAL);
+
+  double score_rel = pow((double)opt / score, 4);
+  double score_abs = 1.0 - pow(1.0 - pow(1.0 / (score - opt), 2), 6);
+  finish(0.75 * max(score_abs, score_rel), PARTIAL);
 
   // The function MUST terminate before this line via finish()!
 }
