@@ -67,6 +67,8 @@ for i in {1..4}; do
     if [ -f "$IN" ]; then
       echo $i$j
       ./tonko < $IN > $OUT
+      ./paula < $IN > out
+      diff -nbwq out $OUT
     fi
   done
 done

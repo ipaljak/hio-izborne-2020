@@ -63,7 +63,7 @@ int main(void) {
       dp[0][i] = -(1LL << 60);
     
     vector<ll> hull_dp_current;
-    for (int i = 1; i < sz; ++i) {
+    for (int i = 1; i <= k; ++i) {
       for (int j = 0; j < sz; ++j)
         dp[1][j] = 0;
       f(hull, 0, sz - 1, 0, sz - 1);
