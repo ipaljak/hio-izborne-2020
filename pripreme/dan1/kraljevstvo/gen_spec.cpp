@@ -146,15 +146,20 @@ int main(int argc, char **argv) {
     for (auto &p : pts_all) p.y = -p.y;
   }
 
-  cerr << "final_size: " << pts_all.size() << endl;
 
-  cout << pts_all.size() << " " << min((int)pts_all.size(), k) << endl;
-  cout << pts_all[0].x << " " << pts_all[0].y << endl;
-  cout << pts_all.back().x << " " << pts_all.back().y << endl;
-  for (int i = 1; i < pts_all.size() - 1; ++i)
-    cout << pts_all[i].x << " " << pts_all[i].y << endl;
+  set<Pt> pts_set;
+  for (auto p : pts_all) pts_set.insert(p);
+  
+  cerr << "final_size: " << pts_set.size() << endl;
 
-
+  cout << pts_set.size() << " " << min((int)pts_set.size(), k) << endl;
+  cout << pts_set.begin()->x << " " << pts_set.begin()->y << endl;
+  cout << pts_set.rbegin()->x << " " << pts_set.rbegin()->y << endl;
+  pts_set.erase(pts_set.begin());
+  auto itt = pts_set.end(); itt--; pts_set.erase(itt);
+  for (auto p : pts_set) {
+    cout << p.x << " " << p.y << endl;
+  }
   
   return 0;
 }
