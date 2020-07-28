@@ -1,0 +1,60 @@
+./gen_yes 1 9 5 3 mixed 0 > test/redoslijed.in.1a
+./gen_yes 2 9 6 4 mixed 0 > test/redoslijed.in.1b
+./gen_no_other 3 9 9 9 mixed 1 > test/redoslijed.in.1c
+./gen_yes 4 9 9 9 mixed 1 > test/redoslijed.in.1d
+
+./gen_yes 1 100 30 30 decay 1 > test/redoslijed.in.2a
+./gen_no_other 2 3000 5000 5000 decay 1 > test/redoslijed.in.2b
+./gen_yes 3 1000 500 500 mixed 1 > test/redoslijed.in.2c
+./gen_no_blank 4 5000 1000 1000 mixed 1 > test/redoslijed.in.2d
+./gen_yes 5 3000 5000 5000 decay 1 > test/redoslijed.in.2e
+./gen_yes 6 5000 5000 5000 mixed 1 > test/redoslijed.in.2f
+
+./gen_yes 1 100000 100 100 mixed 1 > test/redoslijed.in.3a
+./gen_yes 2 100000 1000 1000 decay 1 > test/redoslijed.in.3b
+./gen_yes 3 200000 2000 2000 decay 1 > test/redoslijed.in.3c
+./gen_no_other 4 500000 200000 200000 mixed 1 > test/redoslijed.in.3d
+./gen_no_blank 5 100000 200000 200000 mixed 1 > test/redoslijed.in.3e
+./gen_yes 6 500000 400000 400000 decay 1 > test/redoslijed.in.3f
+./gen_yes 7 500000 100 100 mixed 1 > test/redoslijed.in.3g
+./gen_no_other 8 500000 100000 100000 mixed 1 > test/redoslijed.in.3h
+./gen_yes 9 50000 50000 50000 decay 1 > test/redoslijed.in.3i
+./gen_yes 10 500000 500000 500000 mixed 1 > test/redoslijed.in.3j
+./gen_yes 11 500000 500000 500000 mixed 1 > test/redoslijed.in.3k
+./gen_yes 12 500000 500000 500000 mixed 1 > test/redoslijed.in.3l
+
+./gen_yes 1 100 10 10 decay 1 > test/redoslijed.in.4a
+./gen_no_blank 2 5000 5000 1000 decay 1 > test/redoslijed.in.4b
+./gen_yes 3 1000 500 100 decay 1 > test/redoslijed.in.4c
+./gen_yes 4 1000 500 500 mixed 1 > test/redoslijed.in.4d
+./gen_yes 5 1000 5000 5000 mixed 1 > test/redoslijed.in.4e
+./gen_yes 6 5000 5000 5000 decay 1 > test/redoslijed.in.4f
+./gen_yes 7 5000 5000 5000 mixed 1 > test/redoslijed.in.4g
+./gen_no_other 8 5000 1000 5000 mixed 1 > test/redoslijed.in.4h
+
+./gen_yes 1 500000 100 5 mixed 0 > test/redoslijed.in.5a
+./gen_no_blank 2 100000 500000 5 decay 0 > test/redoslijed.in.5b
+./gen_yes 3 500000 1000 5 decay 0 > test/redoslijed.in.5c
+./gen_no_other 4 500000 100000 5 mixed 0 > test/redoslijed.in.5d
+./gen_yes 5 500000 200000 5 mixed 0 > test/redoslijed.in.5e
+./gen_yes 6 500000 500000 5 decay 0 > test/redoslijed.in.5f
+./gen_yes 7 500000 500000 5 mixed 0 > test/redoslijed.in.5g
+./gen_yes 8 50000 50000 5 decay 0 > test/redoslijed.in.5i
+./gen_yes 9 500000 500000 5 mixed 0 > test/redoslijed.in.5h
+./gen_yes 10 500000 500000 5 mixed 0 > test/redoslijed.in.5j
+
+./gen_yes 1 100000 100 100 mixed 0 > test/redoslijed.in.6a
+./gen_yes 2 500000 1000 500000 mixed 0 > test/redoslijed.in.6b
+./gen_yes 3 200000 500000 100000 decay 0 > test/redoslijed.in.6c
+./gen_no_other 4 500000 200000 200000 mixed 0 > test/redoslijed.in.6d
+./gen_yes 5 100000 200000 200000 mixed 0 > test/redoslijed.in.6e
+./gen_yes 6 500000 400000 400000 decay 0 > test/redoslijed.in.6f
+./gen_yes 7 50000 50000 100 mixed 0 > test/redoslijed.in.6g
+./gen_no_blank 8 500000 100000 100000 mixed 0 > test/redoslijed.in.6h
+./gen_yes 9 50000 50000 50000 decay 0 > test/redoslijed.in.6i
+./gen_yes 10 500000 500000 500000 decay 0 > test/redoslijed.in.6j
+./gen_yes 11 500000 100000 500000 mixed 0 > test/redoslijed.in.6k
+./gen_yes 12 500000 500000 500000 decay 0 > test/redoslijed.in.6l
+./gen_yes 13 500000 500000 10000 mixed 0 > test/redoslijed.in.6m
+./gen_yes 14 500000 500000 500000 mixed 0 > test/redoslijed.in.6n
+./gen_no_other 15 500000 400000 500000 decay 0 > test/redoslijed.in.6o
