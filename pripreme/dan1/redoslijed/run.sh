@@ -13,7 +13,7 @@ do
   ./redoslijed_minmax < test/redoslijed.in.2$i > test/redoslijed.out.2$i
 done
 
-for i in {a..l}
+for i in {a..o}
 do
   ./redoslijed_minmax < test/redoslijed.in.3$i > test/redoslijed.out.3$i
 done
@@ -23,12 +23,12 @@ do
   ./redoslijed_minmax < test/redoslijed.in.4$i > test/redoslijed.out.4$i
 done
 
-for i in {a..j}
+for i in {a..l}
 do
   ./redoslijed_minmax < test/redoslijed.in.5$i > test/redoslijed.out.5$i
 done
 
-for i in {a..o}
+for i in {a..r}
 do
   ./redoslijed_minmax < test/redoslijed.in.6$i > test/redoslijed.out.6$i
 done
