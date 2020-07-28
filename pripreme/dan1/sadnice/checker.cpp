@@ -18,6 +18,7 @@
 #include <vector>
 #include <set>
 #include <queue>
+#include <math.h>
 
 using namespace std;
 
@@ -118,9 +119,8 @@ void checker(ifstream& fin, ifstream& foff, ifstream& fout)
   }
   if (edges != n * m + n + m) finish(0, WRONG);
 
-  // TOOO grading function
   if (score == opt) finish(1, CORRECT);
-  else finish((double)score / opt, PARTIAL + " score:" + to_string(score) + " optimal:" + to_string(opt));
+  else finish(0.75 * (1.0 - pow(1.0 - pow((double)opt / score, 3), 0.5)), PARTIAL);
 
   // The function MUST terminate before this line via finish()!
 }
