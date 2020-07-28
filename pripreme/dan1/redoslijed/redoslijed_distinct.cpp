@@ -97,7 +97,7 @@ void solve() {
   for (int i = 0; i < N; i++)
     build_graph(i);
  
-  for (int i = 0; i < N; i++)
+  for (int i = 1; i <= M; i++)
     for (auto it : todo[i])
       if (last[it])
         add_edge(i, last[it]);
