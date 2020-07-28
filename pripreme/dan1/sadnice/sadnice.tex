@@ -70,9 +70,14 @@ između sadnica u istom stupcu.
 % Scoring
 \subsection*{Bodovanje}
 Rješenja koja na nekom test podatku na ispravan, ali ne i optimalan način
-povežu sadnice, osvojit će $\frac{3}{4}(1 - \sqrt{1 - \frac{A^3}{B^3}})$
+povežu sadnice, osvojit će
+$$ 0.75 \cdot \max \left(
+\left( \frac{A}{B} \right)^4,
+1 - \left( 1 - \frac{1}{(B - A)^2} \right)^6
+\right) \cdot X$$
 bodova, pri čemu $A$ označava broj vijenaca nakon Krešimirova reza u optimalnom
-rješenju, dok $B$ označava analognu stvar u vašem rješenju.
+rješenju, dok $B$ označava analognu stvar u vašem rješenju, a $X$ je broj bodova
+predviđenih za taj test podatak.
 
 Broj bodova nekog podzadatka jednak je najmanjem broju bodova koje vaše rješenje
 ostvaruje na nekom od test podataka tog podzadatka.
@@ -83,10 +88,10 @@ ostvaruje na nekom od test podataka tog podzadatka.
  Podzadatak & Broj bodova & Ograničenja \\ \midrule
   1 & 15 & $1 \le N = M \le 1\,000$ \\
   2 & 15 & $2 \le 2N = M \le 1\,000$ \\
-  3 & 10 & $1 \le N \le M \le 3$ \\
-  4 & 20 & $1 \le N \le M \le 10$ \\
+  3 & 5 & $1 \le N \le M \le 3$ \\
+  4 & 10 & $1 \le N \le M \le 10$ \\
   5 & 20 & $1 \le N \le M \le 100$ \\
-  6 & 20 & $1 \le N \le M \le 1\,000$ \\
+  6 & 35 & $1 \le N \le M \le 1\,000$ \\
 \end{tabular}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
