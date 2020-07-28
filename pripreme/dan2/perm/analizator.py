@@ -125,4 +125,4 @@ if __name__ == "__main__":
   print_to_stderr("rj kao float:", float(rj))
   print_to_stderr("vjerojatnost jedne inverzije:", float(rj) / (n * (n - 1) / 2))
   print_to_stderr("broj orbita:", brojac)
-  print_to_stderr("velicine orbita:", velicine_orbita)
+  #print_to_stderr("velicine orbita:", velicine_orbita)
