@@ -35,7 +35,8 @@ U prvom su retku prirodni brojevi $N$ i $K$ $(3 \le K \le N)$ iz teksta zadatka.
 
 U $i$-tom od sljedećih $N$ redaka nalaze se po dva broja $x_i$ i $y_i$ $(0 \leq
 |x_i|, |y_i| \leq 10^9)$ koji označavaju da se $i$-ti dvorac u koordinatnoj
-ravnini nalazi na poziciji $(x_i, y_i)$.
+ravnini nalazi na poziciji $(x_i, y_i)$. Pritom se niti jedan par dvoraca neće
+nalaziti na istoj poziciji.
 
 Također, prvi od navedenih dvoraca odgovara dvorcu kralja Zapada $(y_1 = 0, x_1
 < x_i, i \ne 1)$, dok drugi navedeni dvorac odgovara dvorcu kralja Istoka
@@ -46,6 +47,10 @@ $(y_N = 0, x_N > x_i, i \ne N)$. Primijetite da oba dvorca leže na $x$-osi.
 \subsection*{Izlazni podaci}
 U jedini je redak potrebno ispisati realan broj koji predstavlja traženu
 površinu iz teksta zadatka.
+
+Površinu treba ispisati bez vodećih i pratećih nula. Primjerice, ako je
+tražena površina iznosi $3.14$, ispisi poput $03.14$ ili $3.1400$ neće
+se priznavati.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Scoring
