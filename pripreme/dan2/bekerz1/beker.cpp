@@ -87,12 +87,13 @@ void process_comp(int root) {
     bad_overall[it] |= bad_up[it];
     cnt_good += !bad_overall[it];
   }
+  cnt_good += comp_size == 1;
   if (comp_size == 1 || !is_clique)
     all_cliques = false;
   else if (comp_size <= min_clique) {
-    min_clique = comp_size;
     if (comp_size < min_clique)
       occ_min = 0;
+    min_clique = comp_size;
     occ_min++;
   }
   cnt_comp++;
