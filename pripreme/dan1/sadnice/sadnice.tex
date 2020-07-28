@@ -61,8 +61,10 @@ između sadnica u istom stupcu.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Scoring
 \subsection*{Bodovanje}
-Rješenja koja na nekom test podatku na ispravan, ali ne i optimalan način povežu
-sadnice, osvojit će ?? bodova.
+Rješenja koja na nekom test podatku na ispravan, ali ne i optimalan način
+povežu sadnice, osvojit će $\frac{3}{4}(1 - \sqrt{1 - \frac{A^3}{B^3}})$
+bodova, pri čemu $A$ označava broj vijenaca nakon Krešimirova reza u optimalnom
+rješenju, dok $B$ označava analognu stvar u vašem rješenju.
 
 Broj bodova nekog podzadatka jednak je najmanjem broju bodova koje vaše rješenje
 ostvaruje na nekom od test podataka tog podzadatka.
@@ -71,15 +73,18 @@ ostvaruje na nekom od test podataka tog podzadatka.
   \setlength{\tabcolsep}{6pt}
   \begin{tabular}{ccl}
  Podzadatak & Broj bodova & Ograničenja \\ \midrule
-  1 & ?? & ?? \\
-  2 & ?? & ?? \\
-  3 & ?? & ?? \\
+  1 & 10 & $1 \le N \le M \le 3$ \\
+  2 & 20 & $1 \le N \le M \le 10$ \\
+  3 & 20 & $1 \le N \le M \le 100$ \\
+  4 & 15 & $1 \le N = M \le 1\,000$ \\
+  5 & 15 & $2 \le 2N = M \le 1\,000$ \\
+  6 & 20 & $1 \le N \le M \le 1\,000$ \\
 \end{tabular}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Examples
 \subsection*{Probni primjeri}
-\begin{tabularx}{\textwidth}{X'X'X}
+\begin{tabularx}{\textwidth}{X'X}
 \sampleinputs{test/sadnice.dummy.in.1}{test/sadnice.dummy.out.1} &
 \sampleinputs{test/sadnice.dummy.in.2}{test/sadnice.dummy.out.2}
 \end{tabularx}
