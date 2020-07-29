@@ -183,31 +183,5 @@ int main(void) {
       print_order();
   }
 
-  //printf("%lld\n", get_time());
-
-  //int id = n;
-  //for (int i = 0; i < k; ++i) {
-    //char s[10];
-    //scanf("%s", s);
-    //if (strcmp(s, "DOLAZI") == 0) {
-      //int a, b;
-      //scanf("%d%d", &a, &b);
-      //g_set.insert({id, {a, b}});
-      //g.emplace_back(a, b);
-      //++id;
-      //printf("%lld\n", get_time());
-    //}
-    //if (strcmp(s, "ODLAZI") == 0) {
-      //int x;
-      //scanf("%d", &x); --x;
-      //auto it = g_set.find({x, g[x]});
-      //assert(it != g_set.end());
-      //g_set.erase(it);
-      //printf("%lld\n", get_time());
-    //}
-    //if (strcmp(s, "POREDAK") == 0)
-      //print_order();
-  //}
-
   return 0;
 }
