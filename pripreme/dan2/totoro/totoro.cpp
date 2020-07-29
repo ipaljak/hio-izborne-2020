@@ -102,6 +102,7 @@ void rijesi() {
 void ispisi_podatke_o_komponentama() {
   cerr << m << " " << n << endl;
   TRACE(velicine_komponenti.size());
+  //for (auto komp: velicine_komponenti) TRACE(komp);
 }
 
 int main() {
