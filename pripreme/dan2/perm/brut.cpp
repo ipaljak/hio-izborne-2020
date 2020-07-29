@@ -12,7 +12,7 @@ typedef pair<int, int> par;
 #define X first
 #define Y second
 
-const int MAXN = 1e3 + 10;
+const int MAXN = 2510;
 const int MAXM = 20;
 const int MOD = 1e9 + 7;
 

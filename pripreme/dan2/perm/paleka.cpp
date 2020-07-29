@@ -8,7 +8,7 @@
 typedef long long ll;
 using namespace std;
 
-const int MaxN = 1010; 
+const int MaxN = 2510; 
 const int MaxK = 12;
 const int Mod = 1e9 + 7;
 

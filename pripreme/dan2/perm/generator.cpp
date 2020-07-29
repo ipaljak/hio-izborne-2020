@@ -136,17 +136,17 @@ int main(int argc, char **argv) {
   }
   else if(!strcmp(argv[1], "drugi")) {
     m = 1;
-    n = rnd(950, 1000);
+    n = rnd(2400, 2500);
     permutacija_s_jednim_ciklusom();
   }
   else if(!strcmp(argv[1], "treci")) {
     m = 1;
-    n = rnd(950, 1000);
+    n = rnd(2400, 2500);
     najbolji_generator();
   }
   else if(!strcmp(argv[1], "cetvrti")) {
     m = rnd(1, 10);
-    n = rnd(950, 1000);
+    n = rnd(2400, 2500);
     najbolji_generator();
   }
   else

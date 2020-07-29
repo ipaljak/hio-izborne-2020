@@ -12,7 +12,7 @@ typedef pair<int, int> par;
 #define X first
 #define Y second
 
-const int MAXN = 1e3 + 10;
+const int MAXN = 2510;
 const int MAXM = 20;
 const int MOD = 1e9 + 7;
 
@@ -66,6 +66,8 @@ int brojac;
 int ukupan_broj_cvorova_u_komponenti;
 int broj_inverznih_cvorova;
 
+vector<int> velicine_komponenti;
+
 void dfs(int x, int y) {
   //ovaj assert provjerava ima li graf doista to svojstvo da je svaka
   //connected komponenta doista i scc komponenta, zato i korisitm brojac
@@ -87,6 +89,7 @@ void obradi_komponentu(int x, int y) {
   int num = ukupan_broj_cvorova_u_komponenti - broj_inverznih_cvorova;
   int udio_inverznih = dijeli(broj_inverznih_cvorova, ukupan_broj_cvorova_u_komponenti);
   rj = add(rj, mul(num, udio_inverznih));
+  velicine_komponenti.push_back(ukupan_broj_cvorova_u_komponenti);
 }
 
 void rijesi() {
@@ -96,10 +99,16 @@ void rijesi() {
         obradi_komponentu(i, j);
 }
 
+void ispisi_podatke_o_komponentama() {
+  cerr << m << " " << n << endl;
+  TRACE(velicine_komponenti.size());
+}
+
 int main() {
   unesi();
   rijesi();
   printf("%d\n", rj);
+  ispisi_podatke_o_komponentama();
   return 0;
 }
 

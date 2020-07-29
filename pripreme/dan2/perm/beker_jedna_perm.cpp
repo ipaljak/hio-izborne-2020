@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAXN = 2e3 + 5;
+const int MAXN = 2510;
 const int MOD = 1e9 + 7;
 
 int N, K;

@@ -10,14 +10,8 @@ f() {
   echo $1 $2 $3
   ./generator $3 > test/$ime.in.$1$2
   ./$ime < test/perm.in.$1$2 > test/perm.out.$1$2
-  python3 analizator.py < test/perm.in.$1$2
+  #python3 analizator.py < test/perm.in.$1$2
   echo
-}
-
-dummy() {
-  echo dummy $1 $2
-  ./generator $2 > test/$ime.dummy.in.$1
-  ./$ime < test/perm.dummy.in.$1 > test/perm.dummy.out.$1
 }
 
 for i in {a..j} #10 komada
