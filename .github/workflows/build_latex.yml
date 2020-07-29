@@ -15,10 +15,10 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v2
 
-      - name: Compile pripreme/dan1/zadaci.tex
+      - name: Compile pripreme/dan1/opisi_algoritama.tex
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: zadaci.tex
+          root_file: opisi_algoritama.tex
           working_directory: pripreme/dan1
 
       - name: Compile pripreme/dan2/zadaci.tex
@@ -32,6 +32,6 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-          git add pripreme/dan1/zadaci.pdf pripreme/dan2/zadaci.pdf
+          git add pripreme/dan1/opisi_algoritama.pdf pripreme/dan2/zadaci.pdf
           git commit -m "Update pdf"
           git push
