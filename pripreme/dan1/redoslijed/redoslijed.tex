@@ -1,21 +1,99 @@
-\subsection*{Zadatak: Redoslijed}
-\textsf{Pripremio: Adrian Beker}\\
-\textsf{Potrebno znanje: tournament stablo, topološko sortiranje}\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem statement
+\begin{statement}[
+  problempoints=100,
+  timelimit=4 sekunde,
+  memorylimit=512 MiB,
+]{Redoslijed}
 
-Za početak, opisat ćemo rješenja drugog i trećeg podzadatka, u kojima su sve boje u Davorovim potezima me\dj usobno razli\v{c}ite. Za $1 \leq i \leq N$, neka je $P_i$ skup poteza čiji interval prekriva $i$-ti metar daske te neka $f_i$ označava njegovu boju, odnosno neka je $f_i = 0$ ako je on neobojan. Ukoliko je $f_i = 0$ i $P_i$ je neprazan, traženi redoslijed ne postoji, stoga ispisujemo "NE". Tako\dj er, ako je $f_i > 0$ te $P_i$ ne sadrži potez boje $f_i$, odgovor je "NE". U suprotnom, kako bi $i$-ti metar na kraju bio obojan bojom $f_i$, nužan i dovoljan uvjet na redoslijed jest sljedeći: jedinstveni potez iz $P_i$ boje $f_i$ (nazovimo ga $z_i$) dolazi poslije svih ostalih poteza iz $P_i$. Primijetimo sada da uvjete ovog oblika možemo prikazati pomoću usmjerenog grafa $G$ u kojemu čvorovi predstavljaju poteze, a usmjereni brid $pq$ označava da se potez $p$ u redoslijedu nalazi prije poteza $q$. Ukoliko $G$ ima ciklus, odgovor je "NE", a u suprotnom je traženi redoslijed moguće naći topološkim sortiranjem ovog grafa. Naivna implementacija ovog rješenja ima složenost $\mathcal{O}(N \cdot M)$ te je dovoljna za ostvariti sve bodove na drugom podzadatku.
+Mali Davor jednoga je dana upalio televizor i vidio kako je jedan gospodin
+nacrtao prekrasan portret. ,,Kakav \textit{super talent}!'', pomislio je
+Davor te odmah zgrabio kantice s bojama i svoj najdraži kist, otrčao u
+dvorište te se bacio na posao.
 
-Za treći podzadatak potrebno je efikasno izgraditi spomenuti graf. U tu svrhu, izgradimo tournament stablo $T$ nad nizom $f_i$, a graf $G$ proširimo čvorovima stabla $T$ (ali ne i bridovima). Ovdje ćemo čvorove stabla $T$ poistovjećivati s pripadajućim intervalima u nizu $f_i$. Interval svakog poteza $p$ podijelimo na čvorove stabla $T$ (kao što to činimo u upitima na $T$), nazovimo taj skup čvorova $C_p$. Za svaki $x \in C_p$ dodamo brid od $p$ prema $x$. Nadalje, za svaki $i$ takav da je $f_i > 0$, neka $S_i$ označava skup čvorova stabla $T$ koji sadrže $f_i$ te neka je $y_i$ jedinstveni element u $C_{z_i} \cap S_i$. Tada za svaki $x \in S_i \setminus \{y_i\}$ dodamo brid od $x$ prema $z_i$. Ako za neki $j$ vrijedi $z_i \neq z_j$ i $y_i = y_j$, odgovor je "NE", a u suprotnom dodamo bridove od svih poteza $p \neq z_i$ takvih da $y_i \in C_p$ prema $z_i$. Nije teško vidjeti da su valjani redoslijedi inducirani upravo topološkim poretcima ovako izgra\dj enog grafa $G$. Budući da svaki od skupova $C_p$, $S_i$ ima veličinu $\mathcal{O}(\log N)$, graf $G$ ima $\mathcal{O}(N + M)$ čvorova i $\mathcal{O}((N + M)\log N)$ bridova, stoga opisano rješenje ostvaruje sve bodove na trećem podzadatku.
-\\\\
-Iako nije jasno kako modificirati ovaj pristup da radi u općenitom slučaju, potpuno rješenje zadatka koristit će neke slične ideje. Najprije za svaki $1 \leq i \leq N$ provjerimo da vrijedi $f_i > 0$ ako i samo ako se $f_i$ nalazi u uniji intervala svih poteza -- ako taj uvjet nije ispunjen, odmah znamo da je odgovor "NE". Dalje, traženi redoslijed pohlepno gradimo unatrag. Reći ćemo da je neki potez \emph{dobar} ako još nije iskorišten, a trenutno se u nizu $f_i$ na njegovom intervalu pojavljuje samo njegova boja (i eventualno nule). Nije teško tzv.\ \emph{exchange argumentom} dokazati da je sljedeći algoritam točan:
-\\\\
-Dok nisu svi potezi iskorišteni ponavljaj:
+U dvorištu je pronašao i dasku dugačku $N$ metara koju će koristiti umjesto
+platna. Potom je $M$ puta umočio svoj kist u kanticu neke boje $c$ te ga je
+povukao od $a$-tog do $b$-tog metra daske, obojivši taj segment bojom $c$.
+Također, svakoga je puta na zaseban papirić zapisao kojom je bojom obojio
+koji dio daske.
+
+Remek-djelo je završeno, Davor je presretan, a sada još samo treba napraviti
+hrpu kopija koje će izložiti po svim svjetskim galerijama. Baš dobro što je
+svaki potez kistom zapisao na pap\dots
+
+Što!? Puhnuo je vjetar i papirići su se izmiješali! Davor je slomljen, pomozite
+mu odrediti kojim je redoslijedom mogao povlačiti poteze kistom tako da na
+kraju dobije svoje remek-djelo ili zaključite da takav redoslijed ne postoji.
+U tom je slučaju vjetar najvjerojatnije predaleko otpuhao neki papirić ili je
+Davor napravio pogrešku prilikom zapisivanja.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Input
+\subsection*{Ulazni podaci}
+U prvom su retku prirodni brojevi $N$ i $M$ iz teksta zadatka.
+
+U $i$-tom od idućih $M$ redaka nalaze se tri prirodna broja $a_i$, $b_i$ $(1
+\le a_i \le b_i \le N)$ i $c_i$ $(1 \le c_i \le 500\,000)$ koji označavaju da
+je Davor napravio potez kistom kojim je obojio dio daske od $a_i$-tog do
+$b_i$-tog metra (uključivo) u boju $c_i$.
+
+U posljednjem se retku nalazi $N$ cijelih brojeva pri čemu $i$-ti broj označava
+boju kojom je obojen $i$-ti metar daske. Neobojeni dio daske označavamo brojem
+$0$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Output
+\subsection*{Izlazni podaci}
+U prvi redak potrebno je ispisati riječ \texttt{"DA"} ako je moguće primijeniti
+Davorove poteze kistom u nekom poretku tako da konačan produkt odgovara obojenoj
+dasci iz ulaza. U protivnom, potrebno je ispisati riječ \texttt{"NE"}.
+
+Također, ako ste ispisali \texttt{"DA"}, u idućem je retku potrebno ispisati
+$M$ brojeva koji označavaju kojim je redoslijedom potrebno primijeniti Davorove
+poteze. Pritom nam $i$-ti ispisani broj (označimo ga s $p_i$) govori da $i$-ti
+potez kistom treba odgovarati $p_i$-tom potezu navedenom u ulaznim podacima. 
+Ako postoji više rješenja, ispišite bilo koje. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Scoring
+\subsection*{Bodovanje}
+{\renewcommand{\arraystretch}{1.4}
+  \setlength{\tabcolsep}{6pt}
+  \begin{tabular}{ccl}
+ Podzadatak & Broj bodova & Ograničenja \\ \midrule
+  1 & 5 & $1 \le N, M \le 9$ \\
+  2 & 10 & $1 \le N, M \le 5\,000$, svaki potez kistom koristit će jedinstvenu boju. \\
+  3 & 25 & $1 \le N, M \le 500\,000$, svaki potez kistom koristit će jedinstvenu boju. \\
+  4 & 12 & $1 \le N, M \le 5\,000$ \\
+  5 & 16 & $1 \le N, M \le 500\,000$, $1 \le c_i \le 5$\\
+  6 & 32 & $1 \le N, M \le 500\,000$ \\
+\end{tabular}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Examples
+\subsection*{Probni primjeri}
+\begin{tabularx}{\textwidth}{X'X'X}
+\sampleinputs{test/redoslijed.dummy.in.1}{test/redoslijed.dummy.out.1} &
+\sampleinputs{test/redoslijed.dummy.in.2}{test/redoslijed.dummy.out.2} &
+\sampleinputs{test/redoslijed.dummy.in.3}{test/redoslijed.dummy.out.3}
+\end{tabularx}
+
+\textbf{Pojašnjenje prvog probnog primjera:}
 \begin{itemize}
-\item Ako ne postoji dobar potez, odgovor je "NE";
-\item Inače uzmi bilo koji dobar potez $p$, postavi sve vrijednost u nizu $f_i$ na njegovom intervalu na $0$, te stavi $p$ na početak redoslijeda.
+  \item Na početku je daska neobojena, odnosno njeno stanje je $(0, 0, 0, 0, 0, 0)$.
+  \item Najprije od $1.$ do $4.$ metra bojimo bojom $7$ i dobivamo $(7, 7, 7, 7, 0, 0)$.
+  \item Zatim od $4.$ do $6.$ metra bojimo bojom $6$ i dobivamo $(7, 7, 7, 6, 6, 6)$.
+  \item Potom od $1.$ do $3.$ metra bojimo bojom $2$ i dobivamo $(2, 2, 2, 6, 6, 6)$.
+  \item Onda od $3.$ do $5.$ metra bojimo bojom $5$ i dobivamo $(2, 2, 5, 5, 5, 6)$.
+  \item Konačno prvi metar bojimo bojom $6$ i dobivamo $(6, 2, 5, 5, 5, 6)$.
 \end{itemize}
 
-\noindent Primijetimo da se postavljanje elemenata na intervalu na $0$ lako svodi na postavljanje jednog elementa na $0$ jer je svaki element potrebno najviše jednom postaviti na $0$ (npr.\ ne-nul elemente možemo držati u \emph{setu}). Naivna implementacija ovog algoritma ima složenost $\mathcal{O}(N \cdot M)$ te je dovoljna za četvrti podzadatak.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% We're done
+\end{statement}
 
-Za sve bodove, preostaje efikasno održavati dobre poteze. \iffalse Odsad ćemo \emph{bojom} zvati ne-nul vrijednost u nizu $f_i$. \fi Poteze koji su trenutno dobri držat ćemo u redu (\emph{queueu}) $Q$. Nad nizom $f_i$ izgradimo tournament stablo čiji svaki čvor pamti minimalnu i maksimalnu boju na svojem intervalu (odnosno redom $\infty$, $-\infty$ ako takva boja ne postoji), nazovimo ih $mini$ i $maks$. Tijekom algoritma, za svaki čvor razlikujemo tri faze, ovisno o tome vrijedi li $mini < maks$, $mini = maks$ ili $mini > maks$, odnosno redom pojavljuju li se barem dvije, točno jedna ili niti jedna boja na tom intervalu. 
-
-Kao i u rješenju trećeg podzadatka, na početku interval svakog poteza $p$ podijelimo na čvorove u stablu te označimo dobiveni skup čvorova s $C_p$. Tako\dj er, održavamo brojač koji broji za koliko čvorova iz skupa $C_p$ vrijedi $mini < maks$ ili $mini = maks \neq c_p$ ($c_p$ je boja poteza $p$). Kada vrijednost tog brojača padne na $0$, potez postaje dobar i stavljamo ga u red $Q$. Osvježavanje vrijednosti $mini$ i $maks$ u tournamentu radimo na uobičajen način, a odgovarajuće brojače nije teško osvježiti na samom početku te prilikom prijelaza izme\dj u faza. Ukupna je složenost $\mathcal{O}((N + M)\log N)$. Za implementacijske detalje pogledajte službene kodove.
+%%% Local Variables:
+%%% mode: latex
+%%% mode: flyspell
+%%% ispell-local-dictionary: "croatian"
+%%% TeX-master: "../hio.tex"
+%%% End:
