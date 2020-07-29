@@ -83,11 +83,10 @@ void process_comp(int root) {
   int comp_size = curr_comp.size();
   for (auto it : curr_comp) {
     is_clique &= adj[it].size() == comp_size - 1;
-    bad_up[it] &= going_up[it] == comp_size - subtree[it];
+    bad_up[it] &= going_up[it] == comp_size - subtree[it] && it != root;
     bad_overall[it] |= bad_up[it];
-    cnt_good += !bad_overall[it];
+    cnt_good += !bad_overall[it];   
   }
-  cnt_good += comp_size == 1;
   if (comp_size == 1 || !is_clique)
     all_cliques = false;
   else if (comp_size <= min_clique) {
