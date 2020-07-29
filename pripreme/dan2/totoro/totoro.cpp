@@ -108,7 +108,7 @@ int main() {
   unesi();
   rijesi();
   printf("%d\n", rj);
-  ispisi_podatke_o_komponentama();
+  //ispisi_podatke_o_komponentama();
   return 0;
 }
 
