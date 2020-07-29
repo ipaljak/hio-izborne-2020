@@ -1,4 +1,4 @@
-\subsection*{Zadatak: Kraljevstvo}
+\subsection*{Zadatak Kraljevstvo}
 \textsf{Pripremili: Tonko Sabolčec i Paula Vidas}\\
 \textsf{Potrebno znanje: geometrija, konveksna ljuska, dinamičko programiranje, metoda \textit{podijeli pa vladaj}}
 
@@ -130,7 +130,7 @@ treći podzadatak.
   smjeru kazaljke na satu, ta je vrijednost negativna, tj. vrijedi:
   \begin{equation*}
     w(a,d) + w(b,c) - w(a,c) - w(b,d) < 0\ \ \Rightarrow\ \
-    w(a,d) + w(b,x) < w(a,c) + w(b,d).
+    w(a,d) + w(b,c) < w(a,c) + w(b,d).
   \end{equation*}
 \end{proof}
 
@@ -193,5 +193,14 @@ pokazati da je složenost takvog poziva $\mathcal{O}(N \log N)$. Budući da funk
 moramo pozvati $K$ puta (za svaki prijelaz s $k-1$ na $k$), ukupna složenost
 algoritma iznosi $\mathcal{O}(K \cdot N \log N)$.
 
-
-
+\textbf{Alternativno rješenje:} Umjesto da maksimiziramo površinu konveksne
+ljuske odabranih točaka, ekvivalentno je minimizirati razliku površina konveksne
+ljuske svih točaka i odabranih točaka. Stanje dinamike $dp(k, i)$ je tada
+najmanja moguća razlika površina konveksne ljuske točaka $P_1, P_2, \dots, P_i$
+i konveksne ljuske nekog $k$-članog podskupa tih točaka koji sadrži $P_1$ i
+$P_i$. Naivna implementacija te dinamike ima složenost $\mathcal{O}(K \cdot
+N^2)$, a može se ubrzati koristeći tzv. \textit{Knuthovu optimizaciju} do
+složenosti $\mathcal{O}(N^2)$. Detaljnu analizu ovog pristupa ostavljamo
+čitatelju za vježbu, a više o Knuthovoj optimizaciji možete pročitati
+\href{https://jeffreyxiao.me/blog/knuths-optimization}{ovdje} i
+\href{https://wiki.algo.is/Knuth's\%20optimization}{ovdje}.
