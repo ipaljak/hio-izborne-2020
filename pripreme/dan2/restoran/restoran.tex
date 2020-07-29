@@ -1,0 +1,119 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem statement
+\begin{statement}[
+  problempoints=100,
+  timelimit=1 sekunda,
+  memorylimit=512 MiB,
+]{Restoran}
+
+Sovjetski Savez, odnosno Savez Sovjetskih Socijalističkih Republika (SSSR)
+nekadašnja je država koja je nastala 1917. godine nakon Oktobarske revolucije,
+a raspala se 1991. godine. Popularne internetske šale nerijetko prezentiraju
+život stanovnika Sovjetskoga Saveza oskudicom, neimaštinom i slabom
+zastupljenošću proizvoda na tržištu. Tekst ovog zadatka, kao i sam zadatak,
+inspiraciju pronalazi u takvim stereotipnim šalama te nema veze sa stvarnošću.
+
+Ispred ulaza u sovjetski restoran stoji $N$ ljudi koji čekaju da se restoran
+otvori. Ljudi su označeni prirodnim brojevima od $1$ do $N$ onim redoslijedom
+kojim su se skupljali ispred restorana. Na jelovniku je samo jedna opcija,
+tzv. \textit{specijalitet kuće}, jaja na oko. U restoranu ne radi kuhar, već
+gosti moraju sami sebi spremiti svoje jelo. Također, u restoranu se nalazi
+samo jedna tava, tako da \textbf{u nekom trenutku hranu može spremati najviše
+jedan gost.} Dodatno, u restoranu se nalazi samo jedna vilica i samo jedan
+nož, stoga, u \textbf{nekom trenutku hranu može jesti najviše jedan gost.}
+Srećom, u restoranu se nalazi beskonačno mnogo tanjura pa gost koji završava
+s pripremom hrane može gotovu hranu prebaciti na tanjur i pričekati da se
+oslobode vilica i nož.
+
+Za svakog gosta je poznato koliko mu je vremena potrebno da spremi hranu
+i koliko mu je vremena da tu hranu pojede. Vaš je zadatak odrediti koliko
+je najmanje vremena potrebno da se svih $N$ gostiju najede ako odluče spremati
+i jesti hranu optimalnim redoslijedom.
+
+Međutim, to nije sve, prije nego što se restoran otvorio, dogodilo se $K$
+ključnih događaja oblika:
+
+\begin{itemize}
+  \item \texttt{DOLAZI a b} -- došao je novi gost koji hranu može spremiti za
+        $a$ minuta, a pojesti za $b$ minuta. Novopridošli gost označen je
+        najmanjim prirodnim brojem kojim nije označen niti jedan od dosadašnjih
+        gostiju.
+  \item \texttt{ODLAZI x} -- otišao je gost koji je $x$-ti po redu došao ispred
+        restorana.
+  \item \texttt{POREDAK} -- gosti su nestrpljivi i žele saznati optimalan redoslijed
+        spremanja i jedenja hrane kojim će se svi najesti u najmanjem mogućem vremenu.
+\end{itemize}
+
+Prije prvog događaja potrebno je ispisati koliko je najmanje vremena potrebno
+da se $N$ gostiju najede. Za svaki događaj tipa \texttt{DOLAZI} ili
+\texttt{ODLAZI}, potrebno je ispisati koliko je minimalno vremena potrebno da
+se najede onaj skup gostiju koji se nakon tog događaja nalazi ispred
+restorana. Konačno, nakon svakog događaja tipa \texttt{POREDAK} potrebno je
+ispisati kojim je redoslijedom optimalno spremati i jesti hranu da se u
+najmanjem mogućem vremenu najede onaj skup ljudi koji se trenutno nalazi
+ispred restorana.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Input
+\subsection*{Ulazni podaci}
+U prvom su retku prirodni brojevi $N$ i $K$ iz teksta zadatka.
+
+U $i$-tom od sljedećih $N$ redaka nalaze po dva prirodna broja $a_i$ i $b_i$
+$(1 \le a_i, b_i \le 10^9$ koji označavaju da gost s oznakom $i$ može hranu
+spremiti za $a_i$ minuta, a pojesti za $b_i$ minuta.
+
+U sljedećih se $K$ redaka nalazi po jedan ključan događaj u formatu kakav
+je opisan u tekstu zadatka. Možete pretpostaviti da su događaji međusobno
+konzistentni. Odnosno, nikad neće otići gost koji još nije niti došao.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Output
+\clearpage
+\subsection*{Izlazni podaci}
+U prvi je redak potrebno ispisati koliko je minimalno vremena potrebno da se
+početnih $N$ gostiju najede.
+
+Ako je $i$-ti događaj tipa \texttt{DOLAZI} ili \texttt{ODLAZI}, tada je u
+$(i+1)$-om retku potrebno ispisati koliko je minimalno vremena potrebno da se
+najede skup gostiju koji se nakon $i$-tog događaj nalazi ispred restorana.
+
+Ako je $i$-ti događaj tipa \texttt{POREDAK}, tada je u $(i+1)$-om retku potrebno
+ispisati $2x$ brojeva, pri čemu $x$ označava broj gostiju koji se trenutno
+nalaze ispred restorana. Prvih $x$ brojeva treba sadržavati oznake gostiju onim
+redom kojim će slagati hranu, dok posljednjih $x$ brojeva treba sadržavati
+oznake gostiju onim redom kojim će jesti hranu.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Scoring
+\subsection*{Bodovanje}
+{\renewcommand{\arraystretch}{1.4}
+  \setlength{\tabcolsep}{6pt}
+  \begin{tabular}{ccl}
+ Podzadatak & Broj bodova & Ograničenja \\ \midrule
+  1 & ?? & $1 \le N \le 9$, $K = 1$, jedini događaj je tipa \texttt{POREDAK} \\
+  2 & ?? & $1 \le N \le 20$, $K = 1$, jedini događaj je tipa \texttt{POREDAK} \\
+  3 & ?? & $1 \le N \le 200\,000$, $K = 1$, jedini događaj je tipa \texttt{POREDAK} \\
+  4 & ?? & $1 \le N, K \le 200\,000$, ne postoji događaj tipa \texttt{POREDAK} \\
+  5 & ?? & $1 \le N, K \le 200\,000$  \\
+\end{tabular}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Examples
+\subsection*{Probni primjeri}
+\begin{tabularx}{\textwidth}{X'X'X}
+\sampleinputs{test/sadnice.dummy.in.1}{test/sadnice.dummy.out.1} &
+\sampleinputs{test/sadnice.dummy.in.2}{test/sadnice.dummy.out.2} &
+\sampleinputs{test/sadnice.dummy.in.3}{test/sadnice.dummy.out.3}
+\end{tabularx}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% We're done
+\end{statement}
+
+%%% Local Variables:
+%%% mode: latex
+%%% mode: flyspell
+%%% ispell-local-dictionary: "croatian"
+%%% TeX-master: "../hio.tex"
+%%% End:
