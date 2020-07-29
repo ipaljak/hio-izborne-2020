@@ -41,9 +41,9 @@ potpuno rješenje zadatka koristit će neke slične ideje. Najprije za svaki $1
 \leq i \leq N$ provjerimo da vrijedi $f_i > 0$ ako i samo ako se $f_i$ nalazi u
 uniji intervala svih poteza -- ako taj uvjet nije ispunjen, odmah znamo da je
 odgovor "NE". Dalje, traženi redoslijed pohlepno gradimo unatrag. Reći ćemo da
-je neki potez \emph{dobar} ako još nije iskorišten, a trenutno se u nizu $f_i$
+je neki potez \textit{dobar} ako još nije iskorišten, a trenutno se u nizu $f_i$
 na njegovom intervalu pojavljuje samo njegova boja (i eventualno nule). Nije
-teško tzv.\ \emph{exchange argumentom} dokazati da je sljedeći algoritam točan:
+teško tzv.\ \textit{exchange argumentom} dokazati da je sljedeći algoritam točan:
 \\\\
 Dok nisu svi potezi iskorišteni ponavljaj:
 \begin{itemize}
@@ -55,12 +55,12 @@ Dok nisu svi potezi iskorišteni ponavljaj:
 \noindent Primijetimo da se postavljanje elemenata na intervalu na $0$ lako
 svodi na postavljanje jednog elementa na $0$ jer je svaki element potrebno
 najviše jednom postaviti na $0$ (npr.\ ne-nul elemente možemo držati u
-\emph{setu}). Naivna implementacija ovog algoritma ima složenost $\mathcal{O}(N
+\textit{setu}). Naivna implementacija ovog algoritma ima složenost $\mathcal{O}(N
 \cdot M)$ te je dovoljna za četvrti podzadatak.
 
 Za sve bodove, preostaje efikasno održavati dobre poteze. \iffalse Odsad ćemo
-\emph{bojom} zvati ne-nul vrijednost u nizu $f_i$. \fi Poteze koji su trenutno
-dobri držat ćemo u redu (\emph{queueu}) $Q$. Nad nizom $f_i$ izgradimo
+\textit{bojom} zvati ne-nul vrijednost u nizu $f_i$. \fi Poteze koji su trenutno
+dobri držat ćemo u redu (\textit{queueu}) $Q$. Nad nizom $f_i$ izgradimo
 tournament stablo čiji svaki čvor pamti minimalnu i maksimalnu boju na svojem
 intervalu (odnosno redom $\infty$, $-\infty$ ako takva boja ne postoji),
 nazovimo ih $mini$ i $maks$. Tijekom algoritma, za svaki čvor razlikujemo tri
