@@ -70,6 +70,7 @@ void checker(ifstream& fin, ifstream& foff, ifstream& fout)
 
   const int MAXN = 2e5 + 10;
   bool deleted[2 * MAXN];
+  memset(deleted, false, sizeof deleted);
 
   // Read official input before queries
   int n, k;
@@ -112,6 +113,7 @@ void checker(ifstream& fin, ifstream& foff, ifstream& fout)
       if (deleted[x]) finish(0, TEST_DATA_ERROR);
       deleted[x] = true;
       --guest_cnt;
+      if (guest_cnt <= 0) finish(0, TEST_DATA_ERROR);
       llint off_time, cont_time;
       if (!(foff >> off_time)) finish(0, TEST_DATA_ERROR);
       if (!(fout >> cont_time)) finish(0, WRONG_OUTPUT_FORMAT);
@@ -128,7 +130,7 @@ void checker(ifstream& fin, ifstream& foff, ifstream& fout)
       for (int j = 0; j < 2 * guest_cnt; ++j) {
         int x;
         if (!(fout >> x)) finish(0, WRONG_OUTPUT_FORMAT);
-        if (x <= 0 || x > guest_cnt || deleted[x]) finish(0, WRONG);
+        if (x <= 0 || x >= MAXN - 5 || deleted[x]) finish(0, WRONG);
         cont_order.push_back(x);
       }
       set<int> off_lo, off_hi, cont_lo, cont_hi;
