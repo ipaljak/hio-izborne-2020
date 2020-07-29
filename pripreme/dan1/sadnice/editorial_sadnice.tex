@@ -1,3 +1,128 @@
-  \subsection*{Zadatak: Sadnice}
-  \textsf{Pripremila: Paula Vidas}\\
-  \textsf{Potrebno znanje: }\\
+\subsection*{Zadatak: Sadnice}
+\textsf{Pripremili: Paula Vidas i Daniel Paleka}\\
+\textsf{Potrebno znanje: ad-hoc, konstrukcije}\\
+
+Broj vijenaca koji nastanu nakon reza jednak je broju presječenih komada špage
+plus jedan. Ukupno ćemo koristiti $NM + N + M$ komada špage, a mogućih rezova
+ima $N + M$. Svaku špagu siječe točno jedan mogući rez, pa uvijek postoji rez
+koji siječe barem $\ceil{\frac{NM + N + M}{N + M}} = \ceil{\frac{NM}{N + M}} +
+1$ komada špage. Pokazat ćemo da uvijek možemo postići taj odgovor.
+
+Prva dva podzadatka su posebni slučajevi, čija ćemo (jedna od mogućih) rješenja
+ilustrirati za $N = M = 6$ odnosno $N = 6, M = 12$:
+
+\begin{verbbox}
+o--o--o--o--o--o--o              o--o--o--o--o--o--o--o--o--o--o--o--o
+|  |  |           |              |  |  |  |        |
+o  o  o  o  o  o  o              o  o  o  o  o  o  o--o--o--o--o--o--o
+         |  |  |  |                          |  |  |  |  |
+o--o--o--o--o--o--o              o--o--o--o--o--o--o  o  o  o  o  o  o
+|  |  |           |                                |        |  |  |  |
+o  o  o  o  o  o  o              o--o--o--o--o--o--o--o--o--o--o--o--o
+         |  |  |  |              |  |  |  |        |
+o--o--o--o--o--o--o              o  o  o  o  o  o  o--o--o--o--o--o--o
+|  |  |           |                          |  |  |  |  |
+o  o  o  o  o  o  o              o--o--o--o--o--o--o  o  o  o  o  o  o
+         |  |  |  |                                |        |  |  |  |
+o--o--o--o--o--o--o              o--o--o--o--o--o--o--o--o--o--o--o--o
+\end{verbbox}
+\begin{figure}[H]
+  \centering
+  \theverbbox
+\end{figure}
+
+Prvo ćemo pokazati konstrukciju za parni $N$, na primjeru $N = 6, M = 17$.
+Povežemo prvo sve sadnice u parnim redovima i sve sadnice u zadnjem stupcu:
+\begin{verbbox}
+o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o
+                                                   |
+o  o  o  o  o  o  o  o  o  o  o  o  o  o  o  o  o  o
+                                                   |
+o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o
+                                                   |
+o  o  o  o  o  o  o  o  o  o  o  o  o  o  o  o  o  o
+                                                   |
+o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o
+                                                   |
+o  o  o  o  o  o  o  o  o  o  o  o  o  o  o  o  o  o
+                                                   |
+o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o
+\end{verbbox}
+\begin{figure}[H]
+  \centering
+  \theverbbox
+\end{figure}
+
+Neka je $K = \ceil{\frac{NM}{N + M}}$. Promotrimo prvo
+prvu ``prugu'', i sadnice u sredini. Prvih $K$ sadnica povežemo prema gore,
+sljedećih $K$ prema dolje, a ostatak prema desno.
+
+\begin{verbbox}
+o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o
+|  |  |  |  |                                      |
+o  o  o  o  o  o  o  o  o  o  o--o--o--o--o--o--o--o
+               |  |  |  |  |                       |
+o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o
+\end{verbbox}
+\begin{figure}[H]
+  \centering
+  \theverbbox
+\end{figure}
+
+Zatim u sljedećoj pruzi radimo istu stvar, samo pomaknutu za $2K$. To jest,
+počinjemo od sadnice $(1, 2K)$, a drugu koordinatu gledamo modulo $M$. Slično
+nastavljamo dalje. Za promatrani primjer na kraju imamo:
+
+\begin{verbbox}
+o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o
+|  |  |  |  |                                      |
+o  o  o  o  o  o  o  o  o  o  o--o--o--o--o--o--o--o
+               |  |  |  |  |                       |
+o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o
+                              |  |  |  |  |        |
+o  o  o  o--o--o--o--o--o--o--o  o  o  o  o  o  o  o
+|  |  |                                      |  |  |
+o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o
+         |  |  |  |  |                             |
+o--o--o--o  o  o  o  o  o  o  o  o  o  o--o--o--o--o
+                        |  |  |  |  |              |
+o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o
+\end{verbbox}
+\begin{figure}[H]
+  \centering
+  \theverbbox
+\end{figure}
+
+Ako je $N$ neparan, onda u zadnjem retku srednjih $K$ sadnica ne povezujemo
+prema gore, nego prema desno. Za primjer $N = 7, M = 17$ dobivamo:
+
+\begin{verbbox}
+o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o
+|  |  |  |  |                                      |
+o  o  o  o  o  o  o  o  o  o  o--o--o--o--o--o--o--o
+               |  |  |  |  |                       |
+o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o
+                              |  |  |  |  |        |
+o  o  o  o--o--o--o--o--o--o--o  o  o  o  o  o  o  o
+|  |  |                                      |  |  |
+o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o
+         |  |  |  |  |                             |
+o--o--o--o  o  o  o  o  o  o  o  o  o  o--o--o--o--o
+                        |  |  |  |  |              |
+o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o
+|                                      |  |  |  |  |
+o  o--o--o--o--o--o--o--o--o--o--o--o--o  o  o  o  o
+\end{verbbox}
+\begin{figure}[H]
+  \centering
+  \theverbbox
+\end{figure}
+
+Dokažimo sada da smo postigli željeno ograničenje, odnosno da svaki rez siječe
+najviše $K + 1$ špaga. Vodoravne špage smo rasporedili ravnomjerno, tj. za bilo
+koja dva okomita reza, broj špaga koje sijeku se razlikuje za najviše jedan.
+Ako je $2K \leq M$, svaki vodoravni rez siječe točno $K + 1$ špaga, pa svaki
+okomiti rez može sijeći najviše $K + 1$ špaga (u suprotnom bi prosjek bio
+prevelik). Inače je $2K = M + 1$. Vodoravni rezovi tada sijeku najviše $K + 1$
+dužina, a okomiti najviše $\ceil{\frac{N}{2}} + 1 \leq K + 1$ (dokaz čitatelju
+za vježbu).
