@@ -52,6 +52,8 @@ llint get_time(const vector<int> &order, const vector<pair<int, int>> &guest) {
 
 bool check_order(const vector<int> &off_order, const vector<int> &cont_order,
                  const vector<pair<int, int>> &guest) {
+  llint A = get_time(off_order, guest), B = get_time(cont_order, guest);
+  if (A != B) TRACE(A _ B);
   return get_time(off_order, guest) == get_time(cont_order, guest);
 }
 
@@ -130,7 +132,7 @@ void checker(ifstream& fin, ifstream& foff, ifstream& fout)
       for (int j = 0; j < 2 * guest_cnt; ++j) {
         int x;
         if (!(fout >> x)) finish(0, WRONG_OUTPUT_FORMAT);
-        if (x <= 0 || x >= MAXN - 5 || deleted[x]) finish(0, WRONG);
+        if (x <= 0 || x >= 2 * MAXN - 5 || deleted[x]) finish(0, WRONG);
         cont_order.push_back(x);
       }
       set<int> off_lo, off_hi, cont_lo, cont_hi;
