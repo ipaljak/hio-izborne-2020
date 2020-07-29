@@ -1,21 +1,24 @@
 #!/bin/bash
 
-ime="perm"
+ime="totoro"
+ime_koda="totoro"
 
-for input in test/perm*.in.*
+for input in test/$ime*.in.*
 do
   output=$input
   in="in"
   out="out"
   output="${output/$in/$out}"
   echo $input 
-  time ./$ime < $input > out
-  if diff -q $output out;
+  echo $output
+  echo "hmmmm"
+  time ./$ime_koda < $input > out_file
+  if diff -q $output out_file;
   then
     echo ok!
   else
     echo greska!
-    cat out
+    cat out_file
     cat test/$ime.dummy.out.$i
     break
   fi
