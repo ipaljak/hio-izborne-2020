@@ -19,7 +19,6 @@ do
   else
     echo greska!
     cat out_file
-    cat test/$ime.dummy.out.$i
     break
   fi
   echo -----------------------------------------
