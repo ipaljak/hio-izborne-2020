@@ -34,7 +34,7 @@ brojeva $1 \le i < j \le N$ za koje je $\pi(i) > \pi(j)$.)
 
 Formalno, zanima nas $\frac{1}{|S|} \sum_{\pi \in S} \mathcal{I} (\pi)$.
 Može se dokazati da je odgovor moguće napisati
-kao skraćeni razlomak $A/B$, gdje $B$ nije djeljiv s $10^9 + 7$. 
+kao skraćeni razlomak $\frac{A}{B}$, gdje $B$ nije djeljiv s $10^9 + 7$. 
 Ispišite $AB^{-1}$ modulo $10^9 + 7$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -48,7 +48,7 @@ prikazana kao niz od $N$ različitih brojeva od $1$ do $N$, odvojenih razmakom.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Output
 \subsection*{Izlazni podaci}
-U jedinom retku ulaza ispišite odgovor modulo $1 000 000 007$. 
+U jedinom retku izlaza ispišite odgovor modulo $1\,000\,000\,007$. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Scoring
@@ -80,7 +80,12 @@ je identiteta i nema inverzija. Zato je prosječan broj inverzija $\frac{4}{3}$,
 
 \textbf{Pojašnjenje drugog probnog primjera:}
 Može se provjeriti da je $S$ jednak skupu svih permutacija skupa 
-$\left\{1, 2, 3, 4, 5 \right\}$. 
+$\left\{1, 2, 3, 4, 5 \right\}$, tj. komponiranjem danih permutacija
+je moguće dobiti sve ostale permutacije.
+
+\textbf{Pojašnjenje trećeg probnog primjera:}
+U ovom primjeru vrijedi $|S| = 20$, te je odgovor jednak 
+razlomku $\frac{149}{10}$ modulo $10^9 + 7$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % We're done
