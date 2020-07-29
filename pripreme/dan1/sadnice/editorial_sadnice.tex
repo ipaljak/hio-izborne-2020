@@ -1,4 +1,4 @@
-\subsection*{Zadatak: Sadnice}
+\subsection*{Zadatak Sadnice}
 \textsf{Pripremili: Paula Vidas i Daniel Paleka}\\
 \textsf{Potrebno znanje: ad-hoc, konstrukcije}\\
 
@@ -31,10 +31,34 @@ o--o--o--o--o--o--o              o--o--o--o--o--o--o--o--o--o--o--o--o
   \theverbbox
 \end{figure}
 
-Lako je vidjeti kako ta rješenja generalizirati za bilo koji $N$, samo
-valja pripaziti kad je $N$ neparan, odnosno kad nije djeljiv s tri.
+Lako je vidjeti kako ta rješenja generalizirati za bilo koji $N$, 
+samo valja pripaziti kada $N$ nije djeljiv s dva, odnosno tri. 
 
-Prelazimo na rješenje za sve bodove.
+Prije prelaska na rješenje za sve bodove, valja napomenuti nešto u vezi
+parcijalnog bodovanja suboptimalnih rješenja.
+Natjecatelji koji se nisu susreli s ovakvim 
+načinom bodovanja mogu se uplašiti zadatka i misliti da je optimalno
+rješenje jako teško i da je zadatak nestandardnog tipa,
+kao na primjer IOI 2013 Art Class.
+Međutim, motivacija za parcijalno bodovanje može biti drukčija.
+
+Velik dio teoretske računalne znanosti bavi se algoritmima koji daju
+suboptimalna rješenja koja su unutar nekog konstantnog ili većeg faktora
+od optimalnog rješenja - tzv. $\varepsilon$-aproksimacijama. 
+Zapravo, na konferencijama i na arXiv-u se sve rjeđe viđaju
+algoritmi koii traže točno optimalno rješenje nekog kombinatornog problema.
+
+Drugopotpisani autor smatra da bi se parcijalno bodovanje trebalo češće 
+pojavljivati na natjecanjima, jer spor i točan algoritam ne mora nužno
+biti vrijedniji od brzog i skoro točnog algoritma. (Naravno, pod uvjetom
+da algoritam \textit{uvijek} producira rješenje blizu optimalnog.)
+
+Na primjer, za oko $50$ bodova na ovom zadatku, dovoljno je bilo smisliti 
+pravilnu raspodjelu špaga po retcima i stupcima koja čini stablo, te da
+nijedan rez ne siječe više od $\frac{3}{2} K$ komada špage. Takvo 
+(lakše) rješenje ostavljamo čitatelju za vježbu, te predstavljamo samo
+rješenje za sve bodove.
+
 Prvo ćemo pokazati konstrukciju za parni $N$, na primjeru $N = 6, M = 17$.
 Povežemo prvo sve sadnice u parnim redovima i sve sadnice u zadnjem stupcu:
 \begin{verbbox}
@@ -128,5 +152,5 @@ koja dva okomita reza, broj špaga koje sijeku razlikuje se za najviše jedan.
 Ako je $2K \leq M$, svaki vodoravni rez siječe točno $K + 1$ špaga, pa svaki
 okomiti rez može sijeći najviše $K + 1$ špaga (u suprotnom bi prosjek bio
 prevelik). Inače je $2K = M + 1$. Vodoravni rezovi tada sijeku najviše $K + 1$
-dužina, a okomiti najviše $\ceil{\frac{N}{2}} + 1 \leq K + 1$. Raspisivanje ovih
-tvrdnji ostavljamo čitatelju za vježbu.
+dužina, a okomiti najviše $\ceil{\frac{N}{2}} + 1 \leq K + 1$. 
+Formalne dokaze ovih tvrdnji ostavljamo čitatelju za vježbu.
