@@ -54,8 +54,8 @@ int main(void) {
     if (strcmp(s, "DOLAZI") == 0) {
       int a, b;
       scanf("%d%d", &a, &b);
-      ++id;
       v.push_back({id, {a, b}});
+      ++id;
       printf("%lld\n", get_time());
     }
     if (strcmp(s, "ODLAZI") == 0) {
