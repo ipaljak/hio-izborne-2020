@@ -17,9 +17,15 @@
 Totoro ima $K$ permutacija $p_1, \ldots, p_K$ duljine $N$.
 
 Neka je $S$ skup svih permutacija koje je moguće
-dobiti komponiranjem konačnog broja permutacija $p_i$.
-(Dozvoljeno je ponavljati permutacije.)
-Jasno je da je $S$ konačan skup.
+dobiti komponiranjem konačnog broja permutacija $p_i$. 
+(Kompozicija dvije permutacije $p$ i $q$ 
+na mjestu $i$ ima element $p(q(i))$. Na primjer, 
+kompozicija permutacija $p = (1, 3, 2)$
+i $q = (2, 3, 1)$ jednaka je $p \circ q = (3, 2, 1)$. 
+Dozvoljeno je ponavljati permutacije.)
+
+Jasno je da je $S$ konačan skup, jer je sadržan u skupu svih
+permutacija duljine $N$.
 
 Zanima nas \textbf{prosječan broj inverzija permutacija u skupu $S$}.
 (Broj inverzija $\mathcal{I}(\pi)$ permutacije $\pi$ 
@@ -27,10 +33,10 @@ jednak je broju uređenih parova
 brojeva $1 \le i < j \le N$ za koje je $\pi(i) > \pi(j)$.)
 
 Formalno, zanima nas $\frac{1}{|S|} \sum_{\pi \in S} \mathcal{I} (\pi)$.
-
 Može se dokazati da je odgovor moguće napisati
 kao skraćeni razlomak $A/B$, gdje $B$ nije djeljiv s $10^9 + 7$. 
 Ispišite $AB^{-1}$ modulo $10^9 + 7$.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Input
 \subsection*{Ulazni podaci}
@@ -44,7 +50,6 @@ prikazana kao niz od $N$ različitih brojeva od $1$ do $N$, odvojenih razmakom.
 \subsection*{Izlazni podaci}
 U jedinom retku ulaza ispišite odgovor modulo $1 000 000 007$. 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Scoring
 \subsection*{Bodovanje}
@@ -52,12 +57,12 @@ U jedinom retku ulaza ispišite odgovor modulo $1 000 000 007$.
   \setlength{\tabcolsep}{6pt}
   \begin{tabular}{ccl}
  Podzadatak & Broj bodova & Ograničenja \\ \midrule
-  1 & 6 & $ 1 \le K \le 10, 1 \le N \le 9$ \\
-  2 & 8 & $ K = 1 $, $1 \le N \le 2\,500$ \\
-  3 & 22 & $ K = 1$, $1 \le N \le 2\,500$ \\
-  4 & 64 & $1 \le K \le 10$, $1 \le N \le 2\,500$ \\
+  1 & 7 & $ 1 \le K \le 10, 1 \le N \le 9$ \\
+  2 & 8 & $ K = 1 $, $1 \le N \le 2\,500$, permutacija je ciklus \\
+  3 & 25 & $ K = 1$, $1 \le N \le 2\,500$ \\
+  4 & 60 & $1 \le K \le 10$, $1 \le N \le 2\,500$ \\
 \end{tabular}}
-
+\clearpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Examples
 \subsection*{Probni primjeri}
