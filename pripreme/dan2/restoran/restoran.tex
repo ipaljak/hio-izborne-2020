@@ -101,11 +101,19 @@ oznake gostiju onim redom kojim će jesti hranu.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Examples
 \subsection*{Probni primjeri}
-\begin{tabularx}{\textwidth}{X'X'X}
-\sampleinputs{test/sadnice.dummy.in.1}{test/sadnice.dummy.out.1} &
-\sampleinputs{test/sadnice.dummy.in.2}{test/sadnice.dummy.out.2} &
-\sampleinputs{test/sadnice.dummy.in.3}{test/sadnice.dummy.out.3}
+\begin{tabularx}{\textwidth}{X'X}
+\sampleinputs{test/restoran.dummy.in.1}{test/restoran.dummy.out.1} &
+\sampleinputs{test/restoran.dummy.in.2}{test/restoran.dummy.out.2}
 \end{tabularx}
+
+\textbf{Pojašnjenje prvog probnog primjera:}
+
+Gost s oznakom $1$ započinje sa slaganjem obroka i završava
+u prvoj minuti. Zatim ta ista osoba započinje objed, a gost s oznakom $2$
+započinje sa slaganjem svog obroka. U trećoj minuti gost s oznakom $2$ završava
+sa slaganjem svog obroka, ali gost s oznakom $1$ još nije pojeo pa ovaj mora
+čekati sve do četvrte minute. Konačno, u četvrtoj minuti gost oznakom $2$
+započinje svoj obrok kojeg završava u sedmoj minuti.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
