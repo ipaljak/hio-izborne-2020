@@ -184,8 +184,8 @@ izracunaj(lo, hi, p_lo, p_hi):
         ako dp(k-1, i) + w(i, mid) > dp(k, i):
             dp(k, i) = dp(k-1, i) + w(i, mid)
             p_opt = i
-    izracunaj(lo, mid - 1, p_lo, p_opt)
-    izracunaj(mid + 1, p_opt, p_hi)
+    izracunaj(lo, mid-1, p_lo, p_opt)
+    izracunaj(mid+1, hi, p_opt, p_hi)
 \end{verbatim}
 
 Rekurziju je potrebno pozvati s parametrima $izracunaj(1, n, 1, n)$, a može se
