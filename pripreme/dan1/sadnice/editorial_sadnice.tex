@@ -9,7 +9,7 @@ koji siječe barem $\ceil{\frac{NM + N + M}{N + M}} = \ceil{\frac{NM}{N + M}} +
 1$ komada špage. Pokazat ćemo da uvijek možemo postići taj odgovor.
 
 Prva dva podzadatka su posebni slučajevi, čija ćemo (jedna od mogućih) rješenja
-ilustrirati za $N = M = 6$ odnosno $N = 6, M = 12$:
+ilustrirati za $N = M = 6$, odnosno $N = 6, M = 12$:
 
 \begin{verbbox}
 o--o--o--o--o--o--o              o--o--o--o--o--o--o--o--o--o--o--o--o
@@ -31,6 +31,10 @@ o--o--o--o--o--o--o              o--o--o--o--o--o--o--o--o--o--o--o--o
   \theverbbox
 \end{figure}
 
+Lako je vidjeti kako ta rješenja generalizirati za bilo koji $N$, samo
+valja pripaziti kad je $N$ neparan, odnosno kad nije djeljiv s tri.
+
+Prelazimo na rješenje za sve bodove.
 Prvo ćemo pokazati konstrukciju za parni $N$, na primjeru $N = 6, M = 17$.
 Povežemo prvo sve sadnice u parnim redovima i sve sadnice u zadnjem stupcu:
 \begin{verbbox}
@@ -70,7 +74,7 @@ o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o
 \end{figure}
 
 Zatim u sljedećoj pruzi radimo istu stvar, samo pomaknutu za $2K$. To jest,
-počinjemo od sadnice $(1, 2K)$, a drugu koordinatu gledamo modulo $M$. Slično
+počinjemo od sadnice $(3, 2K)$, a drugu koordinatu gledamo modulo $M$. Slično
 nastavljamo dalje. Za promatrani primjer na kraju imamo:
 
 \begin{verbbox}
@@ -94,7 +98,7 @@ o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o
 \end{figure}
 
 Ako je $N$ neparan, onda u zadnjem retku srednjih $K$ sadnica ne povezujemo
-prema gore, nego prema desno. Za primjer $N = 7, M = 17$ dobivamo:
+prema dolje, nego prema desno. Za primjer $N = 7, M = 17$ dobivamo:
 
 \begin{verbbox}
 o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o--o
@@ -120,9 +124,9 @@ o  o--o--o--o--o--o--o--o--o--o--o--o--o  o  o  o  o
 
 Dokažimo sada da smo postigli željeno ograničenje, odnosno da svaki rez siječe
 najviše $K + 1$ špaga. Vodoravne špage smo rasporedili ravnomjerno, tj. za bilo
-koja dva okomita reza, broj špaga koje sijeku se razlikuje za najviše jedan.
+koja dva okomita reza, broj špaga koje sijeku razlikuje se za najviše jedan.
 Ako je $2K \leq M$, svaki vodoravni rez siječe točno $K + 1$ špaga, pa svaki
 okomiti rez može sijeći najviše $K + 1$ špaga (u suprotnom bi prosjek bio
 prevelik). Inače je $2K = M + 1$. Vodoravni rezovi tada sijeku najviše $K + 1$
-dužina, a okomiti najviše $\ceil{\frac{N}{2}} + 1 \leq K + 1$ (dokaz čitatelju
-za vježbu).
+dužina, a okomiti najviše $\ceil{\frac{N}{2}} + 1 \leq K + 1$. Raspisivanje ovih
+tvrdnji ostavljamo čitatelju za vježbu.
