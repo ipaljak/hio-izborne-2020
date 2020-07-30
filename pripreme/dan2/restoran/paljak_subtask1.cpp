@@ -39,7 +39,7 @@ llint get_time() {
   sort(v.begin(), v.end());
   llint sol = 1e18;
   do {
-    int t = get_time();
+    llint t = get_time();
     if (t < sol) {
       sol = t;
       order = v;
