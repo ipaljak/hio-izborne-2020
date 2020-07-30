@@ -23,6 +23,10 @@ typedef long long llint;
  * @pararm m error message displayed to the contestant.
  */
 void finish(double p, const string& m);
+const string WRONG_OUTPUT_FORMAT = "Krivo formatiran izlaz.";
+const string TEST_DATA_ERROR = "Greška u službenom ulazu ili izlazu.";
+const string WRONG = "Netočno.";
+const string CORRECT = "Točno.";
 
 int ceil(int a, int b) { return (a - 1) / b + 1; }
 
@@ -51,10 +55,16 @@ llint get_time(const vector<int> &order, const vector<pair<int, int>> &guest) {
 }
 
 bool check_order(const vector<int> &off_order, const vector<int> &cont_order,
-                 const vector<pair<int, int>> &guest) {
-  llint A = get_time(off_order, guest), B = get_time(cont_order, guest);
-  if (A != B) TRACE(A _ B);
-  return get_time(off_order, guest) == get_time(cont_order, guest);
+                 const vector<pair<int, int>> &guest, const llint last_time) {
+  llint off_time = get_time(off_order, guest),
+        cont_time = get_time(cont_order, guest);
+  if (off_time != cont_time) TRACE(off_time _ cont_time);
+  if (off_time != last_time)
+    finish(0, TEST_DATA_ERROR);
+  if (off_time > cont_time) {
+    finish(0, TEST_DATA_ERROR);
+  }
+  return off_time == cont_time;
 }
 
 /**
@@ -65,10 +75,6 @@ bool check_order(const vector<int> &off_order, const vector<int> &cont_order,
  */
 void checker(ifstream& fin, ifstream& foff, ifstream& fout)
 {
-  const string WRONG_OUTPUT_FORMAT = "Krivo formatiran izlaz.";
-  const string TEST_DATA_ERROR = "Greška u službenom ulazu ili izlazu.";
-  const string WRONG = "Netočno.";
-  const string CORRECT = "Točno.";
 
   const int MAXN = 2e5 + 10;
   bool deleted[2 * MAXN];
@@ -84,11 +90,14 @@ void checker(ifstream& fin, ifstream& foff, ifstream& fout)
     guest.emplace_back(a, b);
   }
 
+  llint last_time = -1;
   // Compare output before queries
   llint off_time, cont_time;
   if (!(foff >> off_time)) finish(0, TEST_DATA_ERROR);
   if (!(fout >> cont_time)) finish(0, WRONG_OUTPUT_FORMAT);
   if (off_time != cont_time) finish(0, WRONG);
+  last_time = off_time;
+  
 
   int guest_cnt = n;
 
@@ -107,6 +116,7 @@ void checker(ifstream& fin, ifstream& foff, ifstream& fout)
       if (!(foff >> off_time)) finish(0, TEST_DATA_ERROR);
       if (!(fout >> cont_time)) finish(0, WRONG_OUTPUT_FORMAT);
       if (off_time != cont_time) finish(0, WRONG);
+      last_time = off_time;
     }
 
     if (s == "ODLAZI") {
@@ -120,6 +130,7 @@ void checker(ifstream& fin, ifstream& foff, ifstream& fout)
       if (!(foff >> off_time)) finish(0, TEST_DATA_ERROR);
       if (!(fout >> cont_time)) finish(0, WRONG_OUTPUT_FORMAT);
       if (off_time != cont_time) finish(0, WRONG);
+      last_time = off_time;
     }
 
     if (s == "POREDAK") {
@@ -127,6 +138,8 @@ void checker(ifstream& fin, ifstream& foff, ifstream& fout)
       for (int j = 0; j < 2 * guest_cnt; ++j) {
         int x;
         if (!(foff >> x)) finish(0, TEST_DATA_ERROR);
+        if (x <= 0 || x >= 2 * MAXN - 5 || deleted[x])
+          finish(0, TEST_DATA_ERROR);
         off_order.emplace_back(x);
       }
       for (int j = 0; j < 2 * guest_cnt; ++j) {
@@ -148,7 +161,7 @@ void checker(ifstream& fin, ifstream& foff, ifstream& fout)
       if ((int) off_lo.size() != guest_cnt || (int) off_hi.size() != guest_cnt)
         finish(0, TEST_DATA_ERROR);
       if (off_lo != cont_lo || off_hi != cont_hi) finish(0, WRONG);
-      if (!check_order(off_order, cont_order, guest)) finish(0, WRONG);
+      if (!check_order(off_order, cont_order, guest, last_time)) finish(0, WRONG);
     }
   }
 
