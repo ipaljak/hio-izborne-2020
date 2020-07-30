@@ -1,3 +1,34 @@
 \subsection*{Zadatak Restoran}
-\textsf{Pripremili: Ivan Paljak i Tonko Sabolčec}\\
-\textsf{Potrebno znanje: }
+\textsf{Pripremili: Adrian Beker, Ivan Paljak, Tonko Sabolčec}\\
+\textsf{Potrebno znanje: dokazivanje točnosti pohlepnog algoritma, tournament stablo}
+
+Za početak, promatrajmo jednostavniji slučaj u kojemu se skup gostiju koji čekaju pred restoranom ne mijenja. Najprije uočimo da postoji optimalno rješenje u kojemu trenutci kuhanja i jedenja svakog gosta čine interval. Zaista, primjerice ako $i$-ti gost završava kuhanje u minuti $t$, tada on može kuhati u vremenskom intervalu $[t - a_i + 1, t]$, a trenutke kuhanja ostalih gostiju možemo po potrebi pomaknuti ranije, čime se ukupno vrijeme ne povećava (analogno se pokazuje za trenutke jedenja). Ispostavlja se da vrijedi i nešto jača tvrdnja:
+\\\\
+\textbf{Tvrdnja 1.} Postoji optimalno rješenje u kojemu gosti jedu hranu istim redoslijedom kojim su je i kuhali.
+\\\\
+\textit{Dokaz:} Neka gost $y$ dolazi neposredno poslije gosta $x$ u redoslijedu jedenja. Ukoliko $y$ dolazi prije $x$ u redoslijedu kuhanja, moguće ih je zamijeniti u poretku jedenja tako da i dalje svi uvjeti budu zadovoljeni, a ukupno se vrijeme ne poveća. Tvrdnja slijedi jer se opisanom transformacijom smanjuje broj inverzija u redoslijedu jedenja u odnosu na redoslijed kuhanja. $\qed$
+
+Primijetimo dalje da ako fiksiramo redoslijed kuhanja (a time prema Tvrdnji 1 i redoslijed jedenja), tada je optimalno pohlepno dodijeliti najprije intervale kuhanja, a zatim intervale jedenja. To nam omogućava da, za fiksan redoslijed gostiju, ukupno vrijeme evaluiramo u linearnoj složenosti. Sada je lako riješiti prvi podzadatak u složenosti $\mathcal{O}(N! \cdot N)$ -- naprosto ispitamo sve moguće poretke.
+
+Me\dj utim, već za drugi podzadatak potrebna je sljedeća opservacija, koja se pokazuje bitnom i za ostatak rješenja:
+\\\\
+\textbf{Tvrdnja 3.} Ako je $p_1, p_2, \ldots, p_N$ poredak gostiju, gdje je $p_i$ oznaka $i$-tog gosta u poretku, tada je najmanje ukupno vrijeme jednako $$\max_{i = 1}^{N} \left\{ \sum_{j=1}^{i} a_{p_j} + \sum_{j=i}^{N} b_{p_j}\right\}.$$
+\\\\
+\textit{Dokaz:} Označimo s $T$ vrijednost gornjeg izraza. Tada ukupno vrijeme očito nije manje od $T$. Kako bismo dokazali da ono nije veće od $T$, uočimo posljednjeg gosta koji počinje jesti čim završi s kuhanjem (primijetimo da će to uvijek biti slučaj za prvog gosta, stoga takav gost uvijek postoji), neka je to $k$-ti gost u poretku. Budući da je $k$ maksimalan s tim svojstvom, za sve $k < i \leq N$ mora vrijediti da $i$-ti gost počinje jesti čim $(i-1)$-vi gost završi. Stoga je ukupno vrijeme jednako $\sum_{j=1}^{k} a_{p_j} + \sum_{j=k}^{N} b_{p_j}$, što očito ne prelazi $T$. $\qed$
+\\\\
+Primijetimo da se izraz za vrijednost $T$ iz Tvrdnje 2 može malo drugačije zapisati: $$\sum_{j=1}^{N} b_j + \max_{i = 1}^{N} \left\{a_{p_i} + \sum_{j=1}^{i-1} (a_{p_j} - b_{p_j})\right\},$$ Zbog toga se problem svodi na nalaženje poretka $p_1, p_2, \ldots, p_N$ koji minimizira maksimum od $c_i = a_{p_i} + \sum_{j=1}^{i-1} (a_{p_j} - b_{p_j})$ po svim $1 \leq i \leq N$. Sada je drugi podzadatak moguće riješiti dinamičkim programiranjem s bitmaskama -- za svaki podskup gostiju, dinamika pamti rješenje spomenutog problema. Prijelaze izme\dj u stanja nije teško izvesti u linearnoj složenosti na način da fiksiramo svakog mogućeg posljednjeg gosta u poretku. Stoga je ukupna složenost ovog pristupa $\mathcal{O}(N \cdot 2^N)$.
+
+Konačno dolazimo i do trećeg podzadatka, za koji je potrebna sljedeća ključna opservacija o optimalnom poretku gostiju:
+\\\\
+\textbf{Tvrdnja 2.} Za gosta ćemo reći da je \textit{kuhar} ako mu je vrijeme kuhanja strogo manje od vremena jedenja, a u suprotnom ćemo reći da je \textit{gurman}. Tada postoji optimalan poredak u kojemu prvo dolaze svi kuhari sortirani uzlazno prema vremenu kuhanja te potom svi gurmani sortirani silazno prema vremenu jedenja.
+\\\\
+\textit{Dokaz:} Dokaz se temelji na standardnom \textit{exchange argumentu}. Promotrimo neki optimalan poredak $p_1, p_2, \ldots, p_N$ te pogledajmo što se događa kada zamijenimo neka dva susjedna gosta $p_i$, $p_{i+1}$. Možemo primijetiti da se vrijednosti $c_j$ za $j \not \in \{i, i + 1\}$ ne mijenjaju, stoga je samo potrebno pratiti vrijednosti $c_i$ te $c_{i+1}$. Nije teško uvjeriti se da je uvijek optimalno napraviti zamjenu u skladu s opisanim načinom sortiranja. Detalje ostavljamo čitateljici za vježbu. $\qed$
+\\\\
+Tvrdnja 3 sada nam omogućava da treći podzadatak riješimo sortiranjem svih gostiju na odgovarajući način te jedostavnom evaluacijom ukupnog vremena, u ukupnoj složenosti $\mathcal{O}(N\log N)$.
+
+Na kraju, za sve bodove potrebno je osmisliti kako efikasno održavati trenutni skup gostiju te evaluirati formulu za ukupno vrijeme. U tu svrhu uzmimo sve goste koji se ikad pojavljuju te ih sortirajmo na način kako je opisano u Tvrdnji 3. Time dobivamo niz parova $(a_i, b_i)$ nad kojim je potrebno podržavati sljedeće upite:
+\begin{itemize}
+    \item Označi neki par aktivnim/neaktivnim.
+    \item Evaluiraj formulu za parove koji su trenutno aktivni.
+\end{itemize}
+Primijetimo da ako parove koji trenutno nisu aktivni zamijenimo s $(0, 0)$, tada rješenje dobivamo evaluacijom formule za čitav niz parova. Stoga nad nizom možemo izgraditi tournament stablo koje u svakom čvoru pamti rješenje, sumu $a_i$-ova te sumu $b_i$-ova za pripadajući interval. Tada nije teško spojiti spomenute informacije za dva čvora te na uobičajen način odgovarati na upite u složenosti $\mathcal{O}(\log (N+K))$, stoga je ukupna složenost rješenja $\mathcal{O}((N + K)\log (N + K))$. Za implementacijske detalje pogledajte službene kodove.
