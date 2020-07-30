@@ -33,6 +33,5 @@ jobs:
           git config --local user.name "GitHub Action"
 
           git add pripreme/dan2/zadaci.pdf
-#          git add pripreme/dan2/opisi_algoritama.pdf
           git commit -m "Update pdf"
           git push
