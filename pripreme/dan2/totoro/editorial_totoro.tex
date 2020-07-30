@@ -8,7 +8,7 @@
 linearnost očekivanja, teorija grupa ili Markovljevi lanci, ad hoc }
 
 Prvo definirajmo notaciju.
-Neka $\mathcal{I}(\pi)$ označava broj inverzija permutacije $\pi$.
+Neka $\II(\pi)$ označava broj inverzija permutacije $\pi$.
 Neka za neku tvrdnju $T$ oznaka $[T]$ označava \textit{boolean} vrijednost
 te tvrdnje: $1$ ako je točna, $0$ ako je netočna. (Ta notacija naziva se 
 Iverson bracket.) Kompoziciju permutacija $\tau$ i $\pi$ označavat ćemo s
@@ -28,7 +28,7 @@ Za prvu parcijalu, dovoljno je izračunati grupu $S$ (koja nije
 pretjerano velika) i prebrojiti inverzije u svakoj
 od dobivenih permutacija. Ako je slučajno presporo, 
 primijetimo da je prosječan broj inverzija
-jednak $\frac{1}{2} \binom{n}{2}$
+jednak $\frac{1}{2} \binom{N}{2}$
 u slučaju da je grupa $S$ jednaka grupi svih permutacija $S_N$,
 pa je naivno rješenje moguće ubrzati za konstantni faktor.
 
@@ -67,16 +67,16 @@ kada uzimamo uniformno nasumičnu permutaciju $\pi$ iz $S$.
 
 U slučaju kada je $K = 1$, zadatak se može lijepo matematički riješiti
 u složenosti $\sum_{C_1, C_2 \text{ciklusi}} |C_1| \cdot |C_2| 
-= O(N^2)$, jer možemo računati $\PP[\pi(i) < \pi(j)$ za
-sve $i \in C_1, j \in C_2$ istovremeno. Za detalje pogledajte službeni kod.
+= O(N^2)$, jer možemo računati $\PP[\pi(i) < \pi(j)]$ za
+sve $i \in C_1, j \in C_2$ istovremeno. Za detalje pogledajte službeni kod
 rješenja za $K = 1$.
 
 Kada je $K > 1$, moramo zaboraviti na rješenje za $K = 1$, jer je jako
 teško analizirati strukturu grupe s više generatora.
 
-Ključna ideja je promatrati graf $G_{\text{parovi}})$ 
+Ključna ideja je promatrati graf $G_{\text{parovi}}$ 
 od $N^2$ čvorova $(i, j) : 1 \le i, j \le N$,
-gdje su povezani vrhovi $(i, j)$ i $(p_k(i), p_k(j))$ za svaki $1 \le k \le N$.
+gdje su povezani vrhovi $(i, j)$ i $(p_k(i), p_k(j))$ za svaki $1 \le k \le K$.
 Ako primijenimo permutaciju $\pi$ iz $S$, jasno je da to možemo
 interpretirati kao ``vrh $(i, j)$ ide u vrh $(\pi(i), \pi(j)$''.
 
