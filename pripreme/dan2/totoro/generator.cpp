@@ -114,6 +114,34 @@ void najbolji_generator() {
   ispisi_primjere(v);
 }
 
+void skromni_generator() {
+  vector<int> velicine = generiraj_velicine();
+  vector<vector<int> > v;
+  REP(i, m) {
+    vector<int> niz = napravi_cikluse(velicine); 
+    v.push_back(niz);
+  }
+  int pocetak = 0;
+  REP(i, (int) velicine.size()) {
+    int kraj = pocetak + velicine[i];
+    int r = rnd(1, 3);
+    if(r == 1) {
+      FOR(j, 1, m) {
+        FOR(k, pocetak, kraj)
+          v[j][k] = v[0][k];
+      }
+    }
+    else if(r == 2) {
+      FOR(j, 1, m) {
+        FOR(k, pocetak, kraj)
+          v[j][k] = v[0][kraj - 1 - k + pocetak];
+      }
+    }
+    pocetak = kraj;
+  }
+  ispisi_primjere(v);
+}
+
 vector<vector<int>> M24 = {
   {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24},
   {1,2,17,13,4,6,9,18,3,7,12,23,14,19,20,15,10,11,5,22,16,21,8,24},
@@ -190,6 +218,16 @@ int main(int argc, char **argv) {
     m = 4;
     n = 24 + 24 + 2 + 200 + 13*125 + 17*17;
     mathieu_generator();
+  }
+  else if (!strcmp(argv[1], "skromni")) {
+    m = 7;
+    n = 2400;
+    skromni_generator();
+  }
+  else if (!strcmp(argv[1], "mali_skromni")) {
+    m = 5;
+    n = 8;
+    skromni_generator();
   }
   else
     assert(false);
