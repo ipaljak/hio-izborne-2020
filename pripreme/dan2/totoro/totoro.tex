@@ -18,24 +18,25 @@ Totoro ima $K$ permutacija $p_1, \ldots, p_K$ duljine $N$.
 
 Neka je $S$ skup svih permutacija koje je moguće
 dobiti komponiranjem konačnog broja permutacija $p_i$. 
-Kompozicija dvije permutacije $p$ i $q$ 
-na mjestu $i$ ima element $p(q(i))$. Na primjer, 
-kompozicija permutacija $p = (1, 3, 2)$
-i $q = (2, 3, 1)$ jednaka je $p \circ q = (3, 2, 1)$. 
+Kompozicija dvije permutacije $\pi$ i $\tau$ 
+na mjestu $i$ ima element $\pi(\tau(i))$. Na primjer, 
+kompozicija permutacija $\pi = (1, 3, 2)$
+i $\tau = (2, 3, 1)$ jednaka je $\pi \circ \tau = (3, 2, 1)$. 
 Dozvoljeno je komponirati iste permutacije više puta.
 
 Jasno je da je $S$ konačan skup, jer je sadržan u skupu svih
 permutacija duljine $N$.
 
 Zanima nas \textbf{prosječan broj inverzija permutacija u skupu $S$}.
-(Broj inverzija $\mathcal{I}(\pi)$ permutacije $\pi$ 
+Broj inverzija $\mathcal{I}(\pi)$ permutacije $\pi$ 
 jednak je broju uređenih parova
-brojeva $1 \le i < j \le N$ za koje je $\pi(i) > \pi(j)$.)
+brojeva $1 \le i < j \le N$ za koje je $\pi(i) > \pi(j)$.
 
 Formalno, zanima nas $\frac{1}{|S|} \sum_{\pi \in S} \mathcal{I} (\pi)$.
 Može se dokazati da je odgovor moguće napisati
 kao skraćeni razlomak $\frac{A}{B}$, gdje $B$ nije djeljiv s $10^9 + 7$. 
-Ispišite $AB^{-1}$ modulo $10^9 + 7$.
+Ispišite $AB^{-1}$ modulo $10^9 + 7$, odnosno broj $X$ takav da je
+$0 \leq X < 10^9 + 7$ i $X \cdot B \equiv A \mod 10^9 + 7$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Input
@@ -48,7 +49,7 @@ prikazana kao niz od $N$ različitih brojeva od $1$ do $N$, odvojenih razmakom.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Output
 \subsection*{Izlazni podaci}
-U jedinom retku izlaza ispišite odgovor modulo $10^9 + 7$. 
+U jedinom retku ispišite odgovor modulo $10^9 + 7$. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Scoring
