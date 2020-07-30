@@ -1,3 +1,23 @@
 \subsection*{Zadatak Autoritet}
 \textsf{Pripremili: Adrian Beker i Paula Vidas}\\
-\textsf{Potrebno znanje: }
+\textsf{Potrebno znanje: $DFS$-stablo, artikulacijske točke}
+Prvo, očito su potezi komutativni i involutorni pa nas samo zanima skup čvorova koje smo odabrali. Broj najkraćih nizova poteza tada jednostavno možemo dobiti množenjem broja najmanjih podskupova s $k!$, gdje je $k$ veličina najmanjeg podskupa. Osnovna je ideja da ćemo u većini slučaja moći postići cilj koristeći malo poteza. Za graf ćemo reći da je \texit{klika} ako je potpun i ima bar dva čvora. Razlikujemo 4 (disjunktna) slučaja:
+
+\begin{enumerate}
+    \item Graf je povezan
+    \item Graf se sastoji od točno dviju disjunktnih klika
+    \item Graf se sastoji od barem triju disjunktnih klika
+    \item Preostali slučaj
+\end{enumerate}
+Prvi je slucaj očit. U drugom slučaju, nije teško vidjeti da je optimalno uzeti čitavu manju kliku (koji god podskup čvorova odabrali, graf se raspada na najviše dva potpuna grafa).
+U trećem slučaju trebamo bar $2$ poteza i to se postiže uzimanjem bilo kojih dvaju čvorova iz različitih klika (ili dvaju iz iste ukoliko je ona velicine $2$).
+
+U četvrtom slučaju graf nije povezan i postoji komponenta $K$ koja ili nije klika ili je izolirani čvor. Tada očito trebamo bar $1$ potez, a tvrdimo da to možemo i postići. Recimo da je čvor $x$ \textit{dobar} ako primjenom operacije na $x$ dobivamo povezan graf. Recimo da se uklanjanjem čvora $x$ njegova komponenta raspada na komponente $C_1, C_2, …, C_k$. Tada $x$ nije dobar ako i samo ako je povezan sa svim cvorovima neke $C_i$.
+
+Ako je $K$ izolirani čvor, tada je taj čvor dobar, stoga pretpostavimo da $K$ nije klika. Recimo da je čvor u $K$ \textit{centralan} ako je povezan sa svima ostalima.
+\\\\
+\textbf{Tvrdnja 1.}: Postoji čvor $x$ u $K$ koji nije centralan i nije artikulacijska točka.
+\\\\
+\textit{Dokaz:} Ako ne postoji centralan čvor, onda odaberemo čvor u $K$ koji nije artikulacijska točka, npr. list u razapinjućem stablu. Ako postoji centralan čvor, uzmemo bilo koji čvor koji nije centralan (takav postoji jer $K$ prema pretpostavci nije klika). $\qed$
+
+Sada je očito je da je čvor $x$ iz tvrdnje dobar. Konačno, preostaje prebrojati dobre čvorove, a to se moze učiniti na sljedeći način. \iffalse Promotrimo tzv. \textit{block-cut tree} $T$ neke komponente (koja bez smanjenja općenitosti nije izolirani čvor), odnosno stablo čiji vrhovi odgovaraju artikulacijskim točkama i dvostruko povezanim komponentama, pri čemu je neka artikulacijska točka povezana s nekom dvostruko povezanom komponentom ako se nalazi u njoj. \fi Primijetimo da neki čvor nije dobar ako i samo ako je ili centralan u čitavoj komponenti ili je artikulacijska točka i centralan je u nekoj dvostruko povezanoj komponenti u kojoj se nalazi. Stoga zadatak možemo riješiti rastavom grafa na dvostruko povezane komponente i analiziranjem tih komponenata. Postoje i druga rješenja koje koriste standardne informacije iz $DFS$-stabla. Ukupna je složenost $\mathcal{O}(N + M)$ ili $\mathcal{O}(N + M\log N)$. Za implementacijske detalje pogledajte službene kodove.
