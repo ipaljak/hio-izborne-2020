@@ -25,10 +25,10 @@ Srećom, u restoranu se nalazi beskonačno mnogo tanjura pa gost koji završava
 s pripremom hrane može gotovu hranu prebaciti na tanjur i pričekati da se
 oslobode vilica i nož.
 
-Za svakog gosta je poznato koliko mu je vremena potrebno da spremi hranu
-i koliko mu je vremena da tu hranu pojede. Vaš je zadatak odrediti koliko
-je najmanje vremena potrebno da se svih $N$ gostiju najede ako odluče spremati
-i jesti hranu optimalnim redoslijedom.
+Za svakog gosta je poznato koliko mu je vremena potrebno da spremi hranu i
+koliko mu je vremena potrebno da tu hranu pojede. Vaš je zadatak odrediti
+koliko je najmanje vremena potrebno da se svih $N$ gostiju najede ako odluče
+spremati i jesti hranu optimalnim redoslijedom.
 
 Međutim, to nije sve, prije nego što se restoran otvorio, dogodilo se $K$
 ključnih događaja oblika:
@@ -59,13 +59,15 @@ ispred restorana.
 U prvom su retku prirodni brojevi $N$ i $K$ iz teksta zadatka.
 
 U $i$-tom od sljedećih $N$ redaka nalaze po dva prirodna broja $a_i$ i $b_i$
-$(1 \le a_i, b_i \le 10^9$ koji označavaju da gost s oznakom $i$ može hranu
+$(1 \le a_i, b_i \le 10^9)$ koji označavaju da gost s oznakom $i$ može hranu
 spremiti za $a_i$ minuta, a pojesti za $b_i$ minuta.
 
 U sljedećih se $K$ redaka nalazi po jedan ključan događaj u formatu kakav
 je opisan u tekstu zadatka. Možete pretpostaviti da su događaji međusobno
 konzistentni. Odnosno, nikad neće otići gost koji još nije niti došao. Također,
-ispred restorana u svakom će se trenutku nalaziti barem jedan gost.
+ispred restorana u svakom će se trenutku nalaziti barem jedan gost, a brzina
+spremanja i jedenja hrane novopridošlih gostiju pokoravat će se već spomenutim
+ograničenjima iz prethodnog odlomka.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Output
