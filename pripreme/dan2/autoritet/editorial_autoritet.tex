@@ -1,6 +1,7 @@
 \subsection*{Zadatak Autoritet}
 \textsf{Pripremili: Adrian Beker i Paula Vidas}\\
-\textsf{Potrebno znanje: teorija grafova, $DFS$-stablo, artikulacijske točke i dvostruko povezane komponente}\\
+\textsf{Potrebno znanje: teorija grafova, $DFS$-stablo, artikulacijske točke i dvostruko povezane komponente}
+
 Prvo, očito su potezi komutativni i involutorni pa nas samo zanima skup čvorova koje smo odabrali. Broj najkraćih nizova poteza tada jednostavno možemo dobiti množenjem broja najmanjih skupova s $k!$, gdje je $k$ veličina najmanjeg skupa. Osnovna je ideja da ćemo u većini slučaja moći postići cilj koristeći malo poteza. Za graf ćemo reći da je \texit{klika} ako je potpun i ima bar dva čvora. Razlikujemo četiri (disjunktna) slučaja:
 
 \begin{enumerate}
@@ -16,8 +17,8 @@ U četvrtom slučaju graf nije povezan i postoji komponenta $K$ koja nije klika.
 
 Ako je $K$ izolirani čvor, tada je taj čvor dobar, stoga pretpostavimo da $K$ nije potpun graf. Recimo da je čvor u $K$ \textit{centralan} ako je povezan sa svima ostalima.
 \\\\
-\textbf{Tvrdnja 1.} Postoji čvor $x$ u $K$ koji nije centralan i nije artikulacijska točka.
+\textbf{Tvrdnja 1.} Postoji čvor $y$ u $K$ koji nije centralan i nije artikulacijska točka.
 \\\\
-\textit{Dokaz:} Ako ne postoji centralan čvor, onda odaberemo čvor u $K$ koji nije artikulacijska točka, npr. list u razapinjućem stablu. Ako postoji centralan čvor, uzmemo bilo koji čvor koji nije centralan (takav postoji jer $K$ prema pretpostavci nije potpun). $\qed$
+\textit{Dokaz:} Ako ne postoji centralan čvor, onda odaberemo čvor u $K$ koji nije artikulacijska točka, npr. list u razapinjućem stablu. Ako postoji centralan čvor, uzmemo bilo koji čvor koji nije centralan (takav postoji jer $K$ prema pretpostavci nije potpun graf). $\qed$
 
-Sada je očito je da je čvor $x$ iz tvrdnje dobar. Konačno, preostaje prebrojati dobre čvorove, a to se moze učiniti na sljedeći način. \iffalse Promotrimo tzv. \textit{block-cut tree} $T$ neke komponente (koja bez smanjenja općenitosti nije izolirani čvor), odnosno stablo čiji vrhovi odgovaraju artikulacijskim točkama i dvostruko povezanim komponentama, pri čemu je neka artikulacijska točka povezana s nekom dvostruko povezanom komponentom ako se nalazi u njoj. \fi Primijetimo da neki neizolirani čvor nije dobar ako i samo ako je ili centralan u čitavoj komponenti ili istodobno jedinstvena artikulacijska točka i centralan u nekoj dvostruko povezanoj komponenti u kojoj se nalazi. Stoga zadatak možemo riješiti nalaženjem artikulacijskih točaka i rastavom grafa na dvostruko povezane komponente. Postoje i druga rješenja koja koriste standardne informacije iz $DFS$-stabla. Ukupna je složenost $\mathcal{O}(N + M)$ ili $\mathcal{O}(N + M\log N)$. Za implementacijske detalje pogledajte službene kodove.
+Sada je očito je da je čvor $y$ iz tvrdnje dobar. Konačno, preostaje prebrojati dobre čvorove, a to se moze učiniti na sljedeći način. Primijetimo da neki neizolirani čvor nije dobar ako i samo ako je ili centralan u čitavoj komponenti ili istodobno jedinstvena artikulacijska točka i centralan u nekoj dvostruko povezanoj komponenti u kojoj se nalazi. Stoga problem možemo riješiti nalaženjem artikulacijskih točaka i rastavom grafa na dvostruko povezane komponente. Postoje i druga rješenja koja koriste standardne informacije iz $DFS$-stabla. Ukupna je složenost $\mathcal{O}(N + M)$ ili $\mathcal{O}(N + M\log N)$. Za implementacijske detalje pogledajte službene kodove.
