@@ -1,3 +1,132 @@
-\subsection*{Zadatak Restoran}
-\textsf{Pripremili: Daniel Paleka i Stjepan Požgaj}\\
-\textsf{Potrebno znanje: }
+\newcommand\EE{\mathbb E}
+\newcommand\PP{\mathbb P}
+\newcommand\II{\mathcal I}
+
+\subsection*{Zadatak Totoro}
+\textsf{Pripremili: Stjepan Požgaj i Daniel Paleka}\\
+\textsf{Potrebno znanje: matematika, pretraživanje u dubinu (DFS), 
+linearnost očekivanja, teorija grupa ili Markovljevi lanci, ad hoc }
+
+Prvo definirajmo notaciju.
+Neka $\mathcal{I}(\pi)$ označava broj inverzija permutacije $\pi$.
+Neka za neku tvrdnju $T$ oznaka $[T]$ označava \textit{boolean} vrijednost
+te tvrdnje: $1$ ako je točna, $0$ ako je netočna. (Ta notacija naziva se 
+Iverson bracket.) Kompoziciju permutacija $\tau$ i $\pi$ označavat ćemo s
+$\tau \pi$.
+
+Skup $S$ je standardan primjer \textit{grupe}: skupa na kojem je definirana
+neka asocijativna operacija (ovdje kompozicija permutacija), te.
+Ovdje nećemo ulaziti u dokaz da je definicijom skupa $S$ zadana podgrupa
+grupe permutacija, jer čitatelj mora to jednom raspisati sam.
+Jedina stvar koja na prvu nije jasna jest da možemo dobiti inverze
+svake zadane permutacije, ali to je istina standardnim 
+Za više, pogledate izvrsni Groups chapter iz Napkina:
+{https://web.evanchen.cc/napkin.html}
+
+Permutacije $p_i$ iz ulaza zovu se \textit{generatori} grupe.
+
+Za prvu parcijalu, dovoljno je izračunati grupu $S$ (koja nije 
+pretjerano velika) i prebrojiti inverzije u svakoj
+od dobivenih permutacija. Ako je slučajno presporo, 
+primijetimo da je prosječan broj inverzija
+jednak $\frac{1}{2} \binom{n}{2}$
+u slučaju da je grupa $S$ jednaka grupi svih permutacija $S_N$,
+pa je naivno rješenje moguće ubrzati za konstantni faktor.
+
+Za $K = 1$, dana grupa $S$ je konačna \textit{ciklička}, 
+tj. oblika je $\{ 1, p, p^2, p^3, \ldots, p^m \}$ za neki $m$.
+(Ovdje s $p^t$ označavamo permutaciju $p$ primijenjenu $t$ puta.)
+Poznato je i lako za dokazati da je $m$ točno najmanji
+zajednički višekratnik veličina svih ciklusa permutacije.
+
+Za drugu parcijalu, vrijedi $m = N$, pa je dovoljno u $O(N \log N)$
+prebrojati inverzije svake permutacije u $S$. 
+Ako permutacija nije ciklus, tada $m$ može biti jako velik
+(npr. ciklusi veličina prvih tridesetak prostih brojeva), 
+pa moramo napraviti nešto pametnije.
+
+Za treću parcijalu i puno rješenje, trebamo koncept \textit{linearnosti
+očekivanja}. Sve što slijedi može se izreći i elementarno,
+ali je vjerojatnosna terminologija puno prirodnija.
+
+Ako nasumce (s uniformnom vjerojatnošću) biramo permutaciju $\pi$ iz
+$S$, tada je izraz $\frac{1}{|S|} \II(\pi)$ prosječna vrijednost
+ili \textit{očekivanje} $\EE\mathcal{I}(\pi)$ broja inverzija $\mathcal{I}$.
+
+Po definiciji vrijedi
+\begin{equation*}
+  \II(\pi) = \sum\limits_{1 \le i < j \le N} [ \pi(i) > \pi(j) ]. 
+\end{equation*}
+Koristeći da očekivanje možemo rastaviti po pribrojnicima, dobivamo
+\begin{align*}
+  \EE \II(\pi)  &= \sum\limits_{1 \le i < j \le N} \EE [ \pi(i) > \pi(j) ] \\
+                &= \sum\limits_{1 \le i < j \le N} \PP [ \pi(i) > \pi(j) ]. 
+\end{align*}
+
+Zato je dovoljno izračunati vjerojatnost da vrijedi $\pi(i) > \pi(j)$
+kada uzimamo uniformno nasumičnu permutaciju $\pi$ iz $S$.
+
+U slučaju kada je $K = 1$, zadatak se može lijepo matematički riješiti
+u složenosti $\sum_{C_1, C_2 \text{ciklusi}} |C_1| \cdot |C_2| 
+= O(N^2)$, jer možemo računati $\PP[\pi(i) < \pi(j)$ za
+sve $i \in C_1, j \in C_2$ istovremeno. Za detalje pogledajte službeni kod.
+rješenja za $K = 1$.
+
+Kada je $K > 1$, moramo zaboraviti na rješenje za $K = 1$, jer je jako
+teško analizirati strukturu grupe s više generatora.
+
+Ključna ideja je promatrati graf $G_{\text{parovi}})$ 
+od $N^2$ čvorova $(i, j) : 1 \le i, j \le N$,
+gdje su povezani vrhovi $(i, j)$ i $(p_k(i), p_k(j))$ za svaki $1 \le k \le N$.
+Ako primijenimo permutaciju $\pi$ iz $S$, jasno je da to možemo
+interpretirati kao ``vrh $(i, j)$ ide u vrh $(\pi(i), \pi(j)$''.
+
+Vrh $(i, j)$ neka permutacija $\pi$ iz $S$ 
+može poslati samo u vrhove pripadajuće povezane komponente.
+Ako bi znali distribuciju 
+Ključna je sljedeća obzervacija:
+
+\textbf{Tvrdnja:} Uniformno nasumična permutacija $\pi$ iz $S$ šalje
+vrh $(i, j)$ u uniformno nasumičan vrh u njegovoj povezanoj komponenti.
+\textit{Prvi dokaz:} Elementaran, bit će u finalnoj verziji editoriala.
+\textit{Drugi dokaz:} Primijetimo da svaki vrh ima stupanj $K$,
+tj. graf je \textit{regularan}.
+Promatrajmo Markovljev lanac $M$ na vrhovima grafa,
+tj. slučajnu šetnju koja svaki brid bira s jednakom vjerojatnošću.
+Lako se dokaže da \textit{stacionarna distribucija} (jedinstvena
+vjerojatnost na vrhovima grafa koja se ne mijenja u koraku lanca $M$)
+svakom vrhu neke povezane komponente pridružuje istu vjerojatnost,
+jer je graf regularan. 
+
+Promotrimo \emph{Cayleyjev graf} grupe $S$ generirane permutacijama 
+$p_1, \ldots, p_K$, gdje su vrhovi elementi $\pi \in S$, a bridovi
+između permutacija $\pi$ i $p_k \pi$ za svaki $1 \le k \le K$.
+Graf je također regularan stupnja $K$, pa ako definiramo sličnu slučajnu
+šetnju $M_S$, stacionarna distribucija je uniformna po svim elementima
+grupe $S$.
+
+Sada samo koristimo da slučajna šetnja iz nekog vrha po vjerojatnosti
+konvergira u stacionarnu distribuciju, kako u lancu $M$, tako i u
+lancu $M_S$.
+\footnote{Postoje manji problemi s periodičnošću, ali se oni lako riješe 
+takozvanim \textit{lazy} bridovima -- ne ulazimo u tehnikalije.}
+
+Slučajne šetnje na lancima $M$ i $M_S$ možemo bijektivno upariti, jer svaki
+korak u oba lanca odgovara nekoj ulaznoj permutaciji $p_k$.
+
+Zato vrijedi
+\begin{align*}
+  \text{uniformna permutacija } \pi \in S 
+  &\equiv \text{slučajna šetnja permutacijama } p_k \\
+  &\equiv \text{stacionarna distribucija na komponentama grafa }
+  G_\text{parovi}.
+\end{align*}
+
+Stoga, dovoljno je za svaku povezanu komponentu u $G_\text{parovi}$ 
+izračunati broj čvorova $(a, b)$ takvih da je $a > b$ (\textit{invertiranih}
+čvorova),
+jer se čvor $(i, j)$ šalje u svaki čvor komponente s jednakom vjerojatnošću.
+Tražena vjerojatnost dobiva se dijeljenjem broja invertiranih čvorova
+s veličinom komponente.
+Komponente je lako izračunati u složenosti $O(N^2 K)$ pretraživanjem u dubinu.
+
