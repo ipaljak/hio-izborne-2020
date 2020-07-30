@@ -18,11 +18,11 @@ Totoro ima $K$ permutacija $p_1, \ldots, p_K$ duljine $N$.
 
 Neka je $S$ skup svih permutacija koje je moguće
 dobiti komponiranjem konačnog broja permutacija $p_i$. 
-(Kompozicija dvije permutacije $p$ i $q$ 
+Kompozicija dvije permutacije $p$ i $q$ 
 na mjestu $i$ ima element $p(q(i))$. Na primjer, 
 kompozicija permutacija $p = (1, 3, 2)$
 i $q = (2, 3, 1)$ jednaka je $p \circ q = (3, 2, 1)$. 
-Dozvoljeno je ponavljati permutacije.)
+Dozvoljeno je komponirati iste permutacije više puta.
 
 Jasno je da je $S$ konačan skup, jer je sadržan u skupu svih
 permutacija duljine $N$.
@@ -48,7 +48,7 @@ prikazana kao niz od $N$ različitih brojeva od $1$ do $N$, odvojenih razmakom.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Output
 \subsection*{Izlazni podaci}
-U jedinom retku izlaza ispišite odgovor modulo $1\,000\,000\,007$. 
+U jedinom retku izlaza ispišite odgovor modulo $10^9 + 7$. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Scoring
@@ -58,7 +58,10 @@ U jedinom retku izlaza ispišite odgovor modulo $1\,000\,000\,007$.
   \begin{tabular}{ccl}
  Podzadatak & Broj bodova & Ograničenja \\ \midrule
   1 & 7 & $ 1 \le K \le 10, 1 \le N \le 9$ \\
-  2 & 8 & $ K = 1 $, $1 \le N \le 2\,500$, permutacija je ciklus \\
+  2 & 8 & $ K = 1 $, $1 \le N \le 2\,500$, permutacija je ciklus 
+    \footnote{Permutacija je ciklus ako brojeve $1, 2, \ldots, n$
+    možemo poredati u niz $a_1, a_2, \ldots, a_n$ tako da vrijedi
+    $p(a_1) = a_2, p(a_2) = a_3, \ldots, p[a_n] = a_1$.} \\
   3 & 25 & $ K = 1$, $1 \le N \le 2\,500$ \\
   4 & 60 & $1 \le K \le 10$, $1 \le N \le 2\,500$ \\
 \end{tabular}}
