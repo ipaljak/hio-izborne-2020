@@ -4,7 +4,7 @@
 
 \subsection*{Zadatak Totoro}
 \textsf{Pripremili: Stjepan Požgaj i Daniel Paleka}\\
-\textsf{Potrebno znanje: matematika, pretraživanje u dubinu (DFS), 
+\textsf{Potrebno znanje: matematika, pretraživanje u dubinu/širinu (dfs/bfs), 
 linearnost očekivanja, teorija grupa ili Markovljevi lanci, ad hoc }
 
 Prvo definirajmo notaciju.
@@ -84,12 +84,12 @@ Vrh $(i, j)$ neka permutacija $\pi$ iz $S$
 može poslati samo u vrhove pripadajuće povezane komponente.
 Ako bi znali s kojom vjerojatnošću nasumična permutacija $\pi$
 šalje vrh $(i, j)$ u svaki vrh njegove komponente, 
-mogli bi smo eksplicitno izračuunati tražene vjerojatnosti.
+mogli bi smo eksplicitno izračunati tražene vjerojatnosti.
 Tu pomaže sljedeća ključna činjenica:
 
 \textbf{Tvrdnja:} Uniformno nasumična permutacija $\pi$ iz $S$ šalje
-vrh $(i, j)$ u uniformno nasumičan vrh u njegovoj povezanoj komponenti.
-\textit{Prvi dokaz:} Elementaran, bit će u finalnoj verziji editoriala.
+vrh $(i, j)$ u uniformno nasumičan vrh u njegovoj povezanoj komponenti. \\
+\textit{Prvi dokaz:} Elementaran, bit će u finalnoj verziji editoriala. \\
 \textit{Drugi dokaz:} Primijetimo da svaki vrh ima stupanj $K$,
 tj. graf je \textit{regularan}.
 Promatrajmo Markovljev lanac $M$ na vrhovima grafa,
@@ -129,5 +129,6 @@ izračunati broj čvorova $(a, b)$ takvih da je $a > b$ (\textit{invertiranih}
 jer se čvor $(i, j)$ šalje u svaki čvor komponente s jednakom vjerojatnošću.
 Tražena vjerojatnost dobiva se dijeljenjem broja invertiranih čvorova
 s veličinom komponente.
-Komponente je lako izračunati u složenosti $O(N^2 K)$ pretraživanjem u dubinu.
+Komponente je lako izračunati u složenosti $O(N^2 K)$ pretraživanjem u dubinu
+ili širinu.
 
