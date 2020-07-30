@@ -114,6 +114,43 @@ void najbolji_generator() {
   ispisi_primjere(v);
 }
 
+vector<vector<int>> M24 = {
+  {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24},
+  {1,2,17,13,4,6,9,18,3,7,12,23,14,19,20,15,10,11,5,22,16,21,8,24},
+  {24,23,12,16,18,10,20,14,21,6,17,3,22,8,19,4,11,5,15,7,9,13,2,1},
+  {2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,1}
+};
+
+void mathieu_generator() {
+  assert(n == 2164);
+  assert(m == 4);
+  vector<int> velicine = {24, 24, 2, 200, 13*125, 17*17};
+  vector<vector<int> > v;
+  REP(i, m) {
+    vector<int> niz = napravi_cikluse(velicine); 
+    v.push_back(niz);
+  }
+
+
+  int pocetak = 0;
+  REP(i, (int) velicine.size()) {
+    int kraj = pocetak + velicine[i];
+    if (i == 0 || i == 1) {
+      REP(j, m)
+        REP(k, 24)
+          v[j][k] = M24[j][k] - 1;
+    }
+    else if(i != 3) {
+      FOR(j, 1, m) {
+        FOR(k, pocetak, kraj)
+          v[j][k] = v[0][k];
+      }
+    }
+    pocetak = kraj;
+  }
+  ispisi_primjere(v);
+}
+
 void permutacija_s_jednim_ciklusom() {
   vector<int> perm;
   REP(i, n) perm.push_back(i);
@@ -148,6 +185,11 @@ int main(int argc, char **argv) {
     m = rnd(1, 10);
     n = rnd(2400, 2500);
     najbolji_generator();
+  }
+  else if (!strcmp(argv[1], "s_mathieu")) {
+    m = 4;
+    n = 24 + 24 + 2 + 200 + 13*125 + 17*17;
+    mathieu_generator();
   }
   else
     assert(false);

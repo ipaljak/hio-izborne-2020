@@ -112,6 +112,7 @@ int main() {
             if (i == 2) sol += 2 * (n - 1);
             else sol += (ll)i * (n - i);
         }
+        sol %= MOD;
         cout << "2\n" << sol << '\n';
     }
 
