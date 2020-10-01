@@ -1,0 +1,93 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Problem statement
+\begin{statement}[
+  problempoints=100,
+  timelimit=3 seconds,
+  memorylimit=512 MiB,
+]{Paint}
+
+We will represent the drawing area of \textit{MS Paint} as a rectangular
+grid of unit squares divided into $R$ rows and $S$ columns. Each square of
+the grid represents a single pixel that can be colored in one of the $10^5$
+different colors. When the user applies the so called \textit{bucket tool} with
+color $A$ on a pixel $(r, s)$ which is colored in the color $B$, then all pixels
+in the \textit{monochrome neighborhood} of pixel $(r, s)$ change their color
+to $A$. Monochrome neighborhood of a pixel $(r, s)$ is a set of pixels that
+are reachable by \textit{walking} from $(r, s)$ in the four general directions
+(up, down, left and right) without changing the color of the pixel along the
+way. Note that the pixel $(r, s)$ is itself a part of its monochrome
+neighborhood.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{img/paint_skica.png}
+\end{figure}
+
+You are given a starting image drawn in \textit{MS Paint} along with $Q$
+instructions that should be executed in the given order. Each instruction tells
+you on which pixel should you apply the bucket tool and with what color. Your
+task is to how the image looks like after all instructions are executed.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Input
+\subsection*{Input}
+The first line contains integers $R$ and $S$ from the task description.
+
+Each of the next $R$ lines contains $S$ non-negative integers less than
+$100\,000$ that represent the starting image drawn in \textit{MS Paint}.
+More precisely, the $j$-th number in the $i$-th row of the image represents
+the color of the pixel $(i, j)$.
+
+The next line contains an integer $Q$ from the task description.
+
+The $i$-th of the next $Q$ lines contains integers $r_i$, $s_i$ and
+$c_i$ $(1 \le r_i \le R, 1 \le s_i \le S, 0 \le c_i < 100\,000)$, which
+represent the $i$-th instruction that tells you to use the bucket
+tool with color $c_i$ on the pixel $(r_i, s_i)$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Output
+\subsection*{Output}
+You should output the final state of the image in the same format as
+it was given in the input.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Scoring
+\subsection*{Scoring}
+{\renewcommand{\arraystretch}{1.4}
+  \setlength{\tabcolsep}{6pt}
+  \begin{tabular}{ccl}
+ Subtask & Score & Constraint \\ \midrule
+  1 & 8 & $1 \le R \cdot S \le 10\,000$, $1 \le Q \le 10\,000$ \\
+  2 & 9 & $R = 1$, $1 \le S \le 200\,000$, $1 \le Q \le 100\,000$ \\
+  3 & 31 & \makecell[l] { $1 \le R \cdot S \le 200\,000$, $1 \le Q \le 100\,000$ \\
+  Each pixel will in every moment be colored either in color $0$ or color $1$.} \\
+  4 & 52 & $1 \le R \cdot S \le 200\,000$, $1 \le Q \le 100\,000$
+\end{tabular}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Examples
+\subsection*{Examples}
+\begin{tabularx}{\textwidth}{X'X'X}
+\sampleinputs{test/paint.dummy.in.1}{test/paint.dummy.out.1} &
+\sampleinputs{test/paint.dummy.in.2}{test/paint.dummy.out.2} &
+\sampleinputs{test/paint.dummy.in.3}{test/paint.dummy.out.3}
+\end{tabularx}
+
+\textbf{Clarification of the first example:} The figure from the task
+description corresponds to the input of the first example. White color
+corresponds to number $0$, red color corresponds to number $1$,
+blue color corresponds to number $2$, green color corresponds to number
+$3$ and yellow color corresponds to number $4$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% We're done
+\end{statement}
+
+%%% Local Variables:
+%%% mode: latex
+%%% mode: flyspell
+%%% ispell-local-dictionary: "croatian"
+%%% TeX-master: "../hio.tex"
+%%% End:
