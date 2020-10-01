@@ -2,60 +2,62 @@
 % Problem statement
 \begin{statement}[
   problempoints=100,
-  timelimit=1 sekunda,
+  timelimit=1 second,
   memorylimit=512 MiB,
 ]{Pastiri}
 
-,,\textit{Nikada nisam bio toliko sit da nisam mogao pojesti još kilu
-janjetine.}'' -- gospodin M.
+,,\textit{I never felt so full that I couldn't eat one more lamb.}'' --
+Mr.\ Malnar
 
-Stado od $K$ ovaca živi na stablu, tj. jednostavnom povezanom grafu bez ciklusa
-koji se sastoji od $N$ vrhova označenih prirodnim brojevima od $1$ do $N$.  U
-svakom vrhu stabla živi najviše jedna ovca.  Stara narodna mudrost kaže:
-,,\textit{vukovi se kriju i \sout{piju} jedu ti ovce.}''
+A flock of $K$ sheep lives in a tree, a simple connected graph without
+a cycle. The tree contains $N$ nodes denoted with integers from $1$ to $N$.
+Each node of a tree is a home to at most one sheep. A wise shepherd realized
+that, sooner or later, wolves will learn how to climb trees.
 
-Kako bismo obranili naše ovce od zlih vukova, potrebno je u neke vrhove stabla
-postaviti pastire, tako da svaku ovcu čuva barem jedan pastir. Poznato je da
-\textbf{svaki pastir čuva sve sebi najbliže ovce}, i samo njih. Udaljenost
-između neke ovce i nekog pastira jednaka je broju vrhova na jedinstvenom
-putu između vrha na kojem se nalazi ta ovca i vrha na kojem se nalazi taj
-pastir (uključivo). Također, pastir se
-može nalaziti u istom vrhu kao i neka ovca, dakako, tada on čuva samo tu
-ovcu.
+In order to protect the sheep, we need to place shepherds into some nodes
+such that each sheep is protected by at least one shepherd. It is known that
+\textbf{each shepherd protects all sheep that are closest to him}, and only them.
+The distance between some sheep and some shepherd is equal to the number of
+nodes on a unique path between the node containing the sheep and the node
+containing the shepherd (inclusive). Additionally, the shepherd can share a
+node with a sheep. Of course, in that case he protects only that sheep.
 
-Odredite \textbf{najmanji broj pastira} koje je potrebno postaviti u vrhove
-danog stabla tako da \textbf{svaku ovcu čuva barem jedan pastir}. Dodatno,
-odredite neki takav raspored najmanjeg mogućeg broja pastira.
+Determine \textbf{the minimal number of shepherds} that need to placed in
+the nodes of a tree such that \textbf{each sheep is protected by at least}
+one shepherd. Additionally, determine one such arrangement of shepherds.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Input
-\subsection*{Ulazni podaci}
-U prvom su retku prirodni brojevi $N$ i $K$ $(1 \le K \le N)$ iz teksta zadatka.
+\subsection*{Input}
+The first line contains integers $N$ i $K$ $(1 \le K \le N)$ from the task
+description.
 
-U sljedećih $N-1$ redaka nalaze se po dva prirodna broja $a_i$ i $b_i$ $(1 \le
-a_i, b_i \le N)$ koji označavaju da postoji neusmjerena veza u stablu između
-vrhova s oznakama $a_i$ i $b_i$.
+Each of the next $N-1$ lines contains two integers $a_i$ and $b_i$ $(1 \le
+a_i, b_i \le N)$ which indicate that there is an undirected edge between
+nodes $a_i$ and $b_i$.
 
-U sljedećem se retku nalazi $K$ različitih prirodnih brojeva $o_i$ $(1 \le o_i
-\le N)$ koji predstavljaju oznake čvorova u kojima se nalaze ovce.
+The next line contains $K$ different integers $o_i$ $(1 \le o_i \le N)$ that
+represent nodes which containing a sheep.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Output
-\subsection*{Izlazni podaci}
-U prvom retku ispišite broj $X$, koji predstavlja najmanji mogući broj pastira
-iz teksta zadatka.
+\subsection*{Output}
+In the first line you should output a number $X$ which represents the minimal
+number of shepherds from the task description.
 
-U drugom retku ispišite $X$ brojeva odvojenih razmakom, koji predstavljaju oznake
-čvorova u koje treba postaviti pastire.
+In the second line you should output $X$ space-separated integers which
+represent the nodes containing shepherds.
+
+If there are multiple correct solutions, you may output any of them.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Scoring
-\subsection*{Bodovanje}
+\subsection*{Scoring}
 {\renewcommand{\arraystretch}{1.4}
   \setlength{\tabcolsep}{6pt}
   \begin{tabular}{ccl}
- Podzadatak & Broj bodova & Ograničenja \\ \midrule
-  1 & 8 & $1 \le N \le 500\,000$, svaki vrh $x = 1, \dots, n-1$ je povezan s vrhom $x + 1$\\
+ Subtask & Score & Constraint \\ \midrule
+  1 & 8 & $1 \le N \le 500\,000$, every node $x = 1, \dots, n-1$ is connected with node $x + 1$\\
   2 & 18 & $1 \le K \le 15 $, $1 \le N \le 500\,000$ \\
   3 & 23 & $1 \le N \le 2\,000$ \\
   4 & 51 & $1 \le N \le 500\,000$ \\
@@ -63,14 +65,14 @@ U drugom retku ispišite $X$ brojeva odvojenih razmakom, koji predstavljaju ozna
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Examples
-\subsection*{Probni primjeri}
+\subsection*{Examples}
 \begin{tabularx}{\textwidth}{X'X'X}
 \sampleinputs{test/pastiri.dummy.in.1}{test/pastiri.dummy.out.1} &
 \sampleinputs{test/pastiri.dummy.in.2}{test/pastiri.dummy.out.2} &
 \sampleinputs{test/pastiri.dummy.in.3}{test/pastiri.dummy.out.3}
 \end{tabularx}
 
-\textbf{Pojašnjenje trećeg probnog primjera:}
+\textbf{Clarification of the third example:}
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.57\textwidth]{img/pastiri_tp.png}
