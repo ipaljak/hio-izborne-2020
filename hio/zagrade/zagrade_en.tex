@@ -2,100 +2,102 @@
 % Problem statement
 \begin{statement}[
   problempoints=100,
-  timelimit=3 sekunde,
+  timelimit=3 seconds,
   memorylimit=512 MiB,
 ]{Zagrade}
 
-Središnja obavještajna agencija (engl.\ \textit{Central Intelligence Agency,
-CIA}) je obavještajna služba Sjedinjenih Američkih Država. U njenoj se
-nadležnosti primarno nalazi prikupljanje i analiza podataka o stranim
-vladama, korporacijama i pojedincima. Nedvojbeno je da CIA prikuplja i analizira
-ogromne količine računalnih lozinki domaćih i stranih građana te razvija alate
-kojima je moguće kompromitirati još veći broj korporacija i pojedinaca.
+It is well known that the Central Intelligence Agency is tasked with gathering,
+processing and analyzing national security information. It is also suspected
+that they own quite large collections of commonly-used computer passwords and
+are developing some quite sophisticated tools that are capable of compromising
+password-protected computer systems.
 
-Vaš je zadatak jednostavan, kompromitirajte sigurnost središnje obavještajne
-agencije. Sretno!
+The tables have turned, your task is to compromise the security of a CIA
+server. Good luck!
 
-Naravno, budući da su im poznati tipični obrasci izrade računalnih lozinki,
-pokušaji poput \texttt{123456}, \texttt{password}, \texttt{1q2w3e4r} ili
-\texttt{welcome} neće uroditi plodom. Srećom, tajnim smo kanalima ipak otkrili
-neke informacije koje bi vam mogle pomoći.
+Naturally, they are well aware of typical patterns that humans produce while
+coming up with their passwords, so attempts such as \texttt{123456},
+\texttt{password}, \texttt{1q2w3e4r} or \texttt{welcome} are futile. Luckily,
+we have uncovered certain pieces of information that might be of use to you.
 
-Naime, njihova se glavna lozinka sastoji od $N$ znakova, pri čemu je $N$ paran
-te je točno polovina znakova jednaka otvorenoj zagradi (\texttt{'('}), dok je
-druga polovina znakova jednaka zatvorenoj zagradi (\texttt{')'}). Također,
-  umjesto uobičajene ``\textit{zaboravili ste lozinku?}'' funkcionalnosti,
-inženjeri su odlučili zaboravljivom administratoru dopustiti da
-najviše $Q$ puta postavi pitanje oblika: ,,\textit{je li interval lozinke koji
-započinje $a$-tim, a završava $b$-tim znakom matematički validan?}''.
+Namely, their master password consists of exactly $N$ characters, where $N$
+is an even number. Exactly half of those characters is equal to the open
+parenthesis (\texttt{'('}), while the other half is equal to the closing
+parenthesis (\texttt{')'}). Additionally, instead of the usual
+``\textit{forgot your password?}'' functionality, their engineers have decided
+to expose an API to the forgetful administrator. Using the API, an administrator
+can execute at most $Q$ queries asking ,,\textit{whether the interval of
+  the password from $a$-th to the $b$-th character is mathematically valid}''.
 
-Matematičku validnost niza zagrada definiramo induktivno na sljedeći način:
+The mathematical validity of a sequence of parentheses is defined inductively
+as:
 
 \begin{itemize}
-  \item \texttt{()} je matematički validan niz zagrada.
-  \item Ako je $A$ matematički validan niz zagrada, tada je i
-    \texttt{(}$A$\texttt{)} matematički validan niz zagrada.
-  \item Ako su $A$ i $B$ matematički validni nizovi zagrada,
-        tada je i $AB$ matematički validan niz zagrada.
+  \item \texttt{()} is a mathematically valid sequence.
+  \item If $A$ is a mathematically valid sequence, then
+    \texttt{(}$A$\texttt{)} is a mathematically valid sequence as well.
+  \item If both $A$ and $B$ are mathematically valid sequences, then
+        $AB$ is also a mathematically valid.
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Input
-\subsection*{Interakcija}
-Ovo je interaktivni zadatak. Vaš program treba uspostaviti dijalog sa programom
-izrađenim od strane organizatora koji simulira funkcionalnost
-\textbf{fiktivnog} nesigurnog poslužitelja središnje obavještajne agencije iz
-teksta zadatka.
+\subsection*{Interaction}
+This is an interactive task. Your program must communicate with a program made
+by the organizers which simulates the functionality of a \textbf{fictitious}
+insecure CIA server from the task description.
 
-Prije interakcije vaš program treba sa standardnog ulaza pročitati paran
-prirodan broj $N$ koji predstavlja duljinu tajne lozinke te prirodan broj $Q$
-koji predstavlja broj upita koje vaš program smije poslati.
+Before interaction, your program should read an even integer $Q$ from the
+standard input, which represents the number of queries that your program can
+make.
 
-Nakon toga, vaš program može slati upite pisanjem na standardni izlaz. Svaki
-upit treba biti ispisan u zaseban redak te poprimati oblik
-``\texttt{?} \textit{a b}''
-gdje vrijedi $1 \le a \le b \le N$. Nakon svakog ispisanog upita, vaš program
-treba napraviti \textit{flush} izlaza te sa standardnog ulaza pročitati
-\textit{odgovor} na upit -- broj $1$ ako je interval lozinke koji započinje
-$a$-tim, a završava $b$-tim znakom matematički validan, odnosno $0$ ako to
-nije. Vaš program smije poslati najviše $Q$ ovakvih upita.
+After that, your program can send query requests by writing to the standard
+output. Each query must be printed in a separate line and have the
+form ``\texttt{?} \textit{a b}'', where $1 \le a \le b \le N$ holds. After
+each query has been written, your program should \textbf{flush} the output
+and read the \textit{answer} from the standard input. The answer is a $1$ if
+the interval of the password starting from $a$-th and ending at the $b$-th
+character forms a mathematically valid sequence of parentheses. Otherwise,
+the answer is $0$. Your program can make at most $Q$ such queries.
 
-Kada je vaš program odgonetnuo tajnu lozinku, treba na standardni izlaz
-ispisati redak oblika ``\texttt{!} \textit{$x_1x_2\dots x_N$}'' gdje znakovi
-$x_1$, $x_2$, \dots, $x_N$ predstavljaju znakove tajne lozinke. Nakon toga, vaš
-program ponovno treba napraviti \textit{flush} izlaza i završiti izvođenje.
+After your program has deduced the secret password, it should write a line to
+the standard output in the form ``\texttt{!} \textit{$x_1x_2\dots x_N$}'', where
+characters $x_1$, $x_2$, \dots, $x_N$ represent the characters of the secret
+password. After that, your program should \textit{flush} the output once more
+and gracefully terminate its execution.
 
-\textbf{Napomena:} Putem sustava za evaluaciju možete preuzeti primjere
-izvornih kodova koji na ispravan način obavljaju interakciju, uključujući
-\textit{flush} izlaza.
+\textbf{Note:} You can download the sample source code from the judging system
+that correctly interact with the CIA server, including the output flush.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Scoring
-\subsection*{Bodovanje}
+\subsection*{Scoring}
 {\renewcommand{\arraystretch}{1.4}
   \setlength{\tabcolsep}{6pt}
   \begin{tabular}{ccl}
-    Podzadatak & Broj bodova & Ograničenja \\ \midrule
-    1 & 14 & $1 \le N \le 1\,000$, $Q = \frac{N^2}{4}$, cijela lozinka je matematički validan niz. \\
+    Subtask & Score & Constraints \\ \midrule
+    1 & 14 & $1 \le N \le 1\,000$, $Q = \frac{N^2}{4}$, the whole password is a
+            mathematically valid sequence. \\
     2 & 7 & $1 \le N \le 1\,000$, $Q = \frac{N^2}{4}$ \\
-    3 & 57 & $1 \le N \le 100\,000 $, $Q = N - 1$, cijela lozinka je matematički validan niz. \\
+    3 & 57 & $1 \le N \le 100\,000 $, $Q = N - 1$,
+             the whole password is a mathematically valid sequence. \\
     4 & 22 & $1 \le N \le 100\,000 $, $Q = N - 1$ \\
 \end{tabular}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Examples
-\subsection*{Primjer interakcije}
+\subsection*{Interaction Example}
 {\renewcommand{\arraystretch}{1.4}
   \setlength{\tabcolsep}{6pt}
   \begin{tabular}{lcl}
-    Izlaz & Ulaz & Napomena \\ \midrule
-      & 6 9 & Tajna lozinka je \texttt{((()))}, duljine 6, a program smije postaviti najviše $9$ upita. \\
-    \texttt{\frenchspacing? 1 6} & \texttt{1} & Cijela lozinka je matematički validan niz zagrada. \\
-    \texttt{\frenchspacing? 1 2} & \texttt{0} & \texttt{((} nije matematički validan niz zagrada. \\
-    \texttt{\frenchspacing? 2 4} & \texttt{0} & \texttt{(()} nije matematički validan niz zagrada. \\
-    \texttt{\frenchspacing? 2 5} & \texttt{1} & \texttt{(())} je matematički validan niz zagrada. \\
-    \texttt{\frenchspacing? 3 4} & \texttt{1} & \texttt{()} je matematički validan niz zagrada. \\
-    \texttt{\frenchspacing! ((()))} & & Lozinka je uspješno odgonetnuta i CIA je kompromitirana. \\
+    Input & Output & Comment \\ \midrule
+      & 6 9 & The secret password is \texttt{((()))} of length 6, and a program may ask at most $9$ queries. \\
+    \texttt{\frenchspacing? 1 6} & \texttt{1} & The whole password is mathematically valid. \\
+    \texttt{\frenchspacing? 1 2} & \texttt{0} & \texttt{((} isn't mathematically valid. \\
+    \texttt{\frenchspacing? 2 4} & \texttt{0} & \texttt{(()} isn't mathematically valid. \\
+    \texttt{\frenchspacing? 2 5} & \texttt{1} & \texttt{(())} is mathematically valid. \\
+    \texttt{\frenchspacing? 3 4} & \texttt{1} & \texttt{()} is mathematically valid. \\
+    \texttt{\frenchspacing! ((()))} & & The password is correctly deduced and CIA is compromised. \\
 \end{tabular}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
