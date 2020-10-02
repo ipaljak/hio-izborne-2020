@@ -2,16 +2,16 @@
 % Problem statement
 \begin{statement}[
   problempoints=100,
-  timelimit=4 sekunde,
+  timelimit=4 seconds,
   memorylimit=512 MiB,
 ]{Semafor}
 
-Vjerojatno ste se više puta u životu susreli sa tzv.\ \textit{7-segmentnim}
-displejom koji se koristi za prikaz znamenaka na raznim digitalnim uređajima
-poput satova ili kalkulatora. Zbog svoje jednostavnosti, intuitivnosti i
-estetske ugode, takav je dizajn prihvaćen diljem planete.  Ipak, mladi Matej
-smatra ga \textit{polu-proizvodom} te tvrdi da se ista funkcionalnost može
-ostvariti na mnogo efikasniji način, koristeći svega pet segmenata.
+You are most likely familiar with a so-called \textit{7-segment} display which
+is widely used to depict digits on various digital devices, such as watches or
+calculators. Due to its simplicity, intuitiveness and aestheticism, this design
+has been accepted across the globe. Still, young Matej argues against the
+7-segment design and claims that the same functionality can be obtained
+more efficiently, using only 5 segments.
 
 \begin{figure}[H]
   \begin{center}
@@ -20,57 +20,66 @@ ostvariti na mnogo efikasniji način, koristeći svega pet segmenata.
     \vspace{0.5cm}
 
     \includegraphics[width=0.8\textwidth]{img/5segmentdigits.png}
-    \caption*{Dizajn 5-segmentnog displeja -- segmenti su označeni slovima od \texttt{a} do \texttt{e}.}
+    \caption*{\textit{5-segment} display design -- segments are labeled using
+              with letters from \texttt{a} to \texttt{e}.}
   \end{center}
 \end{figure}
   \vspace{-0.7cm}
-Prvi poduzetnički korak odlučio je napraviti u najprosperitetnijoj grani
-hrvatske industrije -- nogometu. Svoj revolucionarni dizajn iskoristit će pri
-izradi semafora za izmjene igrača tijekom utakmica 1.\ HNL, a trenutno radi
-na prezentaciji koju će iznijeti čelnicima Hrvatskog nogometnog saveza.
-Semafor se sastoji od $M$ displeja koji (slijeva nadesno) predstavljaju
-znamenke broja koji nosi nogometaš koji treba izaći, odnosno ući u teren.
-Na početku Matejeve prezentacije na semaforu će se nalaziti broj $X$, a Matej
-će svake sekunde napraviti jedan od sljedećih poteza:
-  \begin{itemize}
-      \item Upalit će neki od ugašenih segmenata.
-      \item Ugasit će neki od upaljenih segmenata.
-  \end{itemize}
-Također, Matej će pritom osigurati da se nakon svakog $K$-tog poteza na semaforu
-nalazi ispravno napisan broj. Ukupno će Matej napraviti $N$ poteza, a na kraju
-prezentacije (nakon $N$-tog poteza) semafor će također predstavljati ispravno
-napisan broj. Broj je ispravno napisan ako je svaka njegova znamenka ispravno
-napisana (kako je prikazano na slici). Također, brojevi koji imaju manje od
-$M$ znamenaka trebaju sadržavati odgovarajući broj početnih nula.
+Matej decided to make his first entrepreneurial steps in the most prosperous
+branch of Croatian economy, football. His revolutionary design will be used
+on a substitution board during the games of 1.\ HNL.\footnote{The elite tier
+of Croatian professional football.} He is currently making a presentation for
+the board of directors at the Croatian Football Association.
 
-Za svako završno stanje (cijeli broj između $0$ i $10^M-1$), Mateja zanima na
-koliko je različitih načina mogao vući poteze da se na kraju prezentacije na
-semaforu nalazi upravo taj broj te da su pritom zadovoljeni svi uvjeti iz
-prethodnog odlomka, ako se na početku prezentacije na semaforu prikazivao
-broj $X$. Dva načina (niza poteza) smatramo različitima ako, kada bismo
-poteze istovremeno vukli na dva semafora, postoji trenutak u kojem semafori
-ne prikazuju identično stanje. Budući da broj načina može biti poprilično
-velik, potrebno je ispisati njegov ostatak pri dijeljenju s $10^9+7$.
+The substitution board consists of $M$ 5-segment displays which, from left to
+right, represent the digits of a jersey number worn by the player that is about
+to leave the pitch. At the beginning of Matej's presentation, the substitution
+board represents the number $X$, and Matej will make one of the following moves
+each second:
+
+\begin{itemize}
+    \item Turn on one segment that is currently turned off.
+    \item Turn off one segment that is currently turned on.
+\end{itemize}
+
+Also, Matej will make sure that after each $K$-th move, the board shows a valid
+number. The number is valid if each of its digits is correctly shown on the
+corresponding display (i.e. segments that are turned on show a valid digit).
+Also, numbers having less than $M$ digits are validly shown if they contain
+the appropriate number of leading zeros.
+
+For each final state (integer between $0$ and $10^M-1$), Matej is interested
+in how many different ways could he make his moves during the presentation such
+that this final state is reached at the end. Of course, he needs to adhere to
+all limitations presented in the previous chapters. We consider two sequences
+of moves different if, imagining they are executed on two different boards
+at the same time, there is a moment at which the two boards represent a different
+state.
+
+Since the number of different ways can be quite large, you are asked to compute
+it modulo $10^9+7$.
+\clearpage
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Input
-\subsection*{Ulazni podaci}
-U prvom su retku prirodni brojevi $M$, $N$, $K$ $(1 \le K \le N)$ i $X$ $(0
-\le X < 10^M)$ iz teksta zadatka.
+\subsection*{Input}
+The first line contains integers $M$, $N$, $K$ $(1 \le K \le N)$ and $X$ $(0
+\le X < 10^M)$ from the task description.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Output
-\subsection*{Izlazni podaci}
-U $i$-tom od $10^M$ redaka izlaza treba se nalaziti broj različitih načina da
-semafor na kraju prezentacije prikazuje broj $i-1$. Brojeve treba ispisati
-modulo $10^9 + 7$.
+\subsection*{Output}
+In the $i$-th line you should output the number of different ways for the
+substitution board to show the number $i-1$ at the end of Matej's presentations.
+The numbers should be printed modulo $10^9 + 7$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Scoring
-\subsection*{Bodovanje}
+\subsection*{Scoring}
 {\renewcommand{\arraystretch}{1.4}
   \setlength{\tabcolsep}{6pt}
   \begin{tabular}{ccl}
- Podzadatak & Broj bodova & Ograničenja \\ \midrule
+ Subtask & Score & Constraints \\ \midrule
   1 & 6 & $M=1$, $1 \le N \le 12$ \\
   2 & 15 & $M=1$, $1 \le N \le 10^{15}$ \\
   3 & 12 & $M=2$, $1 \le N \le 1\,500$, $K = N$\\
@@ -81,20 +90,20 @@ modulo $10^9 + 7$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Examples
-\subsection*{Probni primjeri}
+\subsection*{Examples}
 \begin{tabularx}{\textwidth}{X'X'X}
 \sampleinputs{test/semafor.dummy.in.1}{test/semafor.dummy.out.1} &
 \sampleinputs{test/semafor.dummy.in.2}{test/semafor.dummy.out.2} &
 \sampleinputs{test/semafor.dummy.in.3}{test/semafor.dummy.out.3}
 \end{tabularx}
 
-\textbf{Pojašnjenje prvog probnog primjera:}
-Na početku prezentacije se na (jednoznamenkastom) semaforu nalazi broj $5$ te se
-nakon svakog poteza (zbog $K = 1$) na semaforu treba nalaziti ispravno
-napisan broj. Matej će za vrijeme prezentacije napraviti ukupno $N=2$ poteza.
-Na završetku prezentacije na semaforu se mogu nalaziti samo brojevi $3$ ili
-$5$.  Broj $3$ možemo dobiti na jedan način ($5-9-3$) dok broj $5$ možemo
-dobiti na dva načina ($5-9-5$ i $5-8-5$).
+\textbf{Clarification of the first example:}
+At the beginning of the presentation the (single-digit) substitution board
+shows the number $5$. After each move (due to $K=1$), the board must show
+a valid number. Matej is going to make a total of $N=2$ moves. Therefore,
+at the end of the presentation, the board can show either number $3$ or
+number $5$. Number $3$ can be obtained using one way ($5-9-3$) and number $5$
+can be obtained using two ways ($5-9-5$ and $5-8-5$).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % We're done
