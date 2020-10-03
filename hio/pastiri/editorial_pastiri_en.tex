@@ -90,7 +90,6 @@ Alternatively, we can
 imagine that we added a \textit{dummy} node connected to all the sheep and run
 the BFS starting in that node. The following fact will help us to
 efficiently determine $a(x)$ for each sheep $x$: \\\\
-TODO:
 \textbf{Observation 2.} If $v$ is an ancestor of $x$, then $dist(v) \leq
 dep(x) - dep(v)$, where equality is attained if and only if $v$ is in the
 territory of $x$.
@@ -105,18 +104,17 @@ The only thing left is maintaining the deepest unprotected sheep efficiently.
 If we sort the sheep by decreasing depth, 
 we can reduce this problem to maintaining the set of protected sheep.
 
-U tu svrhu za početni BFS promotrimo pripadajući \textit{graf
-najkraćih putova}. To je usmjeren graf $G$ sa skupom vrhova $V$ te bridovima
-$(u, v)$ gdje je $\{u, v\}$ brid stabla takav da je $dist(v) = dist(u) + 1$.
+Consider the directed graph $G$ with the same vertex set $V$ as the given tree, and with edges
+$(u, v)$, where $\{u, v\}$ is an edge from the given tree such that $dist(v) =
+dist(u) + 1$.
 \\\\
-\textbf{Opservacija 3.} Za svaki čvor $v \in V$, $S_v$ je skup ovaca $x$ takvih
-da postoji put od $x$ do $v$ u $G$.
+\textbf{Observation 3.} For each node $v \in V$, $S_v$ is exactly the set of
+sheep $x$ such that there exists a path in $G$ from $x$ to $v$.
 \\\\
-Kad god postavimo novog pastira, proširimo se DFS-om iz njega unatrag po grafu
-$G$ te pritom pazimo da obilazimo samo dosad neposjećene čvorove. Prema
-Obzervaciji 3, ovca je pokrivena ako i samo smo ju posjetili u DFS-u. Budući da
-svaki čvor posjećujemo najviše jednom, održavanje pokrivenih ovaca ima ukupno
-linearnu složenost.
+Whenever we place a new shepherd, we can run a DFS from that node following
+edges of $G$ backwards, ignoring the nodes that were alredy visited. According
+to Observation 3, sheep is protected if and only if it was visited by the DFS.
+Since each node is visited at most once, the complexity of this part is linear.
 
 Complexity of the solution is $\mathcal{O}(N + K\log K)$. Notice that the factor
 $\log  K$ comes from sorting the sheep by depth, which is of course possible to
