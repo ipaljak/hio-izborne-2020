@@ -15,11 +15,11 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v2
 
-      - name: Compile pripreme/dan2/opisi_algoritama.tex
+      - name: Compile hio/editorial.tex
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: opisi_algoritama.tex
-          working_directory: pripreme/dan2
+          root_file: editorial.tex
+          working_directory: hio
 
       - name: Push new pdf-s
         run: |

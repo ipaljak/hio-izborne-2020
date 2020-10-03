@@ -1,0 +1,27 @@
+\subsection*{Task: Zagrade}
+\textsf{Prepared by: Paula Vidas}\\
+\textsf{Necessary skills: stack, parentheses, ad hoc}
+
+We first describe the solution for the case when the whole password is a valid
+sequence. In the first subtask we have $Q = \frac{N^2}{4}$, so we can query
+every even lenght interval (note that it makes no sense to query odd lenght
+intervals). One possible solution is the following: we ask for the first two
+charactes, first four, and so on unitl we get a positive answer. We then know
+the position of the close parenthesis which is paired up with the open
+parenthesis on the first position. Now we can recursively solve the same task
+for the interval between these parentheses, and for the interval that is on the
+right of the close parenthesis.
+
+In the third subtask, we can ask $Q = N - 1$ queries. We will use a stack, which
+is empty at the beginning. We traverse the positions in order. If the stack is
+empty, push the current position on the stack. Otherwise, ask the query for the
+interval between the position on top and the current position. If the answer is
+positive, those parentheses are paired up (left is open and right
+is close), and we pop the stack. If the answer
+is negative, we push the current position on the stack. In the end, the stack
+will be empty.
+
+What if the whole password is not a valid sequence? The algorithm is the same,
+but the stack doesn't have to be empty in the end. First half of
+the remaining postions must have a close parenthesis, and the second half an
+open parenthesis.
