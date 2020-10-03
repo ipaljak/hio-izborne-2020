@@ -26,6 +26,6 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-          git add pripreme/dan2/opisi_algoritama.pdf
+          git add hio/editorial.pdf
           git commit -m "Update pdf"
           git push
