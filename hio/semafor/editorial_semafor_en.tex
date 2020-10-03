@@ -13,9 +13,9 @@ are all bitmasks of some size (10 here), and the edges connect bitmasks
 which differ in exactly one place. Let $H$ denote the adjacency matrix
 of the hypercube.
 
-Then the problem, formally, asks for the following: for each nice bitmask, 
-find the number of walks of length $N$ in the hypercube, 
-starting from the state $X$, such that the walk visits the set of nice bitmasks
+Then the problem, formally, asks for the following: for each nice bitmask $Y$, 
+find the number of walks of length $N$ from $X$ to $Y$ of length $N$ 
+in the hypercube, such that the walk visits the set of nice bitmasks
 every $K$ steps.
 
 \textbf{Claim 1:} The number of walks of length $D$ in the hypercube, starting
@@ -39,7 +39,7 @@ nice bitmask, equals the $(X, Y)$-th entry in the matrix $B^{N/K}$.
 There are several steps in the solution. We need to calculate the matrix $B$,
 then calculate $B^{N/K}$, and then multiply it with the matrix corresponding
 to the last $N \mod K$ steps. We omit the third because it is very similar
-to the first step, so we assume $K$ divides $N$ in the rest of the exposition.
+to the first step, so we assume $K$ divides $N$ in the rest of the editorial.
 
 Let us solve the second step (raising $B$ to the $N/K$-th power) first.
 It is enough to use naive binary exponentiation and multiply two matrices
@@ -88,11 +88,11 @@ By raising the matrix $C$ to a suitable power, we can get the number of walks of
 length $K$ from bitcount $0$ to each bitcount $0 \le r \le 10$.
 To get the actual number of walks in the hypercube, we just need to divide by a
 suitable binomial coefficient, due to symmetry.
-For implementation details, see the official source codes.
+For implementation details, see the official source code.
 
 There is an even faster solution, which uses \textit{exponential generating
-functions}. The number of walks of length $K$ from the bitmask $0$ to some mask
-with $10-r$ bits equals the coefficient next to $\frac{x^K}{K!}$ of the
+functions}. The number of walks of length $K$ from the bitmask $0$ to some 
+bitmask with $10-r$ bits equals the coefficient next to $\frac{x^K}{K!}$ of the
 following expression:
 \[
   \left(\sum_{i=0}^{\infty} \frac{x^{2i}}{(2i)!}\right)^{r}
@@ -101,10 +101,10 @@ following expression:
   \left( \frac{e^x - e^{-x}}{2} \right)^{10-r}.
 \]
 By expanding the expression carefully, we get a solution of the complexity   
-$O((5\cdot M)^2 + (5\cdot M) \log K)$, that is, entries of the $n \times n$
-hypercube matrix raised to some power $K$ is possible in $O(\log n \log K)$ 
-time.
+$O((5\cdot M)^2 + (5\cdot M) \log K)$, that is, calculating entries of the 
+$n \times n$ hypercube matrix raised to some power $K$ 
+is possible in time $O(\log n \log K)$. 
 
-For similar ideas, look into Herbert Wilf's free book
+For similar ideas, look into Herbert Wilf's free book 
 \textit{generatingfunctionology}.
 
