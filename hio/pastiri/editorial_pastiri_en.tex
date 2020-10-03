@@ -3,44 +3,48 @@
 \textsf{Necessary skills: graphs, breadth/depth-first search (BFS/DFS)}
 \\\\
 
-Let $V$ be the set of nodes of the tree. We will identify a sheep/shepherd with
-the node it occupies. Notice that the task can be seen as an instance of the so
-called \textit{set cover} problem.
-TODO: Zaista, ako
-svakom čvoru $v \in V$ pridružimo skup $S_v$ ovaca koje čuva pastir u $v$, tada
-je potrebno naći najmanji podskup $P \subseteq V$ takav da je $\bigcup_{v \in
-P} S_v$ cijeli skup ovaca. Iako je generalna verzija ovog problema NP-potpuna,
-specifična struktura dotičnog slučaja omogućit će nam da ga riješimo u
-odgovarajućoj složenosti.
+Denote the nodes of the three by $V$.
+We will identify a sheep/shepherd with the node it occupies. 
+
+Notice that the task can be seen as an instance of the so
+called \textit{set cover} problem: 
+For every node $v \in V$, consider the set $S_v$ of sheep which would be
+protected if we put a shepher in node $v$. Then we need to find the smallest subset $P \subseteq V$ of
+nodes such that $\bigcup_{v \in P} S_v$ equals the set of all sheep.
+The general set cover problem is NP-complete, but the specific tree structure
+here will help us to solve the problem in polynomial time.
 
 Let's start with the first subtask, the case when the tree is a chain. A
 shepherd can protect only the first sheep to the left and/or to the right, so
 the family $\{S_v \mid v \in V\}$ contains the following subsets:
 \begin{itemize}
     \item $\{x\}$ for every sheep $x$;
-    \item $\{x, y\}$ for consecutive sheep $x, y$ such that $x$ and $y$ have the
-        same parity.
+    \item $\{x, y\}$ for consecutive sheep $x, y$ such that $x-y$ is even. 
 \end{itemize}
-The task can be solved with the following greedy algorithm -- look at the first
-sheep, if the second one has the same parity, place a shepherd on the node
+We proceed with the following greedy algorithm: look at the first
+sheep. if the second one has the same parity, place a shepherd on the node
 halfway between them, otherwise place a shepherd in the same node as the first
-sheep. After that, remove the protected sheep and repeat the same algorithm.
-Described solution has complexity $\mathcal{O}(N + K)$.
+sheep. Next, remove the protected sheep and repeat the same algorithm.
+This solution has complexity $\mathcal{O}(N + K)$.
 
-TODO:
-U drugom podzadatku, podskupove ovaca predstavljat ćemo bitmaskama, odnosno
-brojevima iz skupa $\{0, 1, \ldots, 2^K-1\}$. Na početku pustimo BFS/DFS iz
-svake ovce te na taj način u složenosti $\mathcal{O}(K \cdot N)$ odredimo skup
-$S_v$ za svaki čvor $v$. Dalje zadatak rješavamo dinamičkim programiranjem. Za
-svaku bitmasku $mask$ neka $f(mask)$ označava minimalan broj skupova $S_v$ čija
-unija sadrži $mask$. Iteriramo kroz stanja $mask$ u rastućem poretku. U
-prijelazu iteriramo kroz sve podmaske $submask$ te ukoliko $submask$ odgovara
-nekom od skupova $S_v$, osvježavamo $f(mask)$ vrijednošću $f(mask
-\mathbin{^\wedge} submask) + 1$ (ovdje $^\wedge$ označava bitovno isklučivo
-ili). Nakon toga preostaje za sve podmaske $submask$ osvježiti $f(submask)$
-vrijednošću $f(mask)$. Memorijska je složenost $\mathcal{O}(N + 2^K)$, a
-vremenska $\mathcal{O}(K \cdot N + 3^K)$ (dokaz ove standardne činjenice
-ostavljamo čitateljici za vježbu).
+To solve the second subtask, we make use of representing 
+the subsets of sheep by bitmasks in $\{0, 1, \ldots, 2^K - 1\}$, We first find
+the sets $S_v$ for every node $v \in V$ in $\mathcal{O}(K \cdot N)$ 
+by running breadth-first search from every sheep.
+
+We can then solve this set cover instance by dynamic programming.
+For each bitmask $mask$, let $f(mask)$ denote the minimum number of sets $S_v$
+which cover $mask$.
+We iterate through the states $mask$ in increasing order. When calculating
+$f(mask)$, we iterate over all $submask \subseteq mask$, and eash time $submask$
+corresponds to some of the sets $S_v$, we recalculate 
+$f(mask) := f(mask \mathbin{^\wedge} submask) + 1$.  
+To finish the transition, we put $f(submask) := f(mask)$ 
+for all $submask \subseteq mask$, 
+
+Memory complexity is $\mathcal{O}(N + 2^K)$, and time complexity is 
+$\mathcal{O}(K \cdot N + 3^K)$. (We leave the proof as exercise.) 
+
 
 For the remaining subtasks, we first pick an arbitrary node as the root.
 For each sheep $x$, we will refer to the set $\{v \in V \mid x \in S_v\}$ as its
@@ -53,7 +57,7 @@ of that sheep. The following claim will help us with that:
 is in its territory. Then, $S_{a(x)}$ contains all friends of $x$ that are not
 deeper that $x$.
 \textit{Proof.} Let $y$ be a friend of $x$ that is not deeper than $x$. If $y$
-is in the subtree of $a(x)$, the claim is obvious, so suppose otherwise. Take
+is in the subtree of $a(x)$, the claim is obvious, so assume the contrary. Take
 some node $z$ that is not part of territories of $x$ and $y$, and let $w$ be the
 midpoint of the path between $x$ and $y$. We have
 $$d(z, x) = d(z, y) = d(z, w) + d(w, x) = d(z, w) + d(w, y),$$ where $d(u, v)$
@@ -62,7 +66,7 @@ true that
 $$d(z, w) + d(w, x) = d(z, x) \leq d(z, t) \leq d(z, w) + d(w, t),$$ which
 implies
 $d(w, x) \leq d(w, t)$, and $d(w, y) \leq d(w, t)$ is proved analogously.
-So, $w$ is contained in the intersection of territories of $x$ and $y$.
+Hence, $w$ is contained in the intersection of territories of $x$ and $y$.
 Moreover, since $y$ is not deeper than $x$, $w$ is an ancestor of $x$, so it
 must be located on the path from $x$ to $a(x)$. Since $y$ is not contained in
 the subtree of $a(x)$, we have $$d(a(x), y) \leq
@@ -77,25 +81,31 @@ According to Claim 1, the following algorithm is correct:
             currently unprotected sheep.
     \end{itemize}
 \end{itemize}
-Straighforward implementation has the complexity $\mathcal{O}(N(N + K))$ and is
-sufficient to solve the third subtask. To solve the fourth subtask, we will
-speed up the described algorithm. For each node $v$, let $dep(v)$, $dist(v)$
-denote the depth of the node and the distance to the closest sheep. We can
-calculate $dist$ by running a BFS starting from each sheep. Alterntively, we can
-imagine  that we added a \textit{dummy} node connected to all the sheep and run
-the BFS starting in that node. The following observation will help us to
-efficiently determine $a(x)$ for every sheep $x$: \\\\
+The straighforward implementation in the complexity $\mathcal{O}(N(N + K))$,
+is sufficient to solve the third subtask. To solve the fourth subtask, we need
+to speed up the algorithm. For each node $v$, let $dep(v)$ and $dist(v)$
+denote the depth of the node and the distance to the closest sheep, 
+respectively. We can calculate $dist$ by running a BFS starting from each sheep.
+Alternatively, we can
+imagine that we added a \textit{dummy} node connected to all the sheep and run
+the BFS starting in that node. The following fact will help us to
+efficiently determine $a(x)$ for each sheep $x$: \\\\
 TODO:
-\textbf{Opservacija 2.} Ako je čvor $v$ predak ovce $x$, tada je $dist(v) \leq
-dep(x) - dep(v)$, i jednakost vrijedi ako i samo ako je $v$ u teritoriju ovce
-$x$.
+\textbf{Observation 2.} If $v$ is an ancestor of $x$, then $dist(v) \leq
+dep(x) - dep(v)$, where equality is attained if and only if $v$ is in the
+territory of $x$.
 \\\\
-Prema Obzervaciji $2$, $a(x)$ je pozicija prvog pojavljivanja maksimuma od
-$dist(v) + dep(v)$ po svim čvorovima $v$ na putu od korijena do $x$. Stoga je
-$a(x)$ za svaku ovcu $x$ moguće izračunati jednostavnim DFS-om iz korijena.
-Konačno, preostaje efikasno održavati najdublju dosad nepokrivenu ovcu. Ako
-sortiramo ovce padajuće po dubini, taj se problem svodi na održavanje
-pokrivenih ovaca. U tu svrhu za početni BFS promotrimo pripadajući \textit{graf
+Due to the above, $a(x)$ is the index of first maximum of  
+$dist(v) + dep(v)$ over all $v$ on the path from the root to $x$. 
+Thus we can calculate $a(x)$ for each sheep $x$ 
+by a simple depth-first search from the root.
+
+The only thing left is maintaining the deepest unprotected sheep efficiently.
+
+If we sort the sheep by decreasing depth, 
+we can reduce this problem to maintaining the set of protected sheep.
+
+U tu svrhu za početni BFS promotrimo pripadajući \textit{graf
 najkraćih putova}. To je usmjeren graf $G$ sa skupom vrhova $V$ te bridovima
 $(u, v)$ gdje je $\{u, v\}$ brid stabla takav da je $dist(v) = dist(u) + 1$.
 \\\\
