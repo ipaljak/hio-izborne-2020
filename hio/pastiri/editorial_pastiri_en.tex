@@ -4,7 +4,7 @@
 \\\\
 
 Denote the nodes of the three by $V$.
-We will identify a sheep/shepherd with the node it occupies. 
+We identify a sheep/shepherd with the node it occupies. 
 
 Notice that the task can be seen as an instance of the so
 called \textit{set cover} problem: 
@@ -47,7 +47,7 @@ $\mathcal{O}(K \cdot N + 3^K)$. (We leave the proof as exercise.)
 
 
 For the remaining subtasks, we first pick an arbitrary node as the root.
-For each sheep $x$, we will refer to the set $\{v \in V \mid x \in S_v\}$ as its
+For each sheep $x$, we refer to the set $\{v \in V \mid x \in S_v\}$ as its
 \textit{territory}. We say that two sheep $x$ and $y$ are \textit{friends} if
 their territories have nonempty intersection. The main idea is to greedily place
 a shepherd that protects some sheep and all of the (currently) unprotected friends
@@ -81,6 +81,7 @@ According to Claim 1, the following algorithm is correct:
             currently unprotected sheep.
     \end{itemize}
 \end{itemize}
+
 The straighforward implementation in the complexity $\mathcal{O}(N(N + K))$,
 is sufficient to solve the third subtask. To solve the fourth subtask, we need
 to speed up the algorithm. For each node $v$, let $dep(v)$ and $dist(v)$
@@ -90,6 +91,7 @@ Alternatively, we can
 imagine that we added a \textit{dummy} node connected to all the sheep and run
 the BFS starting in that node. The following fact will help us to
 efficiently determine $a(x)$ for each sheep $x$: \\\\
+
 \textbf{Observation 2.} If $v$ is an ancestor of $x$, then $dist(v) \leq
 dep(x) - dep(v)$, where equality is attained if and only if $v$ is in the
 territory of $x$.
@@ -105,19 +107,21 @@ If we sort the sheep by decreasing depth,
 we can reduce this problem to maintaining the set of protected sheep.
 
 Consider the directed graph $G$ with the same vertex set $V$ as the given tree, and with edges
-$(u, v)$, where $\{u, v\}$ is an edge from the given tree such that $dist(v) =
-dist(u) + 1$.
+$(u, v)$, where $\{u, v\}$ is an edge from the given tree, directed 
+such that $dist(v) = dist(u) + 1$.
 \\\\
 \textbf{Observation 3.} For each node $v \in V$, $S_v$ is exactly the set of
 sheep $x$ such that there exists a path in $G$ from $x$ to $v$.
 \\\\
 Whenever we place a new shepherd, we can run a DFS from that node following
-edges of $G$ backwards, ignoring the nodes that were alredy visited. According
-to Observation 3, sheep is protected if and only if it was visited by the DFS.
+edges of $G$ backwards, ignoring the nodes that were already visited. According
+to the above, the sheep is protected if and only if it was visited by the DFS.
 Since each node is visited at most once, the complexity of this part is linear.
 
-Complexity of the solution is $\mathcal{O}(N + K\log K)$. Notice that the factor
+The time complexity of the solution is $\mathcal{O}(N + K\log K)$. 
+Notice that the factor
 $\log  K$ comes from sorting the sheep by depth, which is of course possible to
-do with complexity $\mathcal{O}(N + K)$ because the depths are at most $N$.
-Therefore it's possible to solve the task in linear complexity. For
+do in complexity $\mathcal{O}(N + K)$ because the depths are at most $N$.
+
+Therefore, it's possible to solve the task in linear complexity. For
 implementation details, see the official source codes.
