@@ -1,0 +1,115 @@
+\subsection*{Task: Pastiri}
+\textsf{Prepared by: Adrian Beker, Paula Vidas, Daniel Paleka}\\
+\textsf{Necessary skills: graphs, breadth/depth-first search (BFS/DFS)}
+\\\\
+
+Let $V$ be the set of nodes of the tree. We will identify a sheep/shepherd with
+the node it occupies. Notice that the task can be seen as an instance of the so
+called \textit{set cover} problem.
+TODO: Zaista, ako
+svakom čvoru $v \in V$ pridružimo skup $S_v$ ovaca koje čuva pastir u $v$, tada
+je potrebno naći najmanji podskup $P \subseteq V$ takav da je $\bigcup_{v \in
+P} S_v$ cijeli skup ovaca. Iako je generalna verzija ovog problema NP-potpuna,
+specifična struktura dotičnog slučaja omogućit će nam da ga riješimo u
+odgovarajućoj složenosti.
+
+Let's start with the first subtask, the case when the tree is a chain. A
+shepherd can protect only the first sheep to the left and/or to the right, so
+the family $\{S_v \mid v \in V\}$ contains the following subsets:
+\begin{itemize}
+    \item $\{x\}$ for every sheep $x$;
+    \item $\{x, y\}$ for consecutive sheep $x, y$ such that $x$ and $y$ have the
+        same parity.
+\end{itemize}
+The task can be solved with the following greedy algorithm -- look at the first
+sheep, if the second one has the same parity, place a shepherd on the node
+halfway between them, otherwise place a shepherd in the same node as the first
+sheep. After that, remove the protected sheep and repeat the same algorithm.
+Described solution has complexity $\mathcal{O}(N + K)$.
+
+TODO:
+U drugom podzadatku, podskupove ovaca predstavljat ćemo bitmaskama, odnosno
+brojevima iz skupa $\{0, 1, \ldots, 2^K-1\}$. Na početku pustimo BFS/DFS iz
+svake ovce te na taj način u složenosti $\mathcal{O}(K \cdot N)$ odredimo skup
+$S_v$ za svaki čvor $v$. Dalje zadatak rješavamo dinamičkim programiranjem. Za
+svaku bitmasku $mask$ neka $f(mask)$ označava minimalan broj skupova $S_v$ čija
+unija sadrži $mask$. Iteriramo kroz stanja $mask$ u rastućem poretku. U
+prijelazu iteriramo kroz sve podmaske $submask$ te ukoliko $submask$ odgovara
+nekom od skupova $S_v$, osvježavamo $f(mask)$ vrijednošću $f(mask
+\mathbin{^\wedge} submask) + 1$ (ovdje $^\wedge$ označava bitovno isklučivo
+ili). Nakon toga preostaje za sve podmaske $submask$ osvježiti $f(submask)$
+vrijednošću $f(mask)$. Memorijska je složenost $\mathcal{O}(N + 2^K)$, a
+vremenska $\mathcal{O}(K \cdot N + 3^K)$ (dokaz ove standardne činjenice
+ostavljamo čitateljici za vježbu).
+
+For the remaining subtasks, we first pick an arbitrary node as the root.
+For each sheep $x$, we will refer to the set $\{v \in V \mid x \in S_v\}$ as its
+\textit{territory}. We say that two sheep $x$ and $y$ are \textit{friends} if
+their territories have nonempty intersection. The main idea is to greedily place
+a shepherd that protects some sheep and all of the (currently) unprotected friends
+of that sheep. The following claim will help us with that:
+\\\\
+\textbf{Claim 1.} For some sheep $x$, let $a(x)$ be its highest ancestor that
+is in its territory. Then, $S_{a(x)}$ contains all friends of $x$ that are not
+deeper that $x$.
+\textit{Proof.} Let $y$ be a friend of $x$ that is not deeper than $x$. If $y$
+is in the subtree of $a(x)$, the claim is obvious, so suppose otherwise. Take
+some node $z$ that is not part of territories of $x$ and $y$, and let $w$ be the
+midpoint of the path between $x$ and $y$. We have
+$$d(z, x) = d(z, y) = d(z, w) + d(w, x) = d(z, w) + d(w, y),$$ where $d(u, v)$
+denotes the distance between nodes $u$ and $v$. Also, for every sheep $t$ it's
+true that 
+$$d(z, w) + d(w, x) = d(z, x) \leq d(z, t) \leq d(z, w) + d(w, t),$$ which
+implies
+$d(w, x) \leq d(w, t)$, and $d(w, y) \leq d(w, t)$ is proved analogously.
+So, $w$ is contained in the intersection of territories of $x$ and $y$.
+Moreover, since $y$ is not deeper than $x$, $w$ is an ancestor of $x$, so it
+must be located on the path from $x$ to $a(x)$. Since $y$ is not contained in
+the subtree of $a(x)$, we have $$d(a(x), y) \leq
+d(w, y) = d(w, x) \leq d(a(x), x),$$ so a shepherd in $a(x)$ protects $y$, as
+needed. $\qed$
+\\\\
+According to Claim 1, the following algorithm is correct:
+\begin{itemize}
+    \item Repeat until all sheep are protected:
+    \begin{itemize}
+        \item Place a shepherd in $a(x)$, where $x$ is (one of) the deepest
+            currently unprotected sheep.
+    \end{itemize}
+\end{itemize}
+Straighforward implementation has the complexity $\mathcal{O}(N(N + K))$ and is
+sufficient to solve the third subtask. To solve the fourth subtask, we will
+speed up the described algorithm. For each node $v$, let $dep(v)$, $dist(v)$
+denote the depth of the node and the distance to the closest sheep. We can
+calculate $dist$ by running a BFS starting from each sheep. Alterntively, we can
+imagine  that we added a \textit{dummy} node connected to all the sheep and run
+the BFS starting in that node. The following observation will help us to
+efficiently determine $a(x)$ for every sheep $x$: \\\\
+TODO:
+\textbf{Opservacija 2.} Ako je čvor $v$ predak ovce $x$, tada je $dist(v) \leq
+dep(x) - dep(v)$, i jednakost vrijedi ako i samo ako je $v$ u teritoriju ovce
+$x$.
+\\\\
+Prema Obzervaciji $2$, $a(x)$ je pozicija prvog pojavljivanja maksimuma od
+$dist(v) + dep(v)$ po svim čvorovima $v$ na putu od korijena do $x$. Stoga je
+$a(x)$ za svaku ovcu $x$ moguće izračunati jednostavnim DFS-om iz korijena.
+Konačno, preostaje efikasno održavati najdublju dosad nepokrivenu ovcu. Ako
+sortiramo ovce padajuće po dubini, taj se problem svodi na održavanje
+pokrivenih ovaca. U tu svrhu za početni BFS promotrimo pripadajući \textit{graf
+najkraćih putova}. To je usmjeren graf $G$ sa skupom vrhova $V$ te bridovima
+$(u, v)$ gdje je $\{u, v\}$ brid stabla takav da je $dist(v) = dist(u) + 1$.
+\\\\
+\textbf{Opservacija 3.} Za svaki čvor $v \in V$, $S_v$ je skup ovaca $x$ takvih
+da postoji put od $x$ do $v$ u $G$.
+\\\\
+Kad god postavimo novog pastira, proširimo se DFS-om iz njega unatrag po grafu
+$G$ te pritom pazimo da obilazimo samo dosad neposjećene čvorove. Prema
+Obzervaciji 3, ovca je pokrivena ako i samo smo ju posjetili u DFS-u. Budući da
+svaki čvor posjećujemo najviše jednom, održavanje pokrivenih ovaca ima ukupno
+linearnu složenost.
+
+Complexity of the solution is $\mathcal{O}(N + K\log K)$. Notice that the factor
+$\log  K$ comes from sorting the sheep by depth, which is of course possible to
+do with complexity $\mathcal{O}(N + K)$ because the depths are at most $N$.
+Therefore it's possible to solve the task in linear complexity. For
+implementation details, see the official source codes.
